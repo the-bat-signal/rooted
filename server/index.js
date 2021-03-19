@@ -9,6 +9,9 @@ const db = require('./db')
 const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
+require('dotenv').config({debug: process.env.DEBUG})
+console.log(process.env)
+
 const socketio = require('socket.io')
 module.exports = app
 
