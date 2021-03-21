@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import ReactMapGL, {GeolocateControl} from 'react-map-gl'
+import ReactMapGL, {GeolocateControl, Layer, Source} from 'react-map-gl'
 
 // const mapToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
@@ -14,12 +14,13 @@ const Map = () => {
     height: '100vh',
     zoom: 2
   })
+  const [selectAdminLines, setAdminLines] = useState(false)
 
   const geolocateControlStyle = {
     // right: 10,
     // top: 10
   }
-  // console.log('env var------', process.env)
+
   return (
     <div>
       <ReactMapGL
@@ -30,13 +31,40 @@ const Map = () => {
           setViewport(viewport)
         }}
       >
+        <label
+          onClick={evt => {
+            setAdminLines(!selectAdminLines)
+          }}
+          className="adminContainer"
+        >
+          Admin Lines
+          <input type="checkbox" />
+          <span className="checkmark" />
+        </label>
         <GeolocateControl
           style={geolocateControlStyle}
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
           auto
         />
-        {/* markers */}
+        {selectAdminLines ? (
+          <Source
+            id="adminLines"
+            type="vector"
+            url="mapbox://mapbox.mapbox-streets-v8"
+          >
+            <Layer
+              id="adminLines"
+              type="line"
+              source="admin-1"
+              source-layer="admin"
+              paint={{
+                'line-color': '#CAB69E',
+                'line-width': 0.75
+              }}
+            />
+          </Source>
+        ) : null}
       </ReactMapGL>
     </div>
   )
