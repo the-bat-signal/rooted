@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 import ReactMapGL, {GeolocateControl, Layer, Source} from 'react-map-gl'
 
-import {db} from '../../server/firebase'
+// import {db} from '../../server/firebase'
 
 // const mapToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
