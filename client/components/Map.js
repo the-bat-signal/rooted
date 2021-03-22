@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import ReactMapGL from 'react-map-gl'
-
+import {db} from '../../server/firebase'
 // const mapToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
 const MAPBOX_ACCESS_TOKEN =
