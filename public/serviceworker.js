@@ -1,4 +1,4 @@
-const CAHE_NAME = 'version-1'
+const CACHE_NAME = 'version-1'
 const urlsToCache = ['index.html', 'offline.html'] //will need to add and offline html
 
 const self = this
@@ -7,7 +7,7 @@ const self = this
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CAHE_NAME).then(cache => {
+    caches.open(CACHE_NAME).then(cache => {
       console.log('opened cache')
       return cache.addAll(urlsToCache)
     })
@@ -27,7 +27,7 @@ self.addEventListener('fetch', event => {
 //Activate SW
 self.addEventListener('activate', event => {
   const cacheWhitelist = []
-  cacheWhitelist.push(CAHE_NAME)
+  cacheWhitelist.push(CACHE_NAME)
 
   event.waitUntil(
     caches.keys().then(cacheNames =>

@@ -6,7 +6,7 @@
       "src": "/images/icons-192.png",
       "type": "image/png",
       "sizes": "192x192",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
       "src": "/images/icons-512.png",
