@@ -30,7 +30,7 @@ const Map = () => {
       <ReactMapGL
         {...viewport}
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-        mapStyle="mapbox://styles/katelyndevine/ckmi5sryy12ya17pi20sosfi0"
+        mapStyle="mapbox://styles/katelyndevine/ckmi3oed53shz17qiwz2t3ozn"
         onViewportChange={viewport => {
           setViewport(viewport)
         }}
@@ -65,6 +65,17 @@ const Map = () => {
               paint={{
                 'line-color': '#CAB69E',
                 'line-width': 0.75
+              }}
+            />
+            <Layer
+              id="streets"
+              type="line"
+              source="road"
+              source-layer="road"
+              visibility="visible"
+              paint={{
+                'line-color': '#FFFFFF'
+                // 'line-width': 0.75
               }}
             />
           </Source>

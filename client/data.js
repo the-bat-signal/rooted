@@ -1,9 +1,11 @@
 /// app.js
-import React from 'react'
+import React, {useState} from 'react'
 import DeckGL from '@deck.gl/react'
 import {LineLayer} from '@deck.gl/layers'
 import {StaticMap} from 'react-map-gl'
 import {HexagonLayer} from '@deck.gl/aggregation-layers'
+
+import ReactMapGL, {GeolocateControl, Layer, Source} from 'react-map-gl'
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN =
@@ -47,7 +49,49 @@ class Data extends React.Component {
         controller={true}
         layers={this.layers}
       >
-        <StaticMap mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN} />
+        <ReactMapGL
+          {...viewport}
+          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+          mapStyle="mapbox://styles/katelyndevine/ckmi5sryy12ya17pi20sosfi0"
+          onViewportChange={viewport => {
+            setViewport(viewport)
+          }}
+        >
+          <label
+            onClick={evt => {
+              setAdminLines(!selectAdminLines)
+            }}
+            className="adminContainer"
+          >
+            Admin Lines
+            <input type="checkbox" />
+            <span className="checkmark" />
+          </label>
+          <GeolocateControl
+            style={geolocateControlStyle}
+            positionOptions={{enableHighAccuracy: true}}
+            trackUserLocation={true}
+            auto
+          />
+          {selectAdminLines ? (
+            <Source
+              id="adminLines"
+              type="vector"
+              url="mapbox://mapbox.mapbox-streets-v8"
+            >
+              <Layer
+                id="adminLines"
+                type="line"
+                source="admin-1"
+                source-layer="admin"
+                paint={{
+                  'line-color': '#CAB69E',
+                  'line-width': 0.75
+                }}
+              />
+            </Source>
+          ) : null}
+        </ReactMapGL>
       </DeckGL>
     )
   }
