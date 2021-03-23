@@ -1,3 +1,5 @@
+/*
+
 // leave this file as is for now, it was used during firestore setup for testing purposes
 
 const {Firestore} = require('@google-cloud/firestore')
@@ -31,3 +33,5 @@ async function quickstart() {
   console.log('Deleted the document')
 }
 quickstart()
+
+*/
