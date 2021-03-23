@@ -22,11 +22,6 @@
     "start-server": "nodemon server -e html,js,scss --ignore public --ignore client",
     "test": "NODE_ENV='test' mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" \"./script/**/*.spec.js\" --require @babel/polyfill --require @babel/register"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx}": [
       "prettier --write",
@@ -91,7 +86,6 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "eslint": "^5.16.0",
-    "eslint-config-fullstack": "^6.0.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-react": "^7.12.4",
     "git-url-parse": "^11.1.2",

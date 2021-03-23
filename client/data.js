@@ -13,8 +13,6 @@ import {SolidPolygonLayer} from '@deck.gl/layers'
 import {style} from './style'
 import {info} from './coordinates'
 
-import ReactMapGL, {GeolocateControl, Layer, Source} from 'react-map-gl'
-
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN =
   'pk.eyJ1Ijoia2VuZGltb3Jhc2tpIiwiYSI6ImNra2U4YmpnODA4bXIycHA3dnA3ZHRxazMifQ.Xj6bAzbzUVih02szrFGa_Q'
@@ -81,7 +79,6 @@ const Data = () => {
         }}
         className="adminContainer"
       >
-
         Admin Lines
         <input type="checkbox" />
         <span className="checkmark" />
@@ -106,7 +103,6 @@ const Data = () => {
       ) : null}
     </DeckGL>
   )
-
 }
 
 export default Data
