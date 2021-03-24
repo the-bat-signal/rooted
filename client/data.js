@@ -11,7 +11,8 @@ import {
 } from 'react-map-gl'
 import {SolidPolygonLayer} from '@deck.gl/layers'
 import {style} from './style'
-import {info} from './coordinates'
+import {data} from './coordinates'
+// import Popup from 'react-js-popup'
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN =
@@ -39,16 +40,10 @@ const NAV_CONTROL_STYLE = {
   left: 10
 }
 
-// might not need this
-// const tooltipData = [
-//   {position: [-122.45, 37.78], message: 'Clicked on me'}
-// ]
-
 const Data = () => {
-
   // adding an additional destructured useState because the value is empty
   // currently causing an error saying that it cannot be destructured because it's not iterable?
-  // const [clickInformation, setClickInformation] = useState;
+  const [clickInfo, setClickInfo] = useState();
 
   const [viewport, setViewport] = useState({
     latitude: 44.952261122619916,
@@ -61,43 +56,31 @@ const Data = () => {
   const [selectAdminLines, setAdminLines] = useState(false)
 
   // this creates a solid polygon layer that will render on top of the map
-  const solidPolygonLayer = new SolidPolygonLayer({
+  const solidPolygonLayer = [
+    new SolidPolygonLayer({
     id: 'solid-polygon',
-    data: info,
-    // data: tooltipData,
+    data: data,
     opacity: 0.5,
     getPolygon: d => d.polygon,
     getFillColor: [50, 147, 111],
     extruded: false,
     pickable: true,
-    // onClick: information => setClickInformation(information)
-    // onHover: ({object, x, y}) => {
-    //   const el = document.getElementById('tooltip');
-    //   if (object) {
-    //     el.innerHTML = `<h1>This is Dakota territory</h1>`
-    //     el.style.display = 'block';
-    //     el.style.opacity = 0.9;
-    //     el.style.left = x + 'px';
-    //     el.style.top = y + 'px';
-    //   } else {
-    //     el.style.opacity = 0.0;
-    //   }
-    // },
+    onClick: (info) => setClickInfo(info)
   })
+];
 
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
-      layers={solidPolygonLayer}
       ContextProvider={MapContext.Provider}
-    >
-      {/* {clickInformation.object && (
-        <div style={{position: 'absolute', zIndex: 1, pointerEvents: 'none', left: clickInformation.x, top: clickInformation.y}}>
-          { clickInformation.object.message }
+      layers={solidPolygonLayer}
+       >
+      {clickInfo && (
+         <div style={{position: 'absolute', zIndex: 1, pointerEvents: 'none', left: clickInfo.x, top: clickInfo.y}}>
+          { clickInfo.object.message }
         </div>
-      )
-      } */}
+      )}
       <StaticMap
         mapStyle={MAP_STYLE}
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}

@@ -1,8 +1,8 @@
 // this is sample data that's hard-coded to show a polygon for Dakota (not Santee dialect)
-export const info = [
+export const data = [
   {
-    // position: [-107, 52],
-    // message: 'Clicked on me',
+    position: [-107, 52],
+    message: 'Clicked on me',
     polygon: [
       [-106.787109, 52.509535, 0],
       [-107.314453, 52.402419, 0],
