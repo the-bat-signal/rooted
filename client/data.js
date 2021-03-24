@@ -39,7 +39,16 @@ const NAV_CONTROL_STYLE = {
   left: 10
 }
 
+const tooltipData = [
+  {position: [-122.45, 37.78], message: 'Clicked on me'}
+]
+
 const Data = () => {
+
+  // adding an additional destructured useState because the value is empty
+  // currently causing an error saying that it cannot be destructured because it's not iterable?
+  // const [clickInformation, setClickInformation] = useState;
+
   const [viewport, setViewport] = useState({
     latitude: 44.952261122619916,
     longitude: -93.29339647810357,
@@ -47,21 +56,49 @@ const Data = () => {
     height: '100vh',
     zoom: 2
   })
+
   const [selectAdminLines, setAdminLines] = useState(false)
-  const layer = new SolidPolygonLayer({
+
+
+
+  // this creates a solid polygon layer that will render on top of the map
+  const solidPolygonLayer = new SolidPolygonLayer({
+    id: 'solid-polygon',
     data: info,
+    // data: tooltipData,
     opacity: 0.5,
     getPolygon: d => d.polygon,
     getFillColor: [50, 147, 111],
-    extruded: false
+    extruded: false,
+    pickable: true,
+    onClick: information => setClickInformation(information)
+    // onHover: ({object, x, y}) => {
+    //   const el = document.getElementById('tooltip');
+    //   if (object) {
+    //     el.innerHTML = `<h1>This is Dakota territory</h1>`
+    //     el.style.display = 'block';
+    //     el.style.opacity = 0.9;
+    //     el.style.left = x + 'px';
+    //     el.style.top = y + 'px';
+    //   } else {
+    //     el.style.opacity = 0.0;
+    //   }
+    // },
   })
+
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
-      layers={layer}
+      layers={solidPolygonLayer}
       ContextProvider={MapContext.Provider}
     >
+      {/* {clickInformation.object && (
+        <div style={{position: 'absolute', zIndex: 1, pointerEvents: 'none', left: clickInformation.x, top: clickInformation.y}}>
+          { clickInformation.object.message }
+        </div>
+      )
+      } */}
       <StaticMap
         mapStyle={MAP_STYLE}
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
