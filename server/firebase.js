@@ -10,6 +10,4 @@ const firebaseApp = firebase.initializeApp({
 })
 
 const db = firebaseApp.firestore()
-db.settings({ persistence: false })
 export {db}
-module.exports = {db}
