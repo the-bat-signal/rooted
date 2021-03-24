@@ -1,4 +1,3 @@
-/// app.js
 import React, {useState, useEffect} from 'react'
 import DeckGL from '@deck.gl/react'
 import {
@@ -10,8 +9,9 @@ import {
   Layer
 } from 'react-map-gl'
 import {SolidPolygonLayer} from '@deck.gl/layers'
-import {style} from '../style'
+import {styleBasic, styleAdmin} from '../style'
 import {info} from '../coordinates'
+
 import {db} from '../../server/firebase'
 const token = require('../../secrets')
 
@@ -34,8 +34,8 @@ const geolocateControlStyle = {
   // top: 10
 }
 
-const MAP_STYLE = style
-
+const MAP_STYLE_BASIC = styleBasic;
+const MAP_STYLE_ADMIN = styleAdmin
 const NAV_CONTROL_STYLE = {
   position: 'absolute',
   top: 10,
@@ -50,7 +50,6 @@ const NAV_CONTROL_STYLE = {
     })
   }
 
-
 const Data = () => {
   const [viewport, setViewport] = useState({
     latitude: 44.952261122619916,
@@ -60,6 +59,8 @@ const Data = () => {
     zoom: 2
   })
   const [selectAdminLines, setAdminLines] = useState(false)
+
+  //const layer = new SolidPolygonLayer({
   // const [coordinates, setCoordinates] = useState()
 
   const queryCall = async () => {
@@ -88,6 +89,7 @@ let layerData;
 
   // putting coordinate data as a whole into a format digestable by deck.gl's SolidPolygonLayer
     const layer = new SolidPolygonLayer({
+
     data: info,
     opacity: 0.5,
     getPolygon: d => d.polygon,
@@ -102,11 +104,16 @@ let layerData;
       controller={true}
       layers={layer}
       ContextProvider={MapContext.Provider}
-    >
+    > {selectAdminLines ?
+        <StaticMap
+        mapStyle={MAP_STYLE_ADMIN}
+        mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+      /> :
       <StaticMap
-        mapStyle={MAP_STYLE}
+        mapStyle={MAP_STYLE_BASIC}
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
       />
+      }
       <NavigationControl style={NAV_CONTROL_STYLE} />
       <GeolocateControl
         style={geolocateControlStyle}
