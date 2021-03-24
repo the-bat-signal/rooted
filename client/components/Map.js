@@ -9,10 +9,9 @@ import {
   Layer
 } from 'react-map-gl'
 import {SolidPolygonLayer} from '@deck.gl/layers'
-import {data} from './coordinates'
-import {Popup} from './components/Popup'
+import {data} from '../coordinates'
+import {Popup} from './Popup'
 import {styleBasic, styleAdmin} from '../style'
-import {info} from '../coordinates'
 
 import {db} from '../../server/firebase'
 const token = require('../../secrets')
@@ -48,7 +47,7 @@ const Data = () => {
   // adding an additional destructured useState because the value is empty
   // currently causing an error saying that it cannot be destructured because it's not iterable?
   const [clickInfo, setClickInfo] = useState();
-  
+
 // {_lat: 41.885921, _long: -72.70752}
 //formatting each single coordinate object into arrays for deck.gl
  const coordinateMaker = coordinates => {
@@ -69,7 +68,7 @@ const Data = () => {
 
   // const [coordinates, setCoordinates] = useState()
 let layerData;
-  
+
   const queryCall = async () => {
     const data = await db
       .collection('languages')
