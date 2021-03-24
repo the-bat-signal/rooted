@@ -39,9 +39,10 @@ const NAV_CONTROL_STYLE = {
   left: 10
 }
 
-const tooltipData = [
-  {position: [-122.45, 37.78], message: 'Clicked on me'}
-]
+// might not need this
+// const tooltipData = [
+//   {position: [-122.45, 37.78], message: 'Clicked on me'}
+// ]
 
 const Data = () => {
 
@@ -59,8 +60,6 @@ const Data = () => {
 
   const [selectAdminLines, setAdminLines] = useState(false)
 
-
-
   // this creates a solid polygon layer that will render on top of the map
   const solidPolygonLayer = new SolidPolygonLayer({
     id: 'solid-polygon',
@@ -71,7 +70,7 @@ const Data = () => {
     getFillColor: [50, 147, 111],
     extruded: false,
     pickable: true,
-    onClick: information => setClickInformation(information)
+    // onClick: information => setClickInformation(information)
     // onHover: ({object, x, y}) => {
     //   const el = document.getElementById('tooltip');
     //   if (object) {
