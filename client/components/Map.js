@@ -1,5 +1,4 @@
-/// app.js
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import DeckGL from '@deck.gl/react'
 import {
   StaticMap,
@@ -13,9 +12,13 @@ import {SolidPolygonLayer} from '@deck.gl/layers'
 import {styleBasic, styleAdmin} from '../style'
 import {info} from '../coordinates'
 
+import {db} from '../../server/firebase'
+const token = require('../../secrets')
+
 // Set your mapbox access token here
-const MAPBOX_ACCESS_TOKEN =
-  'pk.eyJ1Ijoia2VuZGltb3Jhc2tpIiwiYSI6ImNra2U4YmpnODA4bXIycHA3dnA3ZHRxazMifQ.Xj6bAzbzUVih02szrFGa_Q'
+const MAPBOX_ACCESS_TOKEN = token
+//.env https://www.npmjs.com/package/dotenv
+//import
 
 // Viewport settings
 const INITIAL_VIEW_STATE = {
@@ -33,12 +36,19 @@ const geolocateControlStyle = {
 
 const MAP_STYLE_BASIC = styleBasic;
 const MAP_STYLE_ADMIN = styleAdmin
-
 const NAV_CONTROL_STYLE = {
   position: 'absolute',
   top: 10,
   left: 10
 }
+
+// {_lat: 41.885921, _long: -72.70752}
+//formatting each single coordinate object into arrays for deck.gl
+ const coordinateMaker = coordinates => {
+    return coordinates.map(coordinate => {
+      return [coordinate._long, coordinate._lat, 0]
+    })
+  }
 
 const Data = () => {
   const [viewport, setViewport] = useState({
@@ -49,13 +59,45 @@ const Data = () => {
     zoom: 2
   })
   const [selectAdminLines, setAdminLines] = useState(false)
-  const layer = new SolidPolygonLayer({
+
+  //const layer = new SolidPolygonLayer({
+  // const [coordinates, setCoordinates] = useState()
+
+  const queryCall = async () => {
+    const data = await db
+      .collection('languages')
+      .doc('W5Qc1HlK51Hg5Qwhif4g')
+      .get()
+      .then(doc => {
+        const data = doc.data().coordinates
+      })
+         layerData = [{polygon: coordinateMaker(data)}]
+  }
+
+let layerData;
+
+
+
+// const call = () => db.collection('languages').get().then (doc => console.log(doc.docs[0]._delegate._document.objectValue.proto.mapValue.fields.coordinates.arrayValue))
+
+// call()
+
+//waiting for firebase call to complete
+  // if (!coordinates) {
+  //   return <h1>Loading...</h1>
+  // }
+
+  // putting coordinate data as a whole into a format digestable by deck.gl's SolidPolygonLayer
+    const layer = new SolidPolygonLayer({
+
     data: info,
     opacity: 0.5,
     getPolygon: d => d.polygon,
     getFillColor: [50, 147, 111],
-    extruded: false
+    extruded: false,
+    pickable: true,
   })
+
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
@@ -72,7 +114,6 @@ const Data = () => {
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
       />
       }
-
       <NavigationControl style={NAV_CONTROL_STYLE} />
       <GeolocateControl
         style={geolocateControlStyle}
