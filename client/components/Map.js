@@ -1,12 +1,50 @@
-import React, {useState, useEffect} from 'react'
-import ReactMapGL, {GeolocateControl, Layer, Source} from 'react-map-gl'
-import {db} from '../../server/firebase'
-// const mapToken = process.env.REACT_APP_MAPBOX_TOKEN;
+/// app.js
+import React, {useState} from 'react'
+import DeckGL from '@deck.gl/react'
+import {
+  StaticMap,
+  MapContext,
+  NavigationControl,
+  GeolocateControl,
+  Source,
+  Layer
+} from 'react-map-gl'
+import {SolidPolygonLayer} from '@deck.gl/layers'
+import {style} from './style'
+import {data} from './coordinates'
+import {Popup} from './components/Popup'
 
+// Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN =
-  'pk.eyJ1Ijoia2F0ZWx5bmRldmluZSIsImEiOiJja21maXVoMDEydDNvMndzOThxZDliMzN1In0.VCRflrFKivh4QAzif95gVQ'
+  'pk.eyJ1Ijoia2VuZGltb3Jhc2tpIiwiYSI6ImNra2U4YmpnODA4bXIycHA3dnA3ZHRxazMifQ.Xj6bAzbzUVih02szrFGa_Q'
 
-const Map = () => {
+// Viewport settings
+const INITIAL_VIEW_STATE = {
+  longitude: -122.41669,
+  latitude: 37.7853,
+  zoom: 8,
+  pitch: 0,
+  bearing: 0
+}
+
+const geolocateControlStyle = {
+  // right: 10,
+  // top: 10
+}
+
+const MAP_STYLE = style
+
+const NAV_CONTROL_STYLE = {
+  position: 'absolute',
+  top: 10,
+  left: 10
+}
+
+const Data = () => {
+  // adding an additional destructured useState because the value is empty
+  // currently causing an error saying that it cannot be destructured because it's not iterable?
+  const [clickInfo, setClickInfo] = useState();
+
   const [viewport, setViewport] = useState({
     latitude: 44.952261122619916,
     longitude: -93.29339647810357,
@@ -14,101 +52,74 @@ const Map = () => {
     height: '100vh',
     zoom: 2
   })
+
   const [selectAdminLines, setAdminLines] = useState(false)
-  const [coordinates, setCoordinates] = useState()
 
-  //hiii
-  const geolocateControlStyle = {
-    // right: 10,
-    // top: 10
-  }
-
-  useEffect(() => {
-    db
-      .collection('languages')
-      .doc('W5Qc1HlK51Hg5Qwhif4g')
-      .get()
-      .then(doc => {
-        const data = doc.data()
-        setCoordinates(data.coordinates)
-        console.log(data) // Mohegan-Pequot object with key-value pairs
-      })
+  // this creates a solid polygon layer that will render on top of the map
+  const solidPolygonLayer = [
+    new SolidPolygonLayer({
+    id: 'solid-polygon',
+    data: data,
+    opacity: 0.5,
+    getPolygon: d => d.polygon,
+    getFillColor: [50, 147, 111],
+    extruded: false,
+    pickable: true,
+    onClick: (info) => setClickInfo(info)
   })
-
-  console.log('hello from coordinates------', coordinates)
-
-  const coordinateMaker = coordinates => {
-    return coordinates.map(coordinate => {
-      let str = ''
-      str += `${coordinate._lat.toString()}, ${coordinate._long.toString()} ; `
-      return str
-    })
-  }
+];
 
   return (
-    <div>
-      <h1 style={{backgroundColor: 'lightblue'}}>
-        The Mohegan coordinates are{' '}
-        {coordinates ? coordinateMaker(coordinates) : ''}
-      </h1>
-      <div>
-        <ReactMapGL
-          {...viewport}
-          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-          mapStyle="mapbox://styles/katelyndevine/ckmi3oed53shz17qiwz2t3ozn"
-          onViewportChange={viewport => {
-            setViewport(viewport)
-          }}
+    <DeckGL
+      initialViewState={INITIAL_VIEW_STATE}
+      controller={true}
+      ContextProvider={MapContext.Provider}
+      layers={solidPolygonLayer}
+       >
+      {clickInfo && (
+      <Popup polygonData={clickInfo} />
+      )}
+      <StaticMap
+        mapStyle={MAP_STYLE}
+        mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+      />
+      <NavigationControl style={NAV_CONTROL_STYLE} />
+      <GeolocateControl
+        style={geolocateControlStyle}
+        positionOptions={{enableHighAccuracy: true}}
+        trackUserLocation={true}
+        auto={false}
+      />
+      <label
+        onClick={evt => {
+          setAdminLines(!selectAdminLines)
+        }}
+        className="adminContainer"
+      >
+        Admin Lines
+        <input type="checkbox" />
+        <span className="checkmark" />
+      </label>
+      {selectAdminLines ? (
+        <Source
+          id="adminLines"
+          type="vector"
+          url="mapbox://mapbox.mapbox-streets-v8"
         >
-          <label
-            onClick={evt => {
-              setAdminLines(!selectAdminLines)
+          <Layer
+            id="adminLines"
+            type="line"
+            source="admin-1"
+            source-layer="admin"
+            paint={{
+              'line-color': '#CAB69E',
+              'line-width': 0.75
             }}
-            className="adminContainer"
-          >
-            Admin Lines
-            <input type="checkbox" />
-            <span className="checkmark" />
-          </label>
-          <GeolocateControl
-            style={geolocateControlStyle}
-            positionOptions={{enableHighAccuracy: true}}
-            trackUserLocation={true}
-            auto
           />
-          {selectAdminLines ? (
-            <Source
-              id="adminLines"
-              type="vector"
-              url="mapbox://mapbox.mapbox-streets-v8"
-            >
-              <Layer
-                id="adminLines"
-                type="line"
-                source="admin-1"
-                source-layer="admin"
-                paint={{
-                  'line-color': '#CAB69E',
-                  'line-width': 0.75
-                }}
-              />
-              <Layer
-                id="streets"
-                type="line"
-                source="road"
-                source-layer="road"
-                visibility="visible"
-                paint={{
-                  'line-color': '#FFFFFF'
-                  // 'line-width': 0.75
-                }}
-              />
-            </Source>
-          ) : null}
-        </ReactMapGL>
-      </div>
-    </div>
+        </Source>
+      ) : null}
+    </DeckGL>
   )
 }
 
-export default Map
+export default Data
