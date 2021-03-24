@@ -12,7 +12,7 @@ import {
 import {SolidPolygonLayer} from '@deck.gl/layers'
 import {style} from './style'
 import {data} from './coordinates'
-// import Popup from 'react-js-popup'
+import {Popup} from './components/Popup'
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN =
@@ -77,9 +77,7 @@ const Data = () => {
       layers={solidPolygonLayer}
        >
       {clickInfo && (
-         <div style={{position: 'absolute', zIndex: 1, pointerEvents: 'none', left: clickInfo.x, top: clickInfo.y}}>
-          { clickInfo.object.message }
-        </div>
+      <Popup polygonData={clickInfo} />
       )}
       <StaticMap
         mapStyle={MAP_STYLE}
@@ -90,7 +88,7 @@ const Data = () => {
         style={geolocateControlStyle}
         positionOptions={{enableHighAccuracy: true}}
         trackUserLocation={true}
-        auto
+        auto={false}
       />
       <label
         onClick={evt => {
