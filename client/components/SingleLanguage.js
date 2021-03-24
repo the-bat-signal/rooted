@@ -2,12 +2,15 @@ import React from 'react';
 import {db} from '../../server/firebase'
 
 
-const cherokee = db.collection("languages").doc('cherokee').get().then(console.log('hiii'));
+const cherokee = async () => {
+  const data = await db.collection("languages").doc('cherokee').get();
+  console.log('this is data!!!!', data.data().coordinates)
+}
 
 class SingleLanguage extends React.Component {
 
   render() {
-    console.log('this is cherokee----', cherokee)
+    cherokee();
     return (
       <div>
         <h3>Language Name Here</h3>
