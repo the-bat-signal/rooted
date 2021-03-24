@@ -9,6 +9,8 @@ import {
   Layer
 } from 'react-map-gl'
 import {SolidPolygonLayer} from '@deck.gl/layers'
+import {data} from './coordinates'
+import {Popup} from './components/Popup'
 import {styleBasic, styleAdmin} from '../style'
 import {info} from '../coordinates'
 
@@ -42,6 +44,11 @@ const NAV_CONTROL_STYLE = {
   left: 10
 }
 
+const Data = () => {
+  // adding an additional destructured useState because the value is empty
+  // currently causing an error saying that it cannot be destructured because it's not iterable?
+  const [clickInfo, setClickInfo] = useState();
+  
 // {_lat: 41.885921, _long: -72.70752}
 //formatting each single coordinate object into arrays for deck.gl
  const coordinateMaker = coordinates => {
@@ -50,7 +57,6 @@ const NAV_CONTROL_STYLE = {
     })
   }
 
-const Data = () => {
   const [viewport, setViewport] = useState({
     latitude: 44.952261122619916,
     longitude: -93.29339647810357,
@@ -58,11 +64,12 @@ const Data = () => {
     height: '100vh',
     zoom: 2
   })
+
   const [selectAdminLines, setAdminLines] = useState(false)
 
-  //const layer = new SolidPolygonLayer({
   // const [coordinates, setCoordinates] = useState()
-
+let layerData;
+  
   const queryCall = async () => {
     const data = await db
       .collection('languages')
@@ -74,37 +81,37 @@ const Data = () => {
          layerData = [{polygon: coordinateMaker(data)}]
   }
 
-let layerData;
-
-
-
 // const call = () => db.collection('languages').get().then (doc => console.log(doc.docs[0]._delegate._document.objectValue.proto.mapValue.fields.coordinates.arrayValue))
-
-// call()
 
 //waiting for firebase call to complete
   // if (!coordinates) {
   //   return <h1>Loading...</h1>
   // }
 
-  // putting coordinate data as a whole into a format digestable by deck.gl's SolidPolygonLayer
-    const layer = new SolidPolygonLayer({
-
-    data: info,
+     // this creates a solid polygon layer that will render on top of the map
+  const solidPolygonLayer = [
+    new SolidPolygonLayer({
+    id: 'solid-polygon',
+    data: data,
     opacity: 0.5,
     getPolygon: d => d.polygon,
     getFillColor: [50, 147, 111],
     extruded: false,
     pickable: true,
+    onClick: (info) => setClickInfo(info)
   })
-
+];
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
-      layers={layer}
       ContextProvider={MapContext.Provider}
-    > {selectAdminLines ?
+      layers={solidPolygonLayer}
+       >
+      {clickInfo && (
+      <Popup polygonData={clickInfo} />
+      )}
+  {selectAdminLines ?
         <StaticMap
         mapStyle={MAP_STYLE_ADMIN}
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
@@ -119,7 +126,7 @@ let layerData;
         style={geolocateControlStyle}
         positionOptions={{enableHighAccuracy: true}}
         trackUserLocation={true}
-        auto
+        auto={false}
       />
       <label
         onClick={evt => {
