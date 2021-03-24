@@ -31,7 +31,7 @@ const Map = () => {
       .then(doc => {
         const data = doc.data()
         setCoordinates(data.coordinates)
-        console.log(data) // Mohegan-Pequot object with key-value pairs
+        // console.log(data) // Mohegan-Pequot object with key-value pairs
       })
   })
 
@@ -55,7 +55,7 @@ const Map = () => {
         <ReactMapGL
           {...viewport}
           mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-          mapStyle="mapbox://styles/katelyndevine/ckmi3oed53shz17qiwz2t3ozn"
+          mapStyle="mapbox://styles/katelyndevine/ckmi3oed53shz17qiwz2t3ozn/draft"
           onViewportChange={viewport => {
             setViewport(viewport)
           }}
@@ -77,6 +77,7 @@ const Map = () => {
             auto
           />
           {selectAdminLines ? (
+            // <div>
             <Source
               id="adminLines"
               type="vector"
@@ -85,7 +86,7 @@ const Map = () => {
               <Layer
                 id="adminLines"
                 type="line"
-                source="admin-1"
+                source="admin"
                 source-layer="admin"
                 paint={{
                   'line-color': '#CAB69E',
@@ -103,7 +104,35 @@ const Map = () => {
                   // 'line-width': 0.75
                 }}
               />
+
+              <Layer
+              id="streets"
+              type="symbol"
+              source="road"
+              source-layer="road"
+              text-color='#000000'
+
+              // layout={{
+              //   'text-size': "12",
+              //   'visibility': "visible"
+              // }}
+              // paint={{
+              //   "text-color": "#000000"
+              // }}
+            />
+
+               <Layer
+                id="nationalParks"
+                type="fill"
+                source="landuse"
+                source-layer="landuse"
+                paint={{
+                  'fill-color': '#E9F7D5'
+                }}
+              />
+
             </Source>
+
           ) : null}
         </ReactMapGL>
       </div>
@@ -112,3 +141,5 @@ const Map = () => {
 }
 
 export default Map
+
+
