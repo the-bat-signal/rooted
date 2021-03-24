@@ -1,12 +1,57 @@
+/// app.js
 import React, {useState, useEffect} from 'react'
-import ReactMapGL, {GeolocateControl, Layer, Source} from 'react-map-gl'
+import DeckGL from '@deck.gl/react'
+import {
+  StaticMap,
+  MapContext,
+  NavigationControl,
+  GeolocateControl,
+  Source,
+  Layer
+} from 'react-map-gl'
+import {SolidPolygonLayer} from '@deck.gl/layers'
+import {style} from '../style'
+import {info} from '../coordinates'
 import {db} from '../../server/firebase'
-// const mapToken = process.env.REACT_APP_MAPBOX_TOKEN;
+const token = require('../../secrets')
 
-const MAPBOX_ACCESS_TOKEN =
-  'pk.eyJ1Ijoia2F0ZWx5bmRldmluZSIsImEiOiJja21maXVoMDEydDNvMndzOThxZDliMzN1In0.VCRflrFKivh4QAzif95gVQ'
+// Set your mapbox access token here
+const MAPBOX_ACCESS_TOKEN = token
+//.env https://www.npmjs.com/package/dotenv
+//import
 
-const Map = () => {
+// Viewport settings
+const INITIAL_VIEW_STATE = {
+  longitude: -122.41669,
+  latitude: 37.7853,
+  zoom: 8,
+  pitch: 0,
+  bearing: 0
+}
+
+const geolocateControlStyle = {
+  // right: 10,
+  // top: 10
+}
+
+const MAP_STYLE = style
+
+const NAV_CONTROL_STYLE = {
+  position: 'absolute',
+  top: 10,
+  left: 10
+}
+
+// {_lat: 41.885921, _long: -72.70752}
+//formatting each single coordinate object into arrays for deck.gl
+ const coordinateMaker = coordinates => {
+    return coordinates.map(coordinate => {
+      return [coordinate._long, coordinate._lat, 0]
+    })
+  }
+
+
+const Data = () => {
   const [viewport, setViewport] = useState({
     latitude: 44.952261122619916,
     longitude: -93.29339647810357,
@@ -15,100 +60,90 @@ const Map = () => {
     zoom: 2
   })
   const [selectAdminLines, setAdminLines] = useState(false)
-  const [coordinates, setCoordinates] = useState()
+  // const [coordinates, setCoordinates] = useState()
 
-  //hiii
-  const geolocateControlStyle = {
-    // right: 10,
-    // top: 10
-  }
-
-  useEffect(() => {
-    db
+  const queryCall = async () => {
+    const data = await db
       .collection('languages')
       .doc('W5Qc1HlK51Hg5Qwhif4g')
       .get()
       .then(doc => {
-        const data = doc.data()
-        setCoordinates(data.coordinates)
-        console.log(data) // Mohegan-Pequot object with key-value pairs
+        const data = doc.data().coordinates
       })
-  })
-
-  console.log('hello from coordinates------', coordinates)
-
-  const coordinateMaker = coordinates => {
-    return coordinates.map(coordinate => {
-      let str = ''
-      str += `${coordinate._lat.toString()}, ${coordinate._long.toString()} ; `
-      return str
-    })
+         layerData = [{polygon: coordinateMaker(data)}]
   }
 
+let layerData;
+
+
+
+// const call = () => db.collection('languages').get().then (doc => console.log(doc.docs[0]._delegate._document.objectValue.proto.mapValue.fields.coordinates.arrayValue))
+
+// call()
+
+//waiting for firebase call to complete
+  // if (!coordinates) {
+  //   return <h1>Loading...</h1>
+  // }
+
+  // putting coordinate data as a whole into a format digestable by deck.gl's SolidPolygonLayer
+    const layer = new SolidPolygonLayer({
+    data: info,
+    opacity: 0.5,
+    getPolygon: d => d.polygon,
+    getFillColor: [50, 147, 111],
+    extruded: false,
+    pickable: true,
+  })
+
   return (
-    <div>
-      <h1 style={{backgroundColor: 'lightblue'}}>
-        The Mohegan coordinates are{' '}
-        {coordinates ? coordinateMaker(coordinates) : ''}
-      </h1>
-      <div>
-        <ReactMapGL
-          {...viewport}
-          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-          mapStyle="mapbox://styles/katelyndevine/ckmi3oed53shz17qiwz2t3ozn"
-          onViewportChange={viewport => {
-            setViewport(viewport)
-          }}
+    <DeckGL
+      initialViewState={INITIAL_VIEW_STATE}
+      controller={true}
+      layers={layer}
+      ContextProvider={MapContext.Provider}
+    >
+      <StaticMap
+        mapStyle={MAP_STYLE}
+        mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+      />
+      <NavigationControl style={NAV_CONTROL_STYLE} />
+      <GeolocateControl
+        style={geolocateControlStyle}
+        positionOptions={{enableHighAccuracy: true}}
+        trackUserLocation={true}
+        auto
+      />
+      <label
+        onClick={evt => {
+          setAdminLines(!selectAdminLines)
+        }}
+        className="adminContainer"
+      >
+        Admin Lines
+        <input type="checkbox" />
+        <span className="checkmark" />
+      </label>
+      {selectAdminLines ? (
+        <Source
+          id="adminLines"
+          type="vector"
+          url="mapbox://mapbox.mapbox-streets-v8"
         >
-          <label
-            onClick={evt => {
-              setAdminLines(!selectAdminLines)
+          <Layer
+            id="adminLines"
+            type="line"
+            source="admin-1"
+            source-layer="admin"
+            paint={{
+              'line-color': '#CAB69E',
+              'line-width': 0.75
             }}
-            className="adminContainer"
-          >
-            Admin Lines
-            <input type="checkbox" />
-            <span className="checkmark" />
-          </label>
-          <GeolocateControl
-            style={geolocateControlStyle}
-            positionOptions={{enableHighAccuracy: true}}
-            trackUserLocation={true}
-            auto
           />
-          {selectAdminLines ? (
-            <Source
-              id="adminLines"
-              type="vector"
-              url="mapbox://mapbox.mapbox-streets-v8"
-            >
-              <Layer
-                id="adminLines"
-                type="line"
-                source="admin-1"
-                source-layer="admin"
-                paint={{
-                  'line-color': '#CAB69E',
-                  'line-width': 0.75
-                }}
-              />
-              <Layer
-                id="streets"
-                type="line"
-                source="road"
-                source-layer="road"
-                visibility="visible"
-                paint={{
-                  'line-color': '#FFFFFF'
-                  // 'line-width': 0.75
-                }}
-              />
-            </Source>
-          ) : null}
-        </ReactMapGL>
-      </div>
-    </div>
+        </Source>
+      ) : null}
+    </DeckGL>
   )
 }
 
-export default Map
+export default Data
