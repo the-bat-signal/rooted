@@ -6,9 +6,9 @@ import Map from './components/Map'
 const App = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes />
-      <Map />
+      {/* <Map /> */}
     </div>
   )
 }

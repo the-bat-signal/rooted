@@ -42,37 +42,33 @@ const NAV_CONTROL_STYLE = {
   left: 10,
 }
 
-const Data = () => {
+const Map = () => {
   // adding an additional destructured useState because the value is empty
   // currently causing an error saying that it cannot be destructured because it's not iterable?
-  const [clickInfo, setClickInfo] = useState();
+  const [clickInfo, setClickInfo] = useState()
 
-// {_lat: 41.885921, _long: -72.70752}
-//formatting each single coordinate object into arrays for deck.gl
- const coordinateMaker = coordinates => {
-    return coordinates.map(coordinate => {
+  // {_lat: 41.885921, _long: -72.70752}
+  //formatting each single coordinate object into arrays for deck.gl
+  const coordinateMaker = (coordinates) => {
+    return coordinates.map((coordinate) => {
       return [coordinate._long, coordinate._lat, 0]
     })
   }
 
-//   const [viewport, setViewport] = useState({
-//     latitude: 44.952261122619916,
-//     longitude: -93.29339647810357,
-//     width: '100wh',
-//     height: '100vh',
-//     zoom: 2,
-//   })
+  //   const [viewport, setViewport] = useState({
+  //     latitude: 44.952261122619916,
+  //     longitude: -93.29339647810357,
+  //     width: '100wh',
+  //     height: '100vh',
+  //     zoom: 2,
+  //   })
 
   const [selectAdminLines, setAdminLines] = useState(false)
-
-
-  let layerData;
 
   const [coordinates, setCoordinates] = useState()
 
   useEffect(() => {
-    db
-      .collection('languages')
+    db.collection('languages')
       .doc('W5Qc1HlK51Hg5Qwhif4g')
       .get()
       .then((doc) => {
@@ -84,37 +80,35 @@ const Data = () => {
 
   // const call = () => db.collection('languages').get().then (doc => console.log(doc.docs[0]._delegate._document.objectValue.proto.mapValue.fields.coordinates.arrayValue))
 
-//waiting for firebase call to complete
+  //waiting for firebase call to complete
   if (!coordinates) {
     return <h1>Loading...</h1>
   }
 
-     // this creates a solid polygon layer that will render on top of the map
-    let layerData = [{polygon: coordinateMaker(coordinates)}]
-    
+  // this creates a solid polygon layer that will render on top of the map
+  let layerData = [{polygon: coordinateMaker(coordinates)}]
+
   const solidPolygonLayer = [
     new SolidPolygonLayer({
-    id: 'solid-polygon',
-    data: layerData,
-    opacity: 0.5,
-    getPolygon: d => d.polygon,
-    getFillColor: [50, 147, 111],
-    extruded: false,
-    pickable: true,
-    onClick: (info) => setClickInfo(info)
-  })
-];
+      id: 'solid-polygon',
+      data: layerData,
+      opacity: 0.5,
+      getPolygon: (d) => d.polygon,
+      getFillColor: [50, 147, 111],
+      extruded: false,
+      pickable: true,
+      onClick: (info) => setClickInfo(info),
+    }),
+  ]
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
       ContextProvider={MapContext.Provider}
       layers={solidPolygonLayer}
-       >
-      {clickInfo && (
-      <PopupBox polygonData={clickInfo} />
-      )}
-  {selectAdminLines ?
+    >
+      {clickInfo && <PopupBox polygonData={clickInfo} />}
+      {selectAdminLines ? (
         <StaticMap
           mapStyle={MAP_STYLE_ADMIN}
           mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
@@ -164,4 +158,4 @@ const Data = () => {
   )
 }
 
-export default Data
+export default Map
