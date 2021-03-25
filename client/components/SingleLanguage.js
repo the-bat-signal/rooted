@@ -4,6 +4,7 @@ import {db} from '../../server/firebase'
 const SingleLanguage = () => {
   const [language, setLanguage] = useState({})
 
+  // remove async await
   useEffect(() => {
     const lang = async () => {
       try {
@@ -21,7 +22,7 @@ const SingleLanguage = () => {
   return (
     <div>
       <h3>{language.name}</h3>
-      <h5>{language.speakers}</h5>
+      <h5>Speakers: {language.speakers}</h5>
       <p>{language.description}</p>
     </div>
   )
