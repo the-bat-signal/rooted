@@ -50,9 +50,11 @@ const Data = () => {
 // {_lat: 41.885921, _long: -72.70752}
 //formatting each single coordinate object into arrays for deck.gl
  const coordinateMaker = coordinates => {
-    return coordinates.map(coordinate => {
+    const initialFormat = coordinates.map(coordinate => {
       return [coordinate._long, coordinate._lat, 0]
     })
+
+    return [{polygon: initialFormat}]
   }
 
   const [viewport, setViewport] = useState({
@@ -66,6 +68,34 @@ const Data = () => {
   const [selectAdminLines, setAdminLines] = useState(false)
 
   const [coordinates, setCoordinates] = useState()
+  const [polygonData, setpolygonData] = useState()
+
+  const polygonCreator = (docArray) => {
+    let resultsArray = []
+    for (let i = 0; i < docArray.length; i++) {
+     resultsArray.push(
+      new SolidPolygonLayer({
+      id: docArray[i].id,
+      data: coordinateMaker(docArray[i].coordinates),
+      opacity: 0.5,
+      getPolygon: d => d.polygon,
+      pickable: true,
+      onClick: (info) => setClickInfo(info)
+    }))
+  }
+  return resultsArray
+}
+
+  let layers = []
+  let layerData;
+  const fetch = async () => {
+     const territoryRef = db.collection('languages')
+      const snapshot = await territoryRef.get()
+      snapshot.forEach(doc => {
+      layers.push(doc.data())
+      })
+   setpolygonData(polygonCreator(layers));
+  }
 
   useEffect(() => {
     db
@@ -76,36 +106,39 @@ const Data = () => {
         const data = doc.data().coordinates
         console.log('hello')
         setCoordinates(data)
+        fetch()
       })
   }, [])
 
-// const call = () => db.collection('languages').get().then (doc => console.log(doc.docs[0]._delegate._document.objectValue.proto.mapValue.fields.coordinates.arrayValue))
+
+
 
 //waiting for firebase call to complete
-  if (!coordinates) {
+  if (!coordinates && !polygonData) {
     return <h1>Loading...</h1>
   }
 
+
      // this creates a solid polygon layer that will render on top of the map
-    let layerData = [{polygon: coordinateMaker(coordinates)}]
-  const solidPolygonLayer = [
-    new SolidPolygonLayer({
-    id: 'solid-polygon',
-    data: layerData,
-    opacity: 0.5,
-    getPolygon: d => d.polygon,
-    getFillColor: [50, 147, 111],
-    extruded: false,
-    pickable: true,
-    onClick: (info) => setClickInfo(info)
-  })
-];
+    //  let layerData = coordinateMaker(coordinates)
+//   const solidPolygonLayer = [
+//     new SolidPolygonLayer({
+//     id: 'solid-polygon',
+//     data: layerData,
+//     opacity: 0.5,
+//     getPolygon: d => d.polygon,
+//     getFillColor: [50, 147, 111],
+//     extruded: false,
+//     pickable: true,
+//     onClick: (info) => setClickInfo(info)
+//   })
+// ];
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
       ContextProvider={MapContext.Provider}
-      layers={solidPolygonLayer}
+      layers={polygonData}
        >
       {clickInfo && (
       <PopupBox polygonData={clickInfo} />
