@@ -9,7 +9,6 @@ import {
   Layer
 } from 'react-map-gl'
 import {SolidPolygonLayer} from '@deck.gl/layers'
-import {data} from '../coordinates'
 import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
@@ -36,23 +35,33 @@ const NAV_CONTROL_STYLE = {
   left: 10
 }
 
+
 //Map Component
 const Map = () => {
 
   // useState
   const [clickInfo, setClickInfo] = useState();
   const [selectAdminLines, setAdminLines] = useState(false)
-  const [coordinates, setCoordinates] = useState()
+  // const [coordinates, setCoordinates] = useState()
   const [polygonData, setpolygonData] = useState()
 
 
-  // helper functions
+  //helper variables
+   let layers = []
+   const colorArray = [[190, 231, 176], [50, 147, 111], [122, 132, 80],[192, 133, 82], [137, 87, 55], [62, 25, 41], [255, 112, 115], [245, 192, 0],[5, 29, 35]]
+
+   // helper functions
   const coordinateMaker = coordinates => {
     const initialFormat = coordinates.map(coordinate => {
       return [coordinate._long, coordinate._lat, 0]
     })
 
     return [{polygon: initialFormat}]
+  }
+
+  const colorPicker = (array) => {
+    const randomIndex = Math.floor(Math.random() * array.length)
+    return array[randomIndex]
   }
 
   const polygonCreator = (docArray) => {
@@ -63,6 +72,7 @@ const Map = () => {
       id: docArray[i].id,
       data: coordinateMaker(docArray[i].coordinates),
       opacity: 0.5,
+      getFillColor: colorPicker(colorArray),
       getPolygon: d => d.polygon,
       pickable: true,
       onClick: (info) => setClickInfo(info)
@@ -71,37 +81,26 @@ const Map = () => {
     return resultsArray
   }
 
-  let layers = []
-  const fetch = async () => {
-     const territoryRef = db.collection('languages')
-      const snapshot = await territoryRef.get()
-      snapshot.forEach(doc => {
-      layers.push(doc.data())
-      })
-   setpolygonData(polygonCreator(layers));
-  }
-
-
 
   //useEffect
   useEffect(() => {
-    db
-      .collection('languages')
-      .doc('W5Qc1HlK51Hg5Qwhif4g')
-      .get()
-      .then(doc => {
-        const data = doc.data().coordinates
-        console.log('hello')
-        setCoordinates(data)
-        fetch()
+    async function fetch(collectionName) {
+      const ref = db.collection(collectionName)
+      const snapshot = await ref.get()
+      snapshot.forEach((doc) => {
+      layers.push(doc.data())
       })
+      setpolygonData(polygonCreator(layers));
+    }
+    fetch('languages')
+    //currently fetch call for territories is too large & it doesn't complete in time to setpolygonData
   }, [])
 
 
 
 
 //waiting for firebase call to complete
-  if (!coordinates && !polygonData) {
+  if (!polygonData) {
     return <h1>Loading...</h1>
   }
   return (
