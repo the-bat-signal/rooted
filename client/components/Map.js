@@ -67,11 +67,8 @@ const Data = () => {
   const [selectAdminLines, setAdminLines] = useState(false)
 
   // const [coordinates, setCoordinates] = useState()
-<<<<<<< HEAD
-  let layerData
-=======
+
 let layerData;
->>>>>>> 272e7c26ef2a1f9250ccf1fffb149b300d7125ec
 
   const queryCall = async () => {
     const data = await db
