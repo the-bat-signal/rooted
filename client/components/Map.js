@@ -66,32 +66,33 @@ const Data = () => {
 
   const [selectAdminLines, setAdminLines] = useState(false)
 
-  // const [coordinates, setCoordinates] = useState()
-let layerData;
+  const [coordinates, setCoordinates] = useState()
 
-  const queryCall = async () => {
-    const data = await db
+  useEffect(() => {
+    db
       .collection('languages')
       .doc('W5Qc1HlK51Hg5Qwhif4g')
       .get()
       .then(doc => {
         const data = doc.data().coordinates
+        console.log('hello')
+        setCoordinates(data)
       })
-         layerData = [{polygon: coordinateMaker(data)}]
-  }
+  }, [])
 
 // const call = () => db.collection('languages').get().then (doc => console.log(doc.docs[0]._delegate._document.objectValue.proto.mapValue.fields.coordinates.arrayValue))
 
 //waiting for firebase call to complete
-  // if (!coordinates) {
-  //   return <h1>Loading...</h1>
-  // }
+  if (!coordinates) {
+    return <h1>Loading...</h1>
+  }
 
      // this creates a solid polygon layer that will render on top of the map
+    let layerData = [{polygon: coordinateMaker(coordinates)}]
   const solidPolygonLayer = [
     new SolidPolygonLayer({
     id: 'solid-polygon',
-    data: data,
+    data: layerData,
     opacity: 0.5,
     getPolygon: d => d.polygon,
     getFillColor: [50, 147, 111],
