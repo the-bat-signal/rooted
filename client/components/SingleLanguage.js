@@ -1,24 +1,30 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {db} from '../../server/firebase'
 
+const SingleLanguage = () => {
+  const [language, setLanguage] = useState({})
 
-const cherokee = async () => {
-  const data = await db.collection("languages").doc('cherokee').get();
-  console.log('this is data!!!!', data.data().coordinates)
-}
+  useEffect(() => {
+    const lang = async () => {
+      try {
+        const data = await db.collection("languages").doc('cherokee').get();
+        setLanguage(data.data())
+        console.log('inside useEffect')
+      } catch (err) {
+        console.log('error in SingleLanguage call-----', err)
+      }
+    }
 
-class SingleLanguage extends React.Component {
+    lang();
+  }, [])
 
-  render() {
-    cherokee();
-    return (
-      <div>
-        <h3>Language Name Here</h3>
-        <p>information, history, etc xxxxxx xxxx xxxxxxxxxx xxxx xxxx xxxxxx xxxx xxxx xxxxxx xxxx xxxx xxxxxx xxxx xxxx xxxxxx xxxx xxxx  xxxxx xxxx xxxxxxxxxx xxxx xxxx xxxxxx xxxx xxxx xxxxxx xxxx xxxx xxxxxx xxxx xxxx xxxxxx xxxx xxxx  xxxxx xxxx xxxxxxxxxx xxxx xxxx xxxxxx xxxx xxxx xxxxxx xxxx xxxx xxxxxx xxxx xxxx xxxxxx xxxx xxxx  </p>
-
-      </div>
-    )
-  }
+  return (
+    <div>
+      <h3>{language.name}</h3>
+      <h5>{language.speakers}</h5>
+      <p>{language.description}</p>
+    </div>
+  )
 }
 
 
