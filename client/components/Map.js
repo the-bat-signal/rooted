@@ -14,6 +14,7 @@ import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
 const token = require('../../secrets')
+import Popup from 'reactjs-popup'
 
 // Set your mapbox access token here
 const MAPBOX_ACCESS_TOKEN = token
@@ -53,13 +54,13 @@ const Data = () => {
     })
   }
 
-  const [viewport, setViewport] = useState({
-    latitude: 44.952261122619916,
-    longitude: -93.29339647810357,
-    width: '100wh',
-    height: '100vh',
-    zoom: 2
-  })
+  // const [viewport, setViewport] = useState({
+  //   latitude: 44.952261122619916,
+  //   longitude: -93.29339647810357,
+  //   width: '100wh',
+  //   height: '100vh',
+  //   zoom: 2
+  // })
 
   const [selectAdminLines, setAdminLines] = useState(false)
 
@@ -97,7 +98,10 @@ const Data = () => {
       getFillColor: [50, 147, 111],
       extruded: false,
       pickable: true,
-      onClick: (info) => setClickInfo(info)
+      onClick: (info) => {
+        setClickInfo(info);
+        console.log(info);
+      }
     })
   ];
 
@@ -108,11 +112,11 @@ const Data = () => {
       ContextProvider={MapContext.Provider}
       layers={solidPolygonLayer}
        >
-      {clickInfo && (
-      <PopupBox polygonData={clickInfo} />
-      )}
-  {selectAdminLines ?
-        <StaticMap
+        {clickInfo && (
+           <PopupBox polygonData={clickInfo} />
+        )}
+    {selectAdminLines ?
+      <StaticMap
         mapStyle={MAP_STYLE_ADMIN}
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
       /> :
@@ -120,16 +124,16 @@ const Data = () => {
         mapStyle={MAP_STYLE_BASIC}
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
       />
-      }
-      <NavigationControl style={NAV_CONTROL_STYLE} />
-      <GeolocateControl
+    }
+    <NavigationControl style={NAV_CONTROL_STYLE} />
+    <GeolocateControl
         style={geolocateControlStyle}
         positionOptions={{enableHighAccuracy: true}}
         trackUserLocation={true}
         auto={false}
-      />
+    />
       <label
-        onClick={evt => {
+        onClick={() => {
           setAdminLines(!selectAdminLines)
         }}
         className="adminContainer"
