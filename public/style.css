@@ -19,6 +19,14 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+#popuptext {
+  margin: auto;
+  background: rgb(255, 255, 255);
+  width: 50%;
+  padding: 5px;
+}
+
 /*
 .popup .popuptext
   visibility: hidden;

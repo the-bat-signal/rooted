@@ -10,9 +10,8 @@ import {
 } from 'react-map-gl'
 import {SolidPolygonLayer} from '@deck.gl/layers'
 import {data} from '../coordinates'
-import {Popup} from './Popup'
+import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
-
 import {db} from '../../server/firebase'
 const token = require('../../secrets')
 
@@ -108,7 +107,7 @@ let layerData;
       layers={solidPolygonLayer}
        >
       {clickInfo && (
-      <Popup polygonData={clickInfo} />
+      <PopupBox polygonData={clickInfo} />
       )}
   {selectAdminLines ?
         <StaticMap
