@@ -9,9 +9,9 @@ export const PopupBox = (props) => {
       <div id="popuptext">
         <h1> Hau! The language spoken in this region is Dakota. </h1>
         <h2> LAND ACKNOWLEDGEMENT </h2>
-        <p><i> We encourage you to learn more about this language and the Indigenous people on whose territory you are on in order to responsibly and intentionally take action beyond speaking the following land acknowledgement. It should be structured and detailed with careful research, community outreach, and meaningful. </i></p>
+        <p><i> We encourage you to learn more about this language and the Indigenous people on whose territory you are in order to responsibly and intentionally take action beyond speaking the following land acknowledgement. It should be structured and detailed with careful research, community outreach, and meaningful. </i></p>
         <p><i> A sample land acknowledgement for this territory could be: </i></p>
-        <p><b> "Hau/Haŋ. I would like to acknowledge that we are on the traditional, ancestral territory of the Očhéthi Šakówiŋ. Pidamayayapi ye/do. </b></p>
+        <p><b> "Hau/Haŋ. I would like to acknowledge that we are on the traditional, ancestral territory of the Očhéthi Šakówiŋ. Pidamayayapi ye/do." </b></p>
         <h2> CURRENT NATIONS </h2>
         <p><a href>Nation 1</a></p>
         <p><a href>Nation 2</a></p>
