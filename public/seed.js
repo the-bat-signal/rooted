@@ -89,9 +89,9 @@ async function runSeed(data) {
     console.error(err)
     process.exitCode = 1
   } finally {
-    console.log('closing db connection')
+    // console.log('closing db connection')
     // await db.close()
-    console.log('db connection closed')
+    console.log('db seeded')
   }
 }
 

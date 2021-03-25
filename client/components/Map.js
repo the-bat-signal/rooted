@@ -6,7 +6,7 @@ import {
   NavigationControl,
   GeolocateControl,
   Source,
-  Layer
+  Layer,
 } from 'react-map-gl'
 import {SolidPolygonLayer} from '@deck.gl/layers'
 import {data} from '../coordinates'
@@ -27,7 +27,7 @@ const INITIAL_VIEW_STATE = {
   latitude: 37.7853,
   zoom: 8,
   pitch: 0,
-  bearing: 0
+  bearing: 0,
 }
 
 const geolocateControlStyle = {
@@ -35,12 +35,12 @@ const geolocateControlStyle = {
   // top: 10
 }
 
-const MAP_STYLE_BASIC = styleBasic;
+const MAP_STYLE_BASIC = styleBasic
 const MAP_STYLE_ADMIN = styleAdmin
 const NAV_CONTROL_STYLE = {
   position: 'absolute',
   top: 10,
-  left: 10
+  left: 10,
 }
 
 const Data = () => {
@@ -54,6 +54,7 @@ const Data = () => {
     })
   }
 
+
   // const [viewport, setViewport] = useState({
   //   latitude: 44.952261122619916,
   //   longitude: -93.29339647810357,
@@ -65,6 +66,7 @@ const Data = () => {
   const [selectAdminLines, setAdminLines] = useState(false)
 
   // this is to set the coordinates of the polygons(?)
+
   const [coordinates, setCoordinates] = useState()
 
   useEffect(() => {
@@ -72,14 +74,14 @@ const Data = () => {
       .collection('languages')
       .doc('W5Qc1HlK51Hg5Qwhif4g')
       .get()
-      .then(doc => {
+      .then((doc) => {
         const data = doc.data().coordinates
         console.log('hello')
         setCoordinates(data)
       })
   }, [])
 
-// const call = () => db.collection('languages').get().then (doc => console.log(doc.docs[0]._delegate._document.objectValue.proto.mapValue.fields.coordinates.arrayValue))
+  // const call = () => db.collection('languages').get().then (doc => console.log(doc.docs[0]._delegate._document.objectValue.proto.mapValue.fields.coordinates.arrayValue))
 
 //waiting for firebase call to complete
   if (!coordinates) {
@@ -88,6 +90,7 @@ const Data = () => {
 
   // this creates a solid polygon layer that will render on top of the map
   let layerData = [{polygon: coordinateMaker(coordinates)}]
+
 
   const solidPolygonLayer = [
     new SolidPolygonLayer({
@@ -127,6 +130,7 @@ const Data = () => {
     }
     <NavigationControl style={NAV_CONTROL_STYLE} />
     <GeolocateControl
+
         style={geolocateControlStyle}
         positionOptions={{enableHighAccuracy: true}}
         trackUserLocation={true}
@@ -155,7 +159,7 @@ const Data = () => {
             source-layer="admin"
             paint={{
               'line-color': '#CAB69E',
-              'line-width': 0.75
+              'line-width': 0.75,
             }}
           />
         </Source>
