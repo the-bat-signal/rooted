@@ -13,7 +13,6 @@ import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
 const token = require('../../secrets')
-import Popup from 'reactjs-popup'
 
 //global variables
 const MAPBOX_ACCESS_TOKEN = token
@@ -50,7 +49,7 @@ const Map = () => {
   //helper variables
    let layers = []
    const colorArray = [[190, 231, 176], [50, 147, 111], [122, 132, 80],[192, 133, 82], [137, 87, 55], [62, 25, 41], [255, 112, 115], [245, 192, 0],[5, 29, 35]]
-   
+
    // helper functions
   const coordinateMaker = coordinates => {
     const initialFormat = coordinates.map(coordinate => {
@@ -69,13 +68,16 @@ const Map = () => {
     for (let i = 0; i < docArray.length; i++) {
      resultsArray.push(
       new SolidPolygonLayer({
-      id: docArray[i].id,
+      id: docArray[i].name,
       data: coordinateMaker(docArray[i].coordinates),
       opacity: 0.5,
       getFillColor: colorPicker(colorArray),
       getPolygon: d => d.polygon,
       pickable: true,
-      onClick: (info) => setClickInfo(info)
+      onClick: (info) => {
+        console.log(info)
+        setClickInfo(info)
+      }
       }))
     }
     return resultsArray
@@ -89,18 +91,19 @@ const Map = () => {
       const snapshot = await ref.get()
       snapshot.forEach((doc) => {
       layers.push(doc.data())
+      console.log(doc.data())
       })
       setpolygonData(polygonCreator(layers));
     }
     fetch('languages')
     //currently fetch call for territories is too large & it doesn't complete in time to setpolygonData
   }, [])
-  
+
 //waiting for firebase call to complete
   if (!polygonData) {
     return <h1>Loading...</h1>
   }
-
+  console.log(polygonData)
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
@@ -109,7 +112,7 @@ const Map = () => {
       layers={polygonData}
        >
         {clickInfo && (
-           <PopupBox polygonData={clickInfo} />
+           <PopupBox polygonPopupData={clickInfo} />
         )}
     {selectAdminLines ?
       <StaticMap

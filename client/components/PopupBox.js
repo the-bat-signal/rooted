@@ -14,8 +14,8 @@ export const PopupBox = (props) => {
     <React.Fragment>
     {showPopup && (
     <Popup
-      latitude={props.polygonData.coordinate[1]}
-      longitude={props.polygonData.coordinate[0]}
+      latitude={props.polygonPopupData.coordinate[1]}
+      longitude={props.polygonPopupData.coordinate[0]}
       onClose={() => {
         togglePopup(false);
       }}
