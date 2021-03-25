@@ -9,18 +9,14 @@ import {
   Layer,
 } from 'react-map-gl'
 import {SolidPolygonLayer} from '@deck.gl/layers'
-import {data} from '../coordinates'
 import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
 const token = require('../../secrets')
+import Popup from 'reactjs-popup'
 
-// Set your mapbox access token here
+//global variables
 const MAPBOX_ACCESS_TOKEN = token
-//.env https://www.npmjs.com/package/dotenv
-//import
-
-// Viewport settings
 const INITIAL_VIEW_STATE = {
   longitude: -122.41669,
   latitude: 37.7853,
@@ -28,13 +24,12 @@ const INITIAL_VIEW_STATE = {
   pitch: 0,
   bearing: 0,
 }
-
 const geolocateControlStyle = {
   // right: 10,
   // top: 10
 }
 
-const MAP_STYLE_BASIC = styleBasic
+const MAP_STYLE_BASIC = styleBasic;
 const MAP_STYLE_ADMIN = styleAdmin
 const NAV_CONTROL_STYLE = {
   position: 'absolute',
@@ -42,92 +37,99 @@ const NAV_CONTROL_STYLE = {
   left: 10,
 }
 
+//Map Component
 const Map = () => {
-  // adding an additional destructured useState because the value is empty
-  // currently causing an error saying that it cannot be destructured because it's not iterable?
-  const [clickInfo, setClickInfo] = useState()
 
-  // {_lat: 41.885921, _long: -72.70752}
-  //formatting each single coordinate object into arrays for deck.gl
-  const coordinateMaker = (coordinates) => {
-    return coordinates.map((coordinate) => {
+  // useState
+  const [clickInfo, setClickInfo] = useState();
+  const [selectAdminLines, setAdminLines] = useState(false)
+  // const [coordinates, setCoordinates] = useState()
+  const [polygonData, setpolygonData] = useState()
+
+
+  //helper variables
+   let layers = []
+   const colorArray = [[190, 231, 176], [50, 147, 111], [122, 132, 80],[192, 133, 82], [137, 87, 55], [62, 25, 41], [255, 112, 115], [245, 192, 0],[5, 29, 35]]
+   
+   // helper functions
+  const coordinateMaker = coordinates => {
+    const initialFormat = coordinates.map(coordinate => {
       return [coordinate._long, coordinate._lat, 0]
     })
+
+    return [{polygon: initialFormat}]
   }
 
-  //   const [viewport, setViewport] = useState({
-  //     latitude: 44.952261122619916,
-  //     longitude: -93.29339647810357,
-  //     width: '100wh',
-  //     height: '100vh',
-  //     zoom: 2,
-  //   })
+  const colorPicker = (array) => {
+    const randomIndex = Math.floor(Math.random() * array.length)
+    return array[randomIndex]
+  }
+  const polygonCreator = (docArray) => {
+    let resultsArray = []
+    for (let i = 0; i < docArray.length; i++) {
+     resultsArray.push(
+      new SolidPolygonLayer({
+      id: docArray[i].id,
+      data: coordinateMaker(docArray[i].coordinates),
+      opacity: 0.5,
+      getFillColor: colorPicker(colorArray),
+      getPolygon: d => d.polygon,
+      pickable: true,
+      onClick: (info) => setClickInfo(info)
+      }))
+    }
+    return resultsArray
+  }
 
-  const [selectAdminLines, setAdminLines] = useState(false)
 
-  const [coordinates, setCoordinates] = useState()
-
+  //useEffect
   useEffect(() => {
-    db.collection('languages')
-      .doc('W5Qc1HlK51Hg5Qwhif4g')
-      .get()
-      .then((doc) => {
-        const data = doc.data().coordinates
-        console.log('hello')
-        setCoordinates(data)
+    async function fetch(collectionName) {
+      const ref = db.collection(collectionName)
+      const snapshot = await ref.get()
+      snapshot.forEach((doc) => {
+      layers.push(doc.data())
       })
+      setpolygonData(polygonCreator(layers));
+    }
+    fetch('languages')
+    //currently fetch call for territories is too large & it doesn't complete in time to setpolygonData
   }, [])
-
-  // const call = () => db.collection('languages').get().then (doc => console.log(doc.docs[0]._delegate._document.objectValue.proto.mapValue.fields.coordinates.arrayValue))
-
-  //waiting for firebase call to complete
-  if (!coordinates) {
+  
+//waiting for firebase call to complete
+  if (!polygonData) {
     return <h1>Loading...</h1>
   }
 
-  // this creates a solid polygon layer that will render on top of the map
-  let layerData = [{polygon: coordinateMaker(coordinates)}]
-
-  const solidPolygonLayer = [
-    new SolidPolygonLayer({
-      id: 'solid-polygon',
-      data: layerData,
-      opacity: 0.5,
-      getPolygon: (d) => d.polygon,
-      getFillColor: [50, 147, 111],
-      extruded: false,
-      pickable: true,
-      onClick: (info) => setClickInfo(info),
-    }),
-  ]
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
       ContextProvider={MapContext.Provider}
-      layers={solidPolygonLayer}
-    >
-      {clickInfo && <PopupBox polygonData={clickInfo} />}
-      {selectAdminLines ? (
-        <StaticMap
-          mapStyle={MAP_STYLE_ADMIN}
-          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-        />
-      ) : (
-        <StaticMap
-          mapStyle={MAP_STYLE_BASIC}
-          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-        />
-      )}
-      <NavigationControl style={NAV_CONTROL_STYLE} />
-      <GeolocateControl
+      layers={polygonData}
+       >
+        {clickInfo && (
+           <PopupBox polygonData={clickInfo} />
+        )}
+    {selectAdminLines ?
+      <StaticMap
+        mapStyle={MAP_STYLE_ADMIN}
+        mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+      /> :
+      <StaticMap
+        mapStyle={MAP_STYLE_BASIC}
+        mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+      />
+    }
+    <NavigationControl style={NAV_CONTROL_STYLE} />
+    <GeolocateControl
         style={geolocateControlStyle}
         positionOptions={{enableHighAccuracy: true}}
         trackUserLocation={true}
         auto={false}
-      />
+    />
       <label
-        onClick={(evt) => {
+        onClick={() => {
           setAdminLines(!selectAdminLines)
         }}
         className="adminContainer"
@@ -159,3 +161,29 @@ const Map = () => {
 }
 
 export default Map
+
+
+
+  // const [viewport, setViewport] = useState({
+  //   latitude: 44.952261122619916,
+  //   longitude: -93.29339647810357,
+  //   width: '100wh',
+  //   height: '100vh',
+  //   zoom: 2
+  // })
+
+
+       // this creates a solid polygon layer that will render on top of the map
+    //  let layerData = coordinateMaker(coordinates)
+//   const solidPolygonLayer = [
+//     new SolidPolygonLayer({
+//     id: 'solid-polygon',
+//     data: layerData,
+//     opacity: 0.5,
+//     getPolygon: d => d.polygon,
+//     getFillColor: [50, 147, 111],
+//     extruded: false,
+//     pickable: true,
+//     onClick: (info) => setClickInfo(info)
+//   })
+// ];
