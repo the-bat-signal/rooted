@@ -10,9 +10,8 @@ import {
 } from 'react-map-gl'
 import {SolidPolygonLayer} from '@deck.gl/layers'
 import {data} from '../coordinates'
-import {Popup} from './Popup'
+import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
-
 import {db} from '../../server/firebase'
 const token = require('../../secrets')
 
@@ -56,60 +55,66 @@ const Data = () => {
     })
   }
 
-  const [viewport, setViewport] = useState({
-    latitude: 44.952261122619916,
-    longitude: -93.29339647810357,
-    width: '100wh',
-    height: '100vh',
-    zoom: 2,
-  })
+//   const [viewport, setViewport] = useState({
+//     latitude: 44.952261122619916,
+//     longitude: -93.29339647810357,
+//     width: '100wh',
+//     height: '100vh',
+//     zoom: 2,
+//   })
 
   const [selectAdminLines, setAdminLines] = useState(false)
 
-  // const [coordinates, setCoordinates] = useState()
 
-let layerData;
+  let layerData;
 
-  const queryCall = async () => {
-    const data = await db
+  const [coordinates, setCoordinates] = useState()
+
+  useEffect(() => {
+    db
       .collection('languages')
       .doc('W5Qc1HlK51Hg5Qwhif4g')
       .get()
       .then((doc) => {
         const data = doc.data().coordinates
+        console.log('hello')
+        setCoordinates(data)
       })
-    layerData = [{polygon: coordinateMaker(data)}]
-  }
+  }, [])
 
   // const call = () => db.collection('languages').get().then (doc => console.log(doc.docs[0]._delegate._document.objectValue.proto.mapValue.fields.coordinates.arrayValue))
 
-  //waiting for firebase call to complete
-  // if (!coordinates) {
-  //   return <h1>Loading...</h1>
-  // }
+//waiting for firebase call to complete
+  if (!coordinates) {
+    return <h1>Loading...</h1>
+  }
 
-  // this creates a solid polygon layer that will render on top of the map
+     // this creates a solid polygon layer that will render on top of the map
+    let layerData = [{polygon: coordinateMaker(coordinates)}]
+    
   const solidPolygonLayer = [
     new SolidPolygonLayer({
-      id: 'solid-polygon',
-      data: data,
-      opacity: 0.5,
-      getPolygon: (d) => d.polygon,
-      getFillColor: [50, 147, 111],
-      extruded: false,
-      pickable: true,
-      onClick: (info) => setClickInfo(info),
-    }),
-  ]
+    id: 'solid-polygon',
+    data: layerData,
+    opacity: 0.5,
+    getPolygon: d => d.polygon,
+    getFillColor: [50, 147, 111],
+    extruded: false,
+    pickable: true,
+    onClick: (info) => setClickInfo(info)
+  })
+];
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
       ContextProvider={MapContext.Provider}
       layers={solidPolygonLayer}
-    >
-      {clickInfo && <Popup polygonData={clickInfo} />}
-      {selectAdminLines ? (
+       >
+      {clickInfo && (
+      <PopupBox polygonData={clickInfo} />
+      )}
+  {selectAdminLines ?
         <StaticMap
           mapStyle={MAP_STYLE_ADMIN}
           mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
