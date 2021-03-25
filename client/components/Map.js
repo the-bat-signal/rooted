@@ -15,12 +15,8 @@ import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
 const token = require('../../secrets')
 
-// Set your mapbox access token here
+//global variables
 const MAPBOX_ACCESS_TOKEN = token
-//.env https://www.npmjs.com/package/dotenv
-//import
-
-// Viewport settings
 const INITIAL_VIEW_STATE = {
   longitude: -122.41669,
   latitude: 37.7853,
@@ -28,12 +24,10 @@ const INITIAL_VIEW_STATE = {
   pitch: 0,
   bearing: 0
 }
-
 const geolocateControlStyle = {
   // right: 10,
   // top: 10
 }
-
 const MAP_STYLE_BASIC = styleBasic;
 const MAP_STYLE_ADMIN = styleAdmin
 const NAV_CONTROL_STYLE = {
@@ -42,33 +36,24 @@ const NAV_CONTROL_STYLE = {
   left: 10
 }
 
-const Data = () => {
-  // adding an additional destructured useState because the value is empty
-  // currently causing an error saying that it cannot be destructured because it's not iterable?
-  const [clickInfo, setClickInfo] = useState();
+//Map Component
+const Map = () => {
 
-// {_lat: 41.885921, _long: -72.70752}
-//formatting each single coordinate object into arrays for deck.gl
- const coordinateMaker = coordinates => {
+  // useState
+  const [clickInfo, setClickInfo] = useState();
+  const [selectAdminLines, setAdminLines] = useState(false)
+  const [coordinates, setCoordinates] = useState()
+  const [polygonData, setpolygonData] = useState()
+
+
+  // helper functions
+  const coordinateMaker = coordinates => {
     const initialFormat = coordinates.map(coordinate => {
       return [coordinate._long, coordinate._lat, 0]
     })
 
     return [{polygon: initialFormat}]
   }
-
-  const [viewport, setViewport] = useState({
-    latitude: 44.952261122619916,
-    longitude: -93.29339647810357,
-    width: '100wh',
-    height: '100vh',
-    zoom: 2
-  })
-
-  const [selectAdminLines, setAdminLines] = useState(false)
-
-  const [coordinates, setCoordinates] = useState()
-  const [polygonData, setpolygonData] = useState()
 
   const polygonCreator = (docArray) => {
     let resultsArray = []
@@ -81,13 +66,12 @@ const Data = () => {
       getPolygon: d => d.polygon,
       pickable: true,
       onClick: (info) => setClickInfo(info)
-    }))
+      }))
+    }
+    return resultsArray
   }
-  return resultsArray
-}
 
   let layers = []
-  let layerData;
   const fetch = async () => {
      const territoryRef = db.collection('languages')
       const snapshot = await territoryRef.get()
@@ -97,6 +81,9 @@ const Data = () => {
    setpolygonData(polygonCreator(layers));
   }
 
+
+
+  //useEffect
   useEffect(() => {
     db
       .collection('languages')
@@ -117,22 +104,6 @@ const Data = () => {
   if (!coordinates && !polygonData) {
     return <h1>Loading...</h1>
   }
-
-
-     // this creates a solid polygon layer that will render on top of the map
-    //  let layerData = coordinateMaker(coordinates)
-//   const solidPolygonLayer = [
-//     new SolidPolygonLayer({
-//     id: 'solid-polygon',
-//     data: layerData,
-//     opacity: 0.5,
-//     getPolygon: d => d.polygon,
-//     getFillColor: [50, 147, 111],
-//     extruded: false,
-//     pickable: true,
-//     onClick: (info) => setClickInfo(info)
-//   })
-// ];
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
@@ -192,4 +163,30 @@ const Data = () => {
   )
 }
 
-export default Data
+export default Map
+
+
+
+  // const [viewport, setViewport] = useState({
+  //   latitude: 44.952261122619916,
+  //   longitude: -93.29339647810357,
+  //   width: '100wh',
+  //   height: '100vh',
+  //   zoom: 2
+  // })
+
+
+       // this creates a solid polygon layer that will render on top of the map
+    //  let layerData = coordinateMaker(coordinates)
+//   const solidPolygonLayer = [
+//     new SolidPolygonLayer({
+//     id: 'solid-polygon',
+//     data: layerData,
+//     opacity: 0.5,
+//     getPolygon: d => d.polygon,
+//     getFillColor: [50, 147, 111],
+//     extruded: false,
+//     pickable: true,
+//     onClick: (info) => setClickInfo(info)
+//   })
+// ];
