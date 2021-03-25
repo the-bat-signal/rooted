@@ -6,13 +6,14 @@ import {
   NavigationControl,
   GeolocateControl,
   Source,
-  Layer
+  Layer,
 } from 'react-map-gl'
 import {SolidPolygonLayer} from '@deck.gl/layers'
 import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
 const token = require('../../secrets')
+import Popup from 'reactjs-popup'
 
 //global variables
 const MAPBOX_ACCESS_TOKEN = token
@@ -21,18 +22,19 @@ const INITIAL_VIEW_STATE = {
   latitude: 37.7853,
   zoom: 8,
   pitch: 0,
-  bearing: 0
+  bearing: 0,
 }
 const geolocateControlStyle = {
   // right: 10,
   // top: 10
 }
+
 const MAP_STYLE_BASIC = styleBasic;
 const MAP_STYLE_ADMIN = styleAdmin
 const NAV_CONTROL_STYLE = {
   position: 'absolute',
   top: 10,
-  left: 10
+  left: 10,
 }
 
 
@@ -50,6 +52,7 @@ const Map = () => {
    let layers = []
    const colorArray = [[190, 231, 176], [50, 147, 111], [122, 132, 80],[192, 133, 82], [137, 87, 55], [62, 25, 41], [255, 112, 115], [245, 192, 0],[5, 29, 35]]
 
+
    // helper functions
   const coordinateMaker = coordinates => {
     const initialFormat = coordinates.map(coordinate => {
@@ -63,7 +66,6 @@ const Map = () => {
     const randomIndex = Math.floor(Math.random() * array.length)
     return array[randomIndex]
   }
-
   const polygonCreator = (docArray) => {
     let resultsArray = []
     for (let i = 0; i < docArray.length; i++) {
@@ -81,23 +83,21 @@ const Map = () => {
     return resultsArray
   }
 
-
   //useEffect
   useEffect(() => {
+
     async function fetch(collectionName) {
       const ref = db.collection(collectionName)
       const snapshot = await ref.get()
       snapshot.forEach((doc) => {
       layers.push(doc.data())
+
       })
       setpolygonData(polygonCreator(layers));
     }
     fetch('languages')
     //currently fetch call for territories is too large & it doesn't complete in time to setpolygonData
   }, [])
-
-
-
 
 //waiting for firebase call to complete
   if (!polygonData) {
@@ -110,11 +110,11 @@ const Map = () => {
       ContextProvider={MapContext.Provider}
       layers={polygonData}
        >
-      {clickInfo && (
-      <PopupBox polygonData={clickInfo} />
-      )}
-  {selectAdminLines ?
-        <StaticMap
+        {clickInfo && (
+           <PopupBox polygonData={clickInfo} />
+        )}
+    {selectAdminLines ?
+      <StaticMap
         mapStyle={MAP_STYLE_ADMIN}
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
       /> :
@@ -122,16 +122,17 @@ const Map = () => {
         mapStyle={MAP_STYLE_BASIC}
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
       />
-      }
-      <NavigationControl style={NAV_CONTROL_STYLE} />
-      <GeolocateControl
+    }
+    <NavigationControl style={NAV_CONTROL_STYLE} />
+    <GeolocateControl
+
         style={geolocateControlStyle}
         positionOptions={{enableHighAccuracy: true}}
         trackUserLocation={true}
         auto={false}
-      />
+    />
       <label
-        onClick={evt => {
+        onClick={() => {
           setAdminLines(!selectAdminLines)
         }}
         className="adminContainer"
@@ -153,7 +154,7 @@ const Map = () => {
             source-layer="admin"
             paint={{
               'line-color': '#CAB69E',
-              'line-width': 0.75
+              'line-width': 0.75,
             }}
           />
         </Source>

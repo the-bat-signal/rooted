@@ -1,4 +1,5 @@
 // this is sample data that's hard-coded to show a polygon for Dakota (not Santee dialect)
+// we will NOT be using this for our final product
 export const data = [
   {
     message: 'Hau Katelyn! This is Dakota territory.',
