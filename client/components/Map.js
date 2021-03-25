@@ -37,7 +37,6 @@ const NAV_CONTROL_STYLE = {
   left: 10,
 }
 
-
 //Map Component
 const Map = () => {
 
@@ -51,8 +50,7 @@ const Map = () => {
   //helper variables
    let layers = []
    const colorArray = [[190, 231, 176], [50, 147, 111], [122, 132, 80],[192, 133, 82], [137, 87, 55], [62, 25, 41], [255, 112, 115], [245, 192, 0],[5, 29, 35]]
-
-
+   
    // helper functions
   const coordinateMaker = coordinates => {
     const initialFormat = coordinates.map(coordinate => {
@@ -83,26 +81,26 @@ const Map = () => {
     return resultsArray
   }
 
+
   //useEffect
   useEffect(() => {
-
     async function fetch(collectionName) {
       const ref = db.collection(collectionName)
       const snapshot = await ref.get()
       snapshot.forEach((doc) => {
       layers.push(doc.data())
-
       })
       setpolygonData(polygonCreator(layers));
     }
     fetch('languages')
     //currently fetch call for territories is too large & it doesn't complete in time to setpolygonData
   }, [])
-
+  
 //waiting for firebase call to complete
   if (!polygonData) {
     return <h1>Loading...</h1>
   }
+
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
@@ -125,7 +123,6 @@ const Map = () => {
     }
     <NavigationControl style={NAV_CONTROL_STYLE} />
     <GeolocateControl
-
         style={geolocateControlStyle}
         positionOptions={{enableHighAccuracy: true}}
         trackUserLocation={true}
