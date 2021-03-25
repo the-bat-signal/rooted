@@ -46,12 +46,12 @@ const NAV_CONTROL_STYLE = {
 const Data = () => {
   // adding an additional destructured useState because the value is empty
   // currently causing an error saying that it cannot be destructured because it's not iterable?
-  const [clickInfo, setClickInfo] = useState()
+  const [clickInfo, setClickInfo] = useState();
 
-  // {_lat: 41.885921, _long: -72.70752}
-  //formatting each single coordinate object into arrays for deck.gl
-  const coordinateMaker = (coordinates) => {
-    return coordinates.map((coordinate) => {
+// {_lat: 41.885921, _long: -72.70752}
+//formatting each single coordinate object into arrays for deck.gl
+ const coordinateMaker = coordinates => {
+    return coordinates.map(coordinate => {
       return [coordinate._long, coordinate._lat, 0]
     })
   }
@@ -67,7 +67,11 @@ const Data = () => {
   const [selectAdminLines, setAdminLines] = useState(false)
 
   // const [coordinates, setCoordinates] = useState()
+<<<<<<< HEAD
   let layerData
+=======
+let layerData;
+>>>>>>> 272e7c26ef2a1f9250ccf1fffb149b300d7125ec
 
   const queryCall = async () => {
     const data = await db
