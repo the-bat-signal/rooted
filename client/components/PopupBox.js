@@ -76,8 +76,8 @@ export const PopupBox = (props) => {
               <b>
                 {' '}
                 "{vocab['Hello!']} I would like to acknowledge that we are on
-                the traditional, ancestral territory of the Očhéthi Šakówiŋ.
-                Pidamayayapi ye/do."{' '}
+                the traditional, ancestral territory of the {language.name}-speaking people.
+                {vocab['Thank you.']}{' '}
               </b>
             </p>
             <h3> CURRENT NATIONS </h3>
