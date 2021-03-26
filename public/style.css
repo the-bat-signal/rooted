@@ -30,9 +30,9 @@ form div {
 
 .poppy {
   margin: auto;
-  background: rgb(255, 255, 255);
+  /* background: rgb(255, 255, 255); */
   width: 35%;
-  padding: 5px;
+  padding: 1px;
 }
 
 /* #popuptext {
