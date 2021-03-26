@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {db} from '../../server/firebase'
 
-const SingleLanguage = () => {
+const SingleLanguage = (props) => {
   const [language, setLanguage] = useState({})
   const [vocab, setVocab] = useState({})
 
@@ -21,7 +21,6 @@ const SingleLanguage = () => {
         console.log('error in SingleLanguage call-----', err)
       }
     }
-
     lang();
   }, [])
 
