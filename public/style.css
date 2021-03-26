@@ -20,10 +20,10 @@ form div {
   display: inline-block;
 }
 
-#popuptext {
+.poppy {
   margin: auto;
   background: rgb(255, 255, 255);
-  width: 50%;
+  width: 35%;
   padding: 5px;
 }
 

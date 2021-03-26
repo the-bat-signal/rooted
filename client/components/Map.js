@@ -16,10 +16,11 @@ const token = require('../../secrets')
 
 //global variables
 const MAPBOX_ACCESS_TOKEN = token
+40.70532791050518, -74.00918185993224
 const INITIAL_VIEW_STATE = {
-  longitude: -122.41669,
-  latitude: 37.7853,
-  zoom: 8,
+  longitude: -74.00918185993224,
+  latitude: 40.70532791050518,
+  zoom: 3,
   pitch: 0,
   bearing: 0,
 }
@@ -103,7 +104,6 @@ const Map = () => {
   if (!polygonData) {
     return <h1>Loading...</h1>
   }
-  console.log(polygonData)
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}

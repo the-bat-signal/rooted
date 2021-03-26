@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 // import Popup from 'reactjs-popup'
 // import 'reactjs-popup/dist/index.css';
 import {Link} from 'react-router-dom'
@@ -12,22 +12,24 @@ export const PopupBox = (props) => {
 
   return (
     <React.Fragment>
-    {showPopup && (
+    {showPopup &&
     <Popup
       latitude={props.polygonPopupData.coordinate[1]}
       longitude={props.polygonPopupData.coordinate[0]}
       onClose={() => {
-        togglePopup(false);
+        togglePopup(false)
       }}
-      width='100px'
-      height='100px'
+      closeOnClick={false}
+      className='poppy'
       >
         <div id="popuptext">
           <h1> Hau! The language spoken in this region is Dakota. </h1>
           <h2> LAND ACKNOWLEDGEMENT </h2>
+          <div id='description'>
             <p><i> We encourage you to learn more about this language and the Indigenous people on whose territory you are in order to responsibly and intentionally take action beyond speaking the following land acknowledgement. It should be structured and detailed with careful research, community outreach, and meaningful. </i></p>
             <p><i> A sample land acknowledgement for this territory could be: </i></p>
             <p><b> "Hau/Haŋ. I would like to acknowledge that we are on the traditional, ancestral territory of the Očhéthi Šakówiŋ. Pidamayayapi ye/do." </b></p>
+            </div>
           <h2> CURRENT NATIONS </h2>
             {/* <p><a href>Nation 1</a></p>
             <p><a href>Nation 2</a></p>
@@ -39,7 +41,7 @@ export const PopupBox = (props) => {
           <p><button> LEARN THE LANGUAGE </button></p>
         </div>
       </Popup>
-    )}
+    }
     </React.Fragment>
   )
 
