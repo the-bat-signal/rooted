@@ -20,13 +20,13 @@ export const PopupBox = (props) => {
             setLanguage(doc.data())
           }
         })
-        console.log('inside useEffect of PopupBox')
+        // console.log('inside useEffect of PopupBox')
         const vocabRef = db.collection('vocab')
         const vocabSnapshot = await vocabRef.get()
         vocabSnapshot.forEach((doc) => {
-          if (doc.data().name === props.polygonPopupData.layer.id) {
+          if (doc.id.includes(props.polygonPopupData.layer.id.toLowerCase())) {
             setVocab(doc.data())
-            console.log('this is vocab', vocab)
+            // console.log('this is doc.id', doc.id)
           }
         })
       } catch (err) {

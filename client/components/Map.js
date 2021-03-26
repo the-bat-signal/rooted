@@ -25,7 +25,8 @@ const INITIAL_VIEW_STATE = {
   bearing: 0,
 }
 
-const MAP_STYLE_BASIC = styleBasic
+// MAP_STYLES
+const MAP_STYLE_BASIC = styleBasic;
 const MAP_STYLE_ADMIN = styleAdmin
 
 //Map Component
