@@ -24,18 +24,9 @@ const INITIAL_VIEW_STATE = {
   pitch: 0,
   bearing: 0,
 }
-const geolocateControlStyle = {
-  // right: 10,
-  // top: 10
-}
 
 const MAP_STYLE_BASIC = styleBasic;
 const MAP_STYLE_ADMIN = styleAdmin
-const NAV_CONTROL_STYLE = {
-  position: 'absolute',
-  top: 10,
-  left: 10,
-}
 
 //Map Component
 const Map = () => {
@@ -45,7 +36,6 @@ const Map = () => {
   const [selectAdminLines, setAdminLines] = useState(false)
   // const [coordinates, setCoordinates] = useState()
   const [polygonData, setpolygonData] = useState()
-
 
   //helper variables
    let layers = []
@@ -76,7 +66,7 @@ const Map = () => {
       getPolygon: d => d.polygon,
       pickable: true,
       onClick: (info) => {
-        console.log(info)
+        // console.log('this is info inside onClick of polygonCreator', info)
         setClickInfo(info)
       }
       }))
@@ -84,15 +74,13 @@ const Map = () => {
     return resultsArray
   }
 
-
   //useEffect
   useEffect(() => {
     async function fetch(collectionName) {
       const ref = db.collection(collectionName)
       const snapshot = await ref.get()
       snapshot.forEach((doc) => {
-      layers.push(doc.data())
-      console.log(doc.data())
+      layers.push(doc.data());
       })
       setpolygonData(polygonCreator(layers));
     }
@@ -124,13 +112,14 @@ const Map = () => {
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
       />
     }
-    <NavigationControl style={NAV_CONTROL_STYLE} />
-    <GeolocateControl
-        style={geolocateControlStyle}
-        positionOptions={{enableHighAccuracy: true}}
-        trackUserLocation={true}
-        auto={false}
-    />
+    <div id="map-controls">
+      <NavigationControl />
+      <GeolocateControl
+          positionOptions={{enableHighAccuracy: true}}
+          trackUserLocation={true}
+          auto={false}
+      />
+    </div>
       <label
         onClick={() => {
           setAdminLines(!selectAdminLines)

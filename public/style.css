@@ -1,3 +1,11 @@
+* {
+  margin: 15;
+  padding: 15;
+  box-sizing: border-box;
+  /* background: rgb(22, 12, 12); */
+  border-color: rgb(22, 12, 12);
+}
+
 body {
   font-family: sans-serif;
 }
@@ -27,47 +35,39 @@ form div {
   padding: 5px;
 }
 
-/*
-.popup .popuptext
-  visibility: hidden;
-  width: 160px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 0;
-  position: relative;
-  z-index: 8;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -80px;
-}
+/* #popuptext {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 85%;
+} */
 
-.popup .popuptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-Toggle this class when clicking on the popup container (hide and show the popup)
-.popup .show {
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s
-}
-
-Add animation (fade in the popup)
-@-webkit-keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+#map-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity:1 ;}
 } */
+
+.startPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: rgb(22, 12, 12); */
+}
+
+.startPage img {
+  max-width: 100%;
+  height: auto;
+}
+
+.button {
+  background-color: rgb(100, 205, 237);
+  color: black;
+}
