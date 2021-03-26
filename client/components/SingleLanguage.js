@@ -15,7 +15,6 @@ const SingleLanguage = () => {
         console.log('error in SingleLanguage call-----', err)
       }
     }
-
     lang();
   }, [])
 
