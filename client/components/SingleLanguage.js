@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {db} from '../../server/firebase'
 
-const SingleLanguage = () => {
+const SingleLanguage = (props) => {
   const [language, setLanguage] = useState({})
 
   // remove async await
@@ -10,12 +10,12 @@ const SingleLanguage = () => {
       try {
         const data = await db.collection("languages").doc('cherokee').get();
         setLanguage(data.data())
-        console.log('inside useEffect')
+        console.log('inside useEffect of SingleLanguage')
+        console.log('this is props', props)
       } catch (err) {
         console.log('error in SingleLanguage call-----', err)
       }
     }
-
     lang();
   }, [])
 
