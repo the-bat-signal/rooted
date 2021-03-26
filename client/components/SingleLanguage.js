@@ -6,6 +6,7 @@ const SingleLanguage = (props) => {
   // const [vocab, setVocab] = useState({})
 
   const language = props.location.state.language
+  const vocab = props.location.state.vocab
 
   // remove async await
   // useEffect(() => {
@@ -25,7 +26,7 @@ const SingleLanguage = (props) => {
   //   }
   //   lang();
   // }, [])
-  console.log('this is props-----', props)
+  console.log('this is vocab-----', vocab)
   console.log('this is language------', language)
   return (
     <div>
@@ -33,7 +34,22 @@ const SingleLanguage = (props) => {
       <h5>Speakers: {language.speakers}</h5>
       <p>{language.description}</p>
       <p>
-        {/* Are you well?: {vocab['Are you well?']} */}
+        Hello!: {vocab['Hello!']}
+        < br />
+        Goodbye!: {vocab['Goodbye!']}
+        < br />
+
+        How are you?: {vocab['How are you?']}
+        < br />
+
+        I am fine.: {vocab['I am fine.']}
+        < br />
+        My name is ___.: {vocab['My name is ___.']}
+        < br />
+        What is your name?: {vocab['What is your name?']}
+        < br />
+        Thank you.: {vocab['Thank you.']}
+
       </p>
     </div>
   )
