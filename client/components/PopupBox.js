@@ -39,14 +39,14 @@ export const PopupBox = (props) => {
 
   return (
     <React.Fragment>
-    {showPopup && (
+    {showPopup &&
     <Popup
       latitude={props.polygonPopupData.coordinate[1]}
       longitude={props.polygonPopupData.coordinate[0]}
       offset={[0, 15]}
       className='poppy'
       onClose={() => {
-        togglePopup(false);
+        togglePopup(false)
       }}
       >
         <div id="popuptext">
@@ -73,7 +73,7 @@ export const PopupBox = (props) => {
             </p>
         </div>
       </Popup>
-    )}
+    }
     </React.Fragment>
   )
 }
