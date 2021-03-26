@@ -23,18 +23,9 @@ const INITIAL_VIEW_STATE = {
   pitch: 0,
   bearing: 0,
 }
-const geolocateControlStyle = {
-  // right: 10,
-  // top: 10
-}
 
 const MAP_STYLE_BASIC = styleBasic;
 const MAP_STYLE_ADMIN = styleAdmin
-const NAV_CONTROL_STYLE = {
-  position: 'absolute',
-  top: 10,
-  left: 10,
-}
 
 //Map Component
 const Map = () => {
@@ -124,13 +115,14 @@ const Map = () => {
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
       />
     }
-    <NavigationControl style={NAV_CONTROL_STYLE} />
-    <GeolocateControl
-        style={geolocateControlStyle}
-        positionOptions={{enableHighAccuracy: true}}
-        trackUserLocation={true}
-        auto={false}
-    />
+    <div id="map-controls">
+      <NavigationControl />
+      <GeolocateControl
+          positionOptions={{enableHighAccuracy: true}}
+          trackUserLocation={true}
+          auto={false}
+      />
+    </div>
       <label
         onClick={() => {
           setAdminLines(!selectAdminLines)

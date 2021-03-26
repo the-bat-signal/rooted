@@ -71,3 +71,9 @@ Add animation (fade in the popup)
   from {opacity: 0;}
   to {opacity:1 ;}
 } */
+
+#map-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
