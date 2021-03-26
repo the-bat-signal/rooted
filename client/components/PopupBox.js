@@ -47,6 +47,7 @@ export const PopupBox = (props) => {
           onClose={() => {
             props.togglePopup(false)
           }}
+          tipSize={20}
         >
           <div id="popuptext">
             <h2>
