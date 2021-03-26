@@ -17,10 +17,12 @@ export const StartPage = () => {
     <div className="startPage">
       <img src="/images/icons-512.png" />
       <br />
-      <Link to={'/map'}>
-        {/* change back to material ui later */}
-        <Button style={style}>Start</Button>
-      </Link>
+      <div className="whatever">
+        <Link to={'/map'}>
+          {/* change back to material ui later */}
+          <Button style={style}>Start</Button>
+        </Link>
+      </div>
     </div>
   )
 }
