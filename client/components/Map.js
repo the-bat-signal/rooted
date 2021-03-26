@@ -36,7 +36,6 @@ const Map = () => {
   // const [coordinates, setCoordinates] = useState()
   const [polygonData, setpolygonData] = useState()
 
-
   //helper variables
    let layers = []
    const colorArray = [[190, 231, 176], [50, 147, 111], [122, 132, 80],[192, 133, 82], [137, 87, 55], [62, 25, 41], [255, 112, 115], [245, 192, 0],[5, 29, 35]]
@@ -66,7 +65,7 @@ const Map = () => {
       getPolygon: d => d.polygon,
       pickable: true,
       onClick: (info) => {
-        console.log(info)
+        // console.log('this is info inside onClick of polygonCreator', info)
         setClickInfo(info)
       }
       }))
@@ -74,15 +73,13 @@ const Map = () => {
     return resultsArray
   }
 
-
   //useEffect
   useEffect(() => {
     async function fetch(collectionName) {
       const ref = db.collection(collectionName)
       const snapshot = await ref.get()
       snapshot.forEach((doc) => {
-      layers.push(doc.data())
-      console.log(doc.data())
+      layers.push(doc.data());
       })
       setpolygonData(polygonCreator(layers));
     }

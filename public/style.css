@@ -27,13 +27,13 @@ form div {
   padding: 5px;
 }
 
-#popuptext {
+/* #popuptext {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 85%;
-}
+} */
 
 #map-controls {
   display: flex;
