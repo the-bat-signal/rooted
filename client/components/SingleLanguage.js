@@ -10,7 +10,7 @@ const SingleLanguage = () => {
       try {
         const data = await db.collection("languages").doc('cherokee').get();
         setLanguage(data.data())
-        console.log('inside useEffect')
+        console.log('inside useEffect of SingleLanguage')
       } catch (err) {
         console.log('error in SingleLanguage call-----', err)
       }
