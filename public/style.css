@@ -1,3 +1,11 @@
+* {
+  margin: 15;
+  padding: 15;
+  box-sizing: border-box;
+  /* background: rgb(22, 12, 12); */
+  border-color: rgb(22, 12, 12);
+}
+
 body {
   font-family: sans-serif;
 }
@@ -39,4 +47,27 @@ form div {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+} */
+
+.startPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: rgb(22, 12, 12); */
+}
+
+.startPage img {
+  max-width: 100%;
+  height: auto;
+}
+
+.button {
+  background-color: rgb(100, 205, 237);
+  color: black;
 }
