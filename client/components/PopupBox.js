@@ -16,11 +16,11 @@ export const PopupBox = (props) => {
     <Popup
       latitude={props.polygonPopupData.coordinate[1]}
       longitude={props.polygonPopupData.coordinate[0]}
+      offset={[0, 15]}
+      className='poppy'
       onClose={() => {
         togglePopup(false);
       }}
-      width='100px'
-      height='100px'
       >
         <div id="popuptext">
           <h1> Hau! The language spoken in this region is Dakota. </h1>
