@@ -29,28 +29,42 @@ const SingleLanguage = (props) => {
   console.log('this is vocab-----', vocab)
   console.log('this is language------', language)
   return (
-    <div>
-      <h3>{language.name}</h3>
-      <h5>Speakers: {language.speakers}</h5>
-      <p>{language.description}</p>
-      <p>
-        Hello!: {vocab['Hello!']}
-        < br />
-        Goodbye!: {vocab['Goodbye!']}
-        < br />
+    <div id="single-language">
+      <div id="single-language__header">
+        <h1> {language.name} </h1>
+        <h4> By learning this language, you are adding to a community of {language.speakers} speakers! </h4>
+        <p>{language.description}</p>
+      </div>
+      <div id="single-language__pronunciation-guide">
 
-        How are you?: {vocab['How are you?']}
-        < br />
+      </div>
+      <div id="single-language__vocab">
+        <table id="single-language__vocab__table" cellSpacing="20">
+        <tbody>
+          <tr id="column-names-row">
+            <th scope="col"> Audio </th>
+            <th scope="col"> {language.name} </th>
+            <th scope="col"> English </th>
+          </tr>
+          Hello!: {vocab['Hello!']}
+          < br />
+          Goodbye!: {vocab['Goodbye!']}
+          < br />
 
-        I am fine.: {vocab['I am fine.']}
-        < br />
-        My name is ___.: {vocab['My name is ___.']}
-        < br />
-        What is your name?: {vocab['What is your name?']}
-        < br />
-        Thank you.: {vocab['Thank you.']}
+          How are you?: {vocab['How are you?']}
+          < br />
 
-      </p>
+          I am fine.: {vocab['I am fine.']}
+          < br />
+          My name is ___.: {vocab['My name is ___.']}
+          < br />
+          What is your name?: {vocab['What is your name?']}
+          < br />
+          Thank you.: {vocab['Thank you.']}
+
+        </tbody>
+        </table>
+      </div>
     </div>
   )
 }
