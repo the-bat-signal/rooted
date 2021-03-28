@@ -75,3 +75,17 @@ form div {
     opacity: 1;
   }
 }
+
+#single-language__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#single-language__vocab {
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
