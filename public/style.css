@@ -84,8 +84,13 @@ form div {
 }
 
 #single-language__vocab {
-    display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#language-description {
+  margin: 25;
+  padding: 25;
 }
