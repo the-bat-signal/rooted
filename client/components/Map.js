@@ -97,7 +97,7 @@ const Map = () => {
       })
       setpolygonData(polygonCreator(layers))
     }
-    fetch('languagesMap')
+    fetch('languages')
     //currently fetch call for territories is too large & it doesn't complete in time to setpolygonData
   }, [])
 
