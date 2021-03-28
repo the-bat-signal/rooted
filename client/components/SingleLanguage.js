@@ -46,22 +46,41 @@ const SingleLanguage = (props) => {
             <th scope="col"> {language.name} </th>
             <th scope="col"> English </th>
           </tr>
-          Hello!: {vocab['Hello!']}
-          < br />
-          Goodbye!: {vocab['Goodbye!']}
-          < br />
-
-          How are you?: {vocab['How are you?']}
-          < br />
-
-          I am fine.: {vocab['I am fine.']}
-          < br />
-          My name is ___.: {vocab['My name is ___.']}
-          < br />
-          What is your name?: {vocab['What is your name?']}
-          < br />
-          Thank you.: {vocab['Thank you.']}
-
+          <tr className="single-vocab-row">
+            <th scope="audio"> audio-icon </th>
+            <td> Hello! </td>
+            <td> {vocab['Hello!']} </td>
+          </tr>
+          <tr className="single-vocab-row">
+            <th scope="audio"> audio-icon </th>
+            <td> How are you? </td>
+            <td> {vocab['How are you?']} </td>
+          </tr>
+          <tr className="single-vocab-row">
+            <th scope="audio"> audio-icon </th>
+            <td> I am fine. </td>
+            <td> {vocab['I am fine.']} </td>
+          </tr>
+          <tr className="single-vocab-row">
+            <th scope="audio"> audio-icon </th>
+            <td> What is your name? </td>
+            <td> {vocab['What is your name?']} </td>
+          </tr>
+          <tr className="single-vocab-row">
+            <th scope="audio"> audio-icon </th>
+            <td> My name is ___. </td>
+            <td> {vocab['My name is ___.']} </td>
+          </tr>
+          <tr className="single-vocab-row">
+            <th scope="audio"> audio-icon </th>
+            <td> Thank you. </td>
+            <td> {vocab['Thank you.']} </td>
+          </tr>
+          <tr className="single-vocab-row">
+            <th scope="audio"> audio-icon </th>
+            <td> Goodbye! </td>
+            <td> {vocab['Goodbye!']} </td>
+          </tr>
         </tbody>
         </table>
       </div>

@@ -97,8 +97,10 @@ const Map = () => {
       })
       setpolygonData(polygonCreator(layers))
     }
+    console.log('starting to load map polygons----')
     fetch('languages')
     //currently fetch call for territories is too large & it doesn't complete in time to setpolygonData
+    console.log('loaded after fetching data----')
   }, [])
 
   //waiting for firebase call to complete
