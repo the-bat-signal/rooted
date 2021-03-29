@@ -2,14 +2,10 @@
   margin: 15;
   padding: 15;
   box-sizing: border-box;
-  background: rgb(22, 12, 12);
-  border-color: rgb(22, 12, 12);
 }
 
 body {
   font-family: sans-serif;
-  background: rgb(22, 12, 12);
-  border-color: rgb(22, 12, 12);
 }
 
 a {
@@ -37,14 +33,6 @@ form div {
   padding: 1px;
 }
 
-/* #popuptext {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 85%;
-} */
-
 #map-controls {
   display: flex;
   flex-direction: column;
@@ -56,8 +44,6 @@ form div {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #160c0c;
-  border-color: rgb(22, 12, 12);
 }
 
 .startPage img {
@@ -78,6 +64,7 @@ form div {
     opacity: 1;
   }
 }
+
 
 #single-language__header {
   display: flex;
