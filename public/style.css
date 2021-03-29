@@ -1,13 +1,15 @@
-* {
+|* {
   margin: 15;
   padding: 15;
   box-sizing: border-box;
-  /* background: rgb(22, 12, 12); */
+  background: rgb(22, 12, 12);
   border-color: rgb(22, 12, 12);
 }
 
 body {
   font-family: sans-serif;
+  background: rgb(22, 12, 12);
+  border-color: rgb(22, 12, 12);
 }
 
 a {
@@ -54,7 +56,8 @@ form div {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-color: rgb(22, 12, 12); */
+  background-color: #160c0c;
+  border-color: rgb(22, 12, 12);
 }
 
 .startPage img {
