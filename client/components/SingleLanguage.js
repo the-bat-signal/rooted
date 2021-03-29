@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {db} from '../../server/firebase'
+import CountUp from 'react-countup';
+// import {db} from '../../server/firebase'
 
 const SingleLanguage = (props) => {
 
@@ -13,7 +14,8 @@ const SingleLanguage = (props) => {
     <div id="single-language">
       <div id="single-language__header">
         <h1> {language.name} </h1>
-        <h4> By learning this language, you are adding to a community of {language.speakers} speakers! </h4>
+        <h4> By learning this language, you are adding to a community of this many speakers!: </h4>
+        <CountUp className="speakersAnimate" start={0} end={language.speakers} duration={2.5} separator="," />
         <div>
           <p id="language-description"> {language.description} </p>
         </div>
