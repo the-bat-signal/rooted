@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import {db} from '../../server/firebase'
+import React from 'react';
 
 const SingleLanguage = (props) => {
 
