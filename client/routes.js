@@ -25,7 +25,9 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={StartPage} />
-        <Route path="/map" component={Map} />
+        <div id="full-map">
+          <Route path="/map" component={Map} />
+        </div>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/singleLanguage" component={SingleLanguage} />
