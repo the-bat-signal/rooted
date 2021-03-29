@@ -10,11 +10,11 @@ import {SolidPolygonLayer} from '@deck.gl/layers'
 import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
-
-const token = require('../../secrets')
+const {mapToken} = require('../../secrets')
 
 //global variables
-const MAPBOX_ACCESS_TOKEN = token
+const MAPBOX_ACCESS_TOKEN = mapToken
+
 
 const INITIAL_VIEW_STATE = {
   longitude: -74.00918185993224,
@@ -133,7 +133,8 @@ const Map = (props) => {
         <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
-          auto={false}
+          auto={true}
+          fitBoundsOptions={{maxZoom: 3}}
         />
       </div>
       <label
