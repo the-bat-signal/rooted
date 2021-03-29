@@ -26,8 +26,8 @@ const SingleLanguage = (props) => {
         <tbody>
           <tr id="column-names-row">
             <th scope="col"> Audio </th>
-            <th scope="col"> {language.name} </th>
             <th scope="col"> English </th>
+            <th scope="col"> {language.name} </th>
           </tr>
           <tr className="single-vocab-row">
             <th scope="audio"> audio-icon </th>
