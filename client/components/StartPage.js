@@ -13,6 +13,7 @@ const startButtonStyle = {
 }
 
 export const StartPage = () => {
+
   return (
     <div className="startPage">
       <img src="/images/icons-512.png" />
