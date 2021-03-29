@@ -87,7 +87,7 @@ const Map = () => {
     return resultsArray
   }
 
-  //useEffect
+  // this is where we grab the data from Firestore to render polygons
   useEffect(() => {
     async function fetch(collectionName) {
       const ref = db.collection(collectionName)
