@@ -4,7 +4,7 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome} from './components'
 import {StartPage} from './components/StartPage'
-import Navbar from './components/navbar'
+import Navbar from './components/Navbar'
 import Map from './components/Map'
 import {me} from './store'
 import SingleLanguage from './components/SingleLanguage'
@@ -25,7 +25,7 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={StartPage} />
-          <Route path="/map" component={Map} />
+        <Route path="/map" component={Map} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/singleLanguage" component={SingleLanguage} />
