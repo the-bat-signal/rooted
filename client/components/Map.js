@@ -146,7 +146,7 @@ const Map = () => {
         <input type="checkbox" />
         <span className="checkmark" />
       </label>
-      {selectAdminLines ? (
+      {/* {selectAdminLines ? (
         <Source
           id="adminLines"
           type="vector"
@@ -163,7 +163,7 @@ const Map = () => {
             }}
           />
         </Source>
-      ) : null}
+      ) : null} */}
     </DeckGL>
   )
 }
