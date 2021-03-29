@@ -13,11 +13,14 @@ export const PopupBox = (props) => {
   useEffect(() => {
     const lang = async () => {
       try {
+        console.log('inside useEffect in PopupBox')
+        console.log('this is props', props)
         const langRef = db.collection('languages')
         const langSnapshot = await langRef.get()
         langSnapshot.forEach((doc) => {
           if (doc.data().name === props.polygonPopupData.layer.id) {
             setLanguage(doc.data())
+            console.log('this is language-----', doc.data())
           }
         })
         // console.log('inside useEffect of PopupBox')
@@ -34,7 +37,7 @@ export const PopupBox = (props) => {
       }
     }
     lang()
-  }, [])
+  }, [props.polygonPopupData])
 
   return (
     <React.Fragment>
