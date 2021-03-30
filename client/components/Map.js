@@ -10,8 +10,7 @@ import {SolidPolygonLayer} from '@deck.gl/layers'
 import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
-
-const token = require('../../secrets')
+const {mapToken} = require('../../secrets')
 
 //global variables
 const MAPBOX_ACCESS_TOKEN = mapToken
