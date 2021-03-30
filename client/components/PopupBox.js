@@ -89,7 +89,7 @@ export const PopupBox = (props) => {
             <p>
               <Link
                 to={{
-                  pathname: '/singleLanguage',
+                  pathname: `${language.name}`,
                   state: {
                     language,
                     vocab,
