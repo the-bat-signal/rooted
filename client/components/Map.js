@@ -5,8 +5,6 @@ import {
   MapContext,
   NavigationControl,
   GeolocateControl,
-  Source,
-  Layer,
 } from 'react-map-gl'
 import {SolidPolygonLayer} from '@deck.gl/layers'
 import {PopupBox} from './PopupBox'
@@ -16,8 +14,9 @@ import {db} from '../../server/firebase'
 const token = require('../../secrets')
 
 //global variables
-const MAPBOX_ACCESS_TOKEN = token
-40.70532791050518, -74.00918185993224
+const MAPBOX_ACCESS_TOKEN = mapToken
+
+
 const INITIAL_VIEW_STATE = {
   longitude: -74.00918185993224,
   latitude: 40.70532791050518,
@@ -31,22 +30,20 @@ const MAP_STYLE_BASIC = styleBasic;
 const MAP_STYLE_ADMIN = styleAdmin
 
 //Map Component
-const Map = () => {
+const Map = (props) => {
   // useState
   const [clickInfo, setClickInfo] = useState()
   const [selectAdminLines, setAdminLines] = useState(false)
-  // const [coordinates, setCoordinates] = useState()
   const [polygonData, setpolygonData] = useState()
   const [showPopup, togglePopup] = useState(false)
 
   //helper variables
   let layers = []
+
   const colorArray = [
     [190, 231, 176],
     [50, 147, 111],
     [122, 132, 80],
-    // [192, 133, 82],
-    // [137, 87, 55],
     [62, 25, 41],
     [255, 112, 115],
     [245, 192, 0],
@@ -54,12 +51,17 @@ const Map = () => {
   ]
 
   // helper functions
-  const coordinateMaker = (coordinates) => {
-    const initialFormat = coordinates.map((coordinate) => {
+  function coordinateMaker(coordinates) {
+    if (coordinates) {
+       const initialFormat = coordinates.map((coordinate) => {
       return [coordinate._long, coordinate._lat, 0]
     })
-
     return [{polygon: initialFormat}]
+    } else {
+      coordinates = [{polygon: [[-106.787109, 52.509535, 0],
+      [-107.314453, 52.402419, 0],
+      [-107.62207, 52.05249, 0],]}]
+    }
   }
 
   const colorPicker = (array) => {
@@ -68,17 +70,18 @@ const Map = () => {
   }
   const polygonCreator = (docArray) => {
     let resultsArray = []
+    // currently rendering only 'pickable' polygons - THANKS DECK.GL
     for (let i = 0; i < docArray.length; i++) {
       resultsArray.push(
         new SolidPolygonLayer({
           id: docArray[i].name,
           data: coordinateMaker(docArray[i].coordinates),
-          opacity: 0.5,
+          // opacity for clickables different than non-clickables
+          opacity: i <= 256 ? 0.9 : 0.1,
           getFillColor: colorPicker(colorArray),
           getPolygon: (d) => d.polygon,
           pickable: true,
           onClick: (info) => {
-            // console.log('this is info inside onClick of polygonCreator', info)
             setClickInfo(info)
             togglePopup(true)
           },
@@ -88,7 +91,7 @@ const Map = () => {
     return resultsArray
   }
 
-  //useEffect
+  // this is where we grab the data from Firestore to render polygons
   useEffect(() => {
     async function fetch(collectionName) {
       const ref = db.collection(collectionName)
@@ -98,10 +101,7 @@ const Map = () => {
       })
       setpolygonData(polygonCreator(layers))
     }
-    console.log('starting to load map polygons----')
-    fetch('languages')
-    //currently fetch call for territories is too large & it doesn't complete in time to setpolygonData
-    console.log('loaded after fetching data----')
+    fetch('languagesMap')
   }, [])
 
   //waiting for firebase call to complete
@@ -136,7 +136,8 @@ const Map = () => {
         <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
-          auto={false}
+          auto={true}
+          fitBoundsOptions={{maxZoom: 3}}
         />
       </div>
       <label
@@ -149,51 +150,9 @@ const Map = () => {
         <input type="checkbox" />
         <span className="checkmark" />
       </label>
-      {/* {selectAdminLines ? (
-        <Source
-          id="adminLines"
-          type="vector"
-          url="mapbox://mapbox.mapbox-streets-v8"
-        >
-          <Layer
-            id="adminLines"
-            type="line"
-            source="admin-1"
-            source-layer="admin"
-            paint={{
-              'line-color': '#CAB69E',
-              'line-width': 0.75,
-            }}
-          />
-        </Source>
-      ) : null} */}
     </DeckGL>
     </div>
   )
 }
 
 export default Map
-
-// const [viewport, setViewport] = useState({
-//   latitude: 44.952261122619916,
-//   longitude: -93.29339647810357,
-//   width: '100wh',
-//   height: '100vh',
-//   zoom: 2
-// })
-
-// this creates a solid polygon layer that will render on top of the map
-//  let layerData = coordinateMaker(coordinates)
-//   const solidPolygonLayer = [
-//     new SolidPolygonLayer({
-//     id: 'solid-polygon',
-//     data: layerData,
-//     opacity: 0.5,
-//     getPolygon: d => d.polygon,
-//     getFillColor: [50, 147, 111],
-//     extruded: false,
-//     pickable: true,
-//     onClick: (info) => setClickInfo(info)
-//   })
-// ];
-
