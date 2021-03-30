@@ -108,11 +108,13 @@ const Map = (props) => {
     return <h1>Loading...</h1>
   }
   return (
+    <div id='mapContainer'>
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
       ContextProvider={MapContext.Provider}
       layers={polygonData}
+      // height='80%'
     >
       {showPopup && clickInfo && (
         <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
@@ -148,6 +150,7 @@ const Map = (props) => {
         <span className="checkmark" />
       </label>
     </DeckGL>
+    </div>
   )
 }
 
