@@ -115,8 +115,7 @@ const Map = () => {
       controller={true}
       ContextProvider={MapContext.Provider}
       layers={polygonData}
-      // width='80%'
-      height='80%'
+      // height='80%'
     >
       {showPopup && clickInfo && (
         <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />

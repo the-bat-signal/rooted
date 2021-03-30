@@ -145,14 +145,6 @@ form div {
     background-color: #32936f1d
     }
 
-   /* tr:nth-child(even) {
-    background-color: lightpink;
-    }
-
-    th {
-       background-color: lightseagreen;
-    } */
-
 
 #mapContainer {
   justify-content: center;
@@ -160,6 +152,6 @@ form div {
 
 }
 
-#view-default-view {
+/* #view-default-view {
   position: absolute; left: 50px; top: 50px;
-}
+} */
