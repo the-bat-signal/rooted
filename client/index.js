@@ -5,6 +5,9 @@ import {Router} from 'react-router-dom'
 import history from './history'
 import store from './store'
 import App from './app'
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import '../public/custom.scss';
+
 
 // establishes socket connection
 import './socket'

@@ -1,3 +1,7 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
 |* {
   margin: 15;
   padding: 15;
@@ -5,7 +9,7 @@
 }
 
 body {
-  font-family: sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 a {
@@ -28,9 +32,36 @@ form div {
 
 .poppy {
   margin: auto;
-  /* background: rgb(255, 255, 255); */
+  /* background: rgb(165, 28, 28); */
   width: 35%;
-  padding: 1px;
+  /* height: 35%; */
+  padding: 8px;
+  /* box-shadow: 1px 1px 3px grey; */
+}
+
+#popuptext {
+  padding: 10px;
+
+}
+
+#popuptext h2 {
+  font-size: 15px;
+  font-weight: 800
+
+}
+
+#popupHeader {
+  font-size: 30px
+}
+
+#popuptext i {
+  font-size: 14px
+
+}
+
+#landAck {
+  color: #32936f;
+  font-size: 15px
 }
 
 #map-controls {
@@ -65,6 +96,19 @@ form div {
   }
 }
 
+#single-language {
+  margin: 75px
+
+}
+
+#singleLangName {
+  font-weight: 700;
+  font-size: 80px
+}
+
+#singleLangSubhead {
+  font-size: 40px
+}
 
 #single-language__header {
   display: flex;
@@ -85,6 +129,26 @@ form div {
   padding: 25;
 }
 
-.speakersAnimate {
-  font-size: 30px
+.counterContainer {
+  background-color: pink;
+  justify-content: center;
+
 }
+
+.speakersAnimate {
+  font-size: 50px;
+
+}
+
+
+   tr:nth-child(odd) {
+    background-color: #32936f1d
+    }
+
+   /* tr:nth-child(even) {
+    background-color: lightpink;
+    }
+
+    th {
+       background-color: lightseagreen;
+    } */
