@@ -50,12 +50,13 @@ export const PopupBox = (props) => {
           tipSize={20}
         >
           <div id="popuptext">
-            <h3>
+            <h3 id="popupHeader">
               {' '}
               {vocab['Hello!']} The language spoken in this region is{' '}
               {language.name}{' '}
             </h3>
-            <h3> LAND ACKNOWLEDGEMENT </h3>
+            <br />
+            <h2><b> LAND ACKNOWLEDGEMENT </b></h2>
             <p>
               <i>
                 {' '}
@@ -73,18 +74,18 @@ export const PopupBox = (props) => {
                 A sample land acknowledgement for this territory could be:{' '}
               </i>
             </p>
-              <h3>
-                <b>
+              <h3 id='landAck'>
                   {' '}
                   "{vocab['Hello!']} I would like to acknowledge that we are on
-                  the traditional, ancestral territory of the {language.name}-speaking people. {vocab['Thank you.']}{' '}
-                </b>
+                  the traditional, ancestral territory of the {language.name}-speaking people. {vocab['Thank you.']}"
+                  <br />
               </h3>
-            <h3> CURRENT NATIONS </h3>
+              <br/>
+            <h2> <b>CURRENT NATIONS </b></h2>
             {/* <p><a href>Nation 1</a></p>
             <p><a href>Nation 2</a></p>
             <p><a href>Nation 3</a></p> */}
-            <h3> LANGUAGES IN SELECTED AREA </h3>
+            <h2><b> LANGUAGES IN SELECTED AREA </b></h2>
             <p>
               <Link
                 to={{
