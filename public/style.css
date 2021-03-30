@@ -152,3 +152,14 @@ form div {
     th {
        background-color: lightseagreen;
     } */
+
+
+#mapContainer {
+  justify-content: center;
+  display: flex
+
+}
+
+#view-default-view {
+  position: absolute; left: 50px; top: 50px;
+}

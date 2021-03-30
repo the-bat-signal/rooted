@@ -12,6 +12,7 @@ import {SolidPolygonLayer} from '@deck.gl/layers'
 import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
+
 const token = require('../../secrets')
 
 //global variables
@@ -108,11 +109,14 @@ const Map = () => {
     return <h1>Loading...</h1>
   }
   return (
+    <div id='mapContainer'>
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
       ContextProvider={MapContext.Provider}
       layers={polygonData}
+      // width='80%'
+      height='80%'
     >
       {showPopup && clickInfo && (
         <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
@@ -165,6 +169,7 @@ const Map = () => {
         </Source>
       ) : null} */}
     </DeckGL>
+    </div>
   )
 }
 
