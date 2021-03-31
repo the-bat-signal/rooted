@@ -4,8 +4,6 @@ import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import '../../public/src';
 import {IoPlayCircle} from 'react-icons/io5'
-
-
 // import {db} from '../../server/firebase'
 
 const SingleLanguage = (props) => {
@@ -74,6 +72,9 @@ const SingleLanguage = (props) => {
         </tbody>
         </Table>
         <p> Here are some more useful links, including resources for further language-learning and links to current nations/communities to whom this language belongs: </p>
+        <ul>
+          <li>{console.log('are links here inside this?', language)}</li>
+        </ul>
         {/* <Table striped bordered hover>
           <thead>
             <tr>

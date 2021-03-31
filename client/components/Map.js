@@ -181,7 +181,7 @@ const Map = (props) => {
         <NavigationControl
         style={navControlStyle}
         />
-          
+
         {/* <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
