@@ -28,7 +28,7 @@ const navControlStyle = {
 const Map = (props) => {
   // useState
   const [clickInfo, setClickInfo] = useState()
-  // const [selectAdminLines, setAdminLines] = useState()
+  const [selectAdminLines, setAdminLines] = useState()
   const [polygonData, setpolygonData] = useState()
   const [showPopup, togglePopup] = useState(false)
   const [viewport, setViewport] = useState({
@@ -39,8 +39,8 @@ const Map = (props) => {
   pitch: 0,
 })
   const [viewstate, setViewstate] = useState()
-  //localStorage:
-  const adminLines = JSON.parse(localStorage.getItem('adminLines'));
+
+
 
   let layers = []
 
@@ -101,7 +101,7 @@ const Map = (props) => {
   useEffect(() => {
     async function fetch(collectionName) {
       const ref = db.collection(collectionName)
-       const snapshot = await ref.get({source: 'cache'})
+      const snapshot = await ref.get({source: 'server'})
       snapshot.forEach((doc) => {
         layers.push(doc.data())
       })
@@ -110,15 +110,15 @@ const Map = (props) => {
       setpolygonData(polygonCreator(layers))
     }
     fetch('languages')
-  }, [localStorage])
+  }, [])
 
-  useEffect( () =>
-    console.log(viewstate)
+  useEffect(() => {
+    const adminLines = JSON.parse(localStorage.getItem('adminLines'));
+    setAdminLines(adminLines)
+    console.log('adminLines from useEffect------', adminLines)
+
+  }
   )
-  //waiting for firebase call to complete
-  // useEffect( () =>
-  //   console.log(viewstate)
-  // )
   //waiting for firebase call to complete
   if (!polygonData) {
     return (
@@ -162,12 +162,11 @@ const Map = (props) => {
       controller={true}
       ContextProvider={MapContext.Provider}
       layers={polygonData}
-
     >
       {showPopup && clickInfo && (
         <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
       )}
-      {adminLines === false ? (
+      {selectAdminLines ? (
         <StaticMap
           mapStyle={MAP_STYLE_ADMIN}
           mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
@@ -197,21 +196,23 @@ const Map = (props) => {
       </div>
       <label
         onClick={() => {
-          // setAdminLines(!selectAdminLines)
-          console.log('hiiiii! admineLines', adminLines)
+          const adminLines = JSON.parse(localStorage.getItem('adminLines'));
 
-          if (adminLines === null || adminLines === false) {
+          if (!adminLines) {
             localStorage.setItem('adminLines', "true")
+            setAdminLines(true)
           } else {
             localStorage.setItem('adminLines', "false")
+            setAdminLines(false)
+
           }
-          console.log('this is local storage admin lines after click---', adminLines)
-          // localStorage.setItem("adminLines", "true");
+          console.log('this is local storage admin lines after click---', localStorage.getItem('adminLines'))
         }}
         className="adminContainer"
       >
         Admin Lines
-        <input type="checkbox" />
+        {selectAdminLines ? <input type="checkbox" checked="checked" /> : <input type="checkbox" />}
+
         <span className="checkmark" />
       </label>
     </DeckGL>

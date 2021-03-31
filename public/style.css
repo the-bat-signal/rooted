@@ -174,7 +174,8 @@ background-color: #32936f1d
 
 
 #mapContainer {
-  justify-content: center;
+  justify-content: right;
+  align-items: right;
   display: flex
 
 }
@@ -189,9 +190,18 @@ background-color: #32936f1d
 #loading-text {
   display: flex;
   justify-content: center;
-  align-: center;
+  align-items: center;
 }
 
-/* #view-default-view {
-  position: absolute; left: 50px; top: 50px;
-} */
+#view-default-view {
+  /* position: absolute; left: 50px; top: 50px; */
+  display: flex;
+  justify-content: space-between
+}
+
+.adminContainer {
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  margin: 50px
+}
