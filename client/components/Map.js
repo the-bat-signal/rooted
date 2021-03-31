@@ -10,7 +10,9 @@ import {SolidPolygonLayer} from '@deck.gl/layers'
 import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
+import * as mdb from 'mdb-ui-kit';
 const {mapToken} = require('../../secrets')
+
 
 //global variables
 const MAPBOX_ACCESS_TOKEN = mapToken
@@ -111,9 +113,37 @@ const Map = (props) => {
       console.log(viewstate)
     )
   //waiting for firebase call to complete
-  // if (!polygonData) {
-  //   return <h1>Loading...</h1>
-  // }
+  if (!polygonData) {
+    return (
+      <div id="loader-container">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+      <div class="spinner-border text-secondary" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+      <div class="spinner-border text-success" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+      <div class="spinner-border text-danger" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+      <div class="spinner-border text-warning" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+      <div class="spinner-border text-info" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+      <div class="spinner-border text-light" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+      <div class="spinner-border text-dark" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+      <h1>Loading...</h1>
+    </div>
+    )
+  }
   return (
     <div id='mapContainer'>
     <DeckGL

@@ -13,9 +13,6 @@ const SingleLanguage = (props) => {
   const language = props.location.state.language
   const vocab = props.location.state.vocab
 
-  console.log('this is vocab-----', vocab)
-  console.log('this is language------', language)
-
   return (
     <div id="single-language">
       <div id="single-language__header">
@@ -76,6 +73,7 @@ const SingleLanguage = (props) => {
           </tr>
         </tbody>
         </Table>
+        <p> Here are some more useful links, including resources for further language-learning and links to current nations/communities to whom this language belongs: </p>
         {/* <Table striped bordered hover>
           <thead>
             <tr>
