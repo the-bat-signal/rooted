@@ -10,23 +10,20 @@ import {SolidPolygonLayer} from '@deck.gl/layers'
 import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
-const {mapToken} = require('../../secrets')
+const {MAPTOKEN} = require('../../secrets')
 
 //global variables
-const MAPBOX_ACCESS_TOKEN = mapToken
+const MAPBOX_ACCESS_TOKEN = MAPTOKEN
 
 
-const INITIAL_VIEW_STATE = {
-  longitude: -74.00918185993224,
-  latitude: 40.70532791050518,
-  zoom: 3,
-  pitch: 0,
-  bearing: 0,
-}
+
 
 // MAP_STYLES
 const MAP_STYLE_BASIC = styleBasic;
 const MAP_STYLE_ADMIN = styleAdmin
+const navControlStyle = {
+  top: 35
+}
 
 //Map Component
 const Map = (props) => {
@@ -35,8 +32,15 @@ const Map = (props) => {
   const [selectAdminLines, setAdminLines] = useState(false)
   const [polygonData, setpolygonData] = useState()
   const [showPopup, togglePopup] = useState(false)
+  const [viewport, setViewport] = useState({
+  longitude: -74.00918185993224,
+  latitude: 40.70532791050518,
+  zoom: 8,
+  bearing: 0,
+  pitch: 0,
+})
+  const [viewstate, setViewstate] = useState()
 
-  //helper variables
   let layers = []
 
   const colorArray = [
@@ -61,6 +65,7 @@ const Map = (props) => {
       [-107.314453, 52.402419, 0],
       [-107.62207, 52.05249, 0],]}]
     }
+
   }
 
   const colorPicker = (array) => {
@@ -94,27 +99,29 @@ const Map = (props) => {
   useEffect(() => {
     async function fetch(collectionName) {
       const ref = db.collection(collectionName)
-      const snapshot = await ref.get()
+      const snapshot = await ref.get({source: 'cache'})
       snapshot.forEach((doc) => {
         layers.push(doc.data())
       })
+       var source = snapshot.metadata.fromCache ? "local cache" : "server";
+          console.log("Data came from " + source);
       setpolygonData(polygonCreator(layers))
     }
     fetch('languagesMap')
+
   }, [])
 
-  //waiting for firebase call to complete
+  // waiting for firebase call to complete
   if (!polygonData) {
     return <h1>Loading...</h1>
   }
   return (
     <div id='mapContainer'>
     <DeckGL
-      initialViewState={INITIAL_VIEW_STATE}
+      initialViewState={viewport}
       controller={true}
       ContextProvider={MapContext.Provider}
       layers={polygonData}
-      // height='80%'
     >
       {showPopup && clickInfo && (
         <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
@@ -131,12 +138,20 @@ const Map = (props) => {
         />
       )}
       <div id="map-controls">
-        <NavigationControl />
+        <NavigationControl
+        style={navControlStyle}
+        />
         <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
           auto={true}
-          fitBoundsOptions={{maxZoom: 3}}
+          fitBoundsOptions={{maxZoom: 10}}
+          onGeolocate={(pos) => {
+          setViewstate({
+            longitude: pos.coords.longitude,
+            latitude: pos.coords.latitude,
+          })
+        }}
         />
       </div>
       <label
