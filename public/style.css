@@ -152,6 +152,13 @@ form div {
 
 }
 
+#loader-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+
 /* #view-default-view {
   position: absolute; left: 50px; top: 50px;
 } */

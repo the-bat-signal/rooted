@@ -81,6 +81,7 @@ export const PopupBox = (props) => {
                   <br />
               </h3>
               <br/>
+            {/* only conditionally render the Current Nations if there are links to the current nations in the databse for this language */}
             <h2> <b>CURRENT NATIONS </b></h2>
             {/* <p><a href>Nation 1</a></p>
             <p><a href>Nation 2</a></p>
