@@ -11,11 +11,11 @@ import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
 import * as mdb from 'mdb-ui-kit';
-const {mapToken} = require('../../secrets')
+const {MAPTOKEN} = require('../../secrets')
 
 
 //global variables
-const MAPBOX_ACCESS_TOKEN = mapToken
+const MAPBOX_ACCESS_TOKEN = MAPTOKEN
 
 // MAP_STYLES
 const MAP_STYLE_BASIC = styleBasic;
@@ -101,10 +101,12 @@ const Map = (props) => {
   useEffect(() => {
     async function fetch(collectionName) {
       const ref = db.collection(collectionName)
-      const snapshot = await ref.get()
+       const snapshot = await ref.get({source: 'cache'})
       snapshot.forEach((doc) => {
         layers.push(doc.data())
       })
+      var source = snapshot.metadata.fromCache ? "local cache" : "server";
+          console.log("Data came from " + source);
       setpolygonData(polygonCreator(layers))
     }
     fetch('languages')
@@ -114,8 +116,11 @@ const Map = (props) => {
     console.log(viewstate)
   )
   //waiting for firebase call to complete
+  // useEffect( () =>
+  //   console.log(viewstate)
+  // )
+  //waiting for firebase call to complete
   if (!polygonData) {
-<<<<<<< HEAD
     return (
       <div id="loader-container">
         <div id="loading-animations">
@@ -149,9 +154,6 @@ const Map = (props) => {
         </div>
       </div>
     )
-=======
-    return <h1>Loading...</h1>
->>>>>>> mapToggles
   }
   return (
     <div id='mapContainer'>
@@ -160,7 +162,7 @@ const Map = (props) => {
       controller={true}
       ContextProvider={MapContext.Provider}
       layers={polygonData}
-      // height='80%'
+
     >
       {showPopup && clickInfo && (
         <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
@@ -203,8 +205,6 @@ const Map = (props) => {
           } else {
             localStorage.setItem('adminLines', "false")
           }
-
-
           console.log('this is local storage admin lines after click---', adminLines)
           // localStorage.setItem("adminLines", "true");
         }}

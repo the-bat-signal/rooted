@@ -1,8 +1,8 @@
 import firebase from 'firebase'
-const {firebaseAPI} = require('../secrets')
+const {FIREBASE_API} = require('../secrets')
 
 const firebaseApp = firebase.initializeApp({
-  apiKey: firebaseAPI,
+  apiKey: FIREBASE_API,
   authDomain: 'rooted-4da8a.firebaseapp.com',
   databaseURL: 'https://rooted-4da8a-default-rtdb.firebaseio.com',
   projectId: 'rooted-4da8a',
@@ -11,5 +11,9 @@ const firebaseApp = firebase.initializeApp({
 })
 
 const db = firebaseApp.firestore()
+db.settings({
+  cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED
+})
+db.enablePersistence()
 export {db}
 // module.exports = {db}
