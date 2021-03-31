@@ -27,7 +27,7 @@ const navControlStyle = {
 const Map = (props) => {
   // useState
   const [clickInfo, setClickInfo] = useState()
-  // const [selectAdminLines, setAdminLines] = useState()
+  const [selectAdminLines, setAdminLines] = useState()
   const [polygonData, setpolygonData] = useState()
   const [showPopup, togglePopup] = useState(false)
   const [viewport, setViewport] = useState({
@@ -38,8 +38,6 @@ const Map = (props) => {
     pitch: 0,
   })
   const [viewstate, setViewstate] = useState()
-  //localStorage:
-  const adminLines = JSON.parse(localStorage.getItem('adminLines'))
 
   let layers = []
 
@@ -114,10 +112,13 @@ const Map = (props) => {
       setpolygonData(polygonCreator(layers))
     }
     fetch('languages')
-  }, [localStorage])
+  }, [])
 
-  useEffect(() => console.log(polygonData))
-
+  useEffect(() => {
+    const adminLines = JSON.parse(localStorage.getItem('adminLines'));
+    setAdminLines(adminLines)
+    console.log('adminLines from useEffect------', adminLines)
+  })
   //waiting for firebase call to complete
   if (!polygonData) {
     return (
@@ -155,30 +156,33 @@ const Map = (props) => {
     )
   }
   return (
-    <div id="mapContainer">
-      <DeckGL
-        initialViewState={viewport}
-        controller={true}
-        ContextProvider={MapContext.Provider}
-        layers={polygonData}
-      >
-        {showPopup && clickInfo && (
-          <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
-        )}
-        {adminLines === false ? (
-          <StaticMap
-            mapStyle={MAP_STYLE_ADMIN}
-            mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-          />
-        ) : (
-          <StaticMap
-            mapStyle={MAP_STYLE_BASIC}
-            mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-          />
-        )}
-        <div id="map-controls">
-          <NavigationControl style={navControlStyle} />
-          {/* <GeolocateControl
+    <div id='mapContainer'>
+    <DeckGL
+      initialViewState={viewport}
+      controller={true}
+      ContextProvider={MapContext.Provider}
+      layers={polygonData}
+    >
+      {showPopup && clickInfo && (
+        <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
+      )}
+      {selectAdminLines ? (
+        <StaticMap
+          mapStyle={MAP_STYLE_ADMIN}
+          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+        />
+      ) : (
+        <StaticMap
+          mapStyle={MAP_STYLE_BASIC}
+          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+        />
+      )}
+      <div id="map-controls">
+        <NavigationControl
+        style={navControlStyle}
+        />
+          
+        {/* <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
           auto={true}
@@ -190,30 +194,29 @@ const Map = (props) => {
           })
         }}
         /> */}
-        </div>
-        <label
-          onClick={() => {
-            // setAdminLines(!selectAdminLines)
-            console.log('hiiiii! admineLines', adminLines)
 
-            if (adminLines === null || adminLines === false) {
-              localStorage.setItem('adminLines', 'true')
-            } else {
-              localStorage.setItem('adminLines', 'false')
-            }
-            console.log(
-              'this is local storage admin lines after click---',
-              adminLines
-            )
-            // localStorage.setItem("adminLines", "true");
-          }}
-          className="adminContainer"
-        >
-          Admin Lines
-          <input type="checkbox" />
-          <span className="checkmark" />
-        </label>
-      </DeckGL>
+      </div>
+      <label
+        onClick={() => {
+          const adminLines = JSON.parse(localStorage.getItem('adminLines'));
+
+          if (!adminLines) {
+            localStorage.setItem('adminLines', "true")
+            setAdminLines(true)
+          } else {
+            localStorage.setItem('adminLines', "false")
+            setAdminLines(false)
+
+          }
+          console.log('this is local storage admin lines after click---', localStorage.getItem('adminLines'))
+        }}
+        className="adminContainer"
+      >
+        Admin Lines
+        {selectAdminLines ? <input type="checkbox" checked="checked" /> : <input type="checkbox" />}
+        <span className="checkmark" />
+      </label>
+    </DeckGL>
     </div>
   )
 }
