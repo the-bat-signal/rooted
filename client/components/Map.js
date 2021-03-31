@@ -28,7 +28,7 @@ const navControlStyle = {
 const Map = (props) => {
   // useState
   const [clickInfo, setClickInfo] = useState()
-  const [selectAdminLines, setAdminLines] = useState(false)
+  // const [selectAdminLines, setAdminLines] = useState()
   const [polygonData, setpolygonData] = useState()
   const [showPopup, togglePopup] = useState(false)
   const [viewport, setViewport] = useState({
@@ -39,6 +39,8 @@ const Map = (props) => {
   pitch: 0,
 })
   const [viewstate, setViewstate] = useState()
+  //localStorage:
+  const adminLines = JSON.parse(localStorage.getItem('adminLines'));
 
   let layers = []
 
@@ -87,6 +89,7 @@ const Map = (props) => {
           onClick: (info) => {
             setClickInfo(info)
             togglePopup(true)
+            // setAdminLines(selectAdminLines)
           },
         })
       )
@@ -95,22 +98,24 @@ const Map = (props) => {
   }
 
   // this is where we grab the data from Firestore to render polygons
-  // useEffect(() => {
-  //   async function fetch(collectionName) {
-  //     const ref = db.collection(collectionName)
-  //     const snapshot = await ref.get()
-  //     snapshot.forEach((doc) => {
-  //       layers.push(doc.data())
-  //     })
-  //     setpolygonData(polygonCreator(layers))
-  //   }
-  //   fetch('languagesMap')
-  // }, [])
-    useEffect( () =>
-      console.log(viewstate)
-    )
+  useEffect(() => {
+    async function fetch(collectionName) {
+      const ref = db.collection(collectionName)
+      const snapshot = await ref.get()
+      snapshot.forEach((doc) => {
+        layers.push(doc.data())
+      })
+      setpolygonData(polygonCreator(layers))
+    }
+    fetch('languages')
+  }, [localStorage])
+
+  useEffect( () =>
+    console.log(viewstate)
+  )
   //waiting for firebase call to complete
   if (!polygonData) {
+<<<<<<< HEAD
     return (
       <div id="loader-container">
         <div id="loading-animations">
@@ -144,6 +149,9 @@ const Map = (props) => {
         </div>
       </div>
     )
+=======
+    return <h1>Loading...</h1>
+>>>>>>> mapToggles
   }
   return (
     <div id='mapContainer'>
@@ -151,13 +159,13 @@ const Map = (props) => {
       initialViewState={viewport}
       controller={true}
       ContextProvider={MapContext.Provider}
-      // layers={polygonData}
+      layers={polygonData}
       // height='80%'
     >
       {showPopup && clickInfo && (
         <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
       )}
-      {selectAdminLines ? (
+      {adminLines === false ? (
         <StaticMap
           mapStyle={MAP_STYLE_ADMIN}
           mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
@@ -172,7 +180,7 @@ const Map = (props) => {
         <NavigationControl
         style={navControlStyle}
         />
-        <GeolocateControl
+        {/* <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
           auto={true}
@@ -183,11 +191,22 @@ const Map = (props) => {
             latitude: pos.coords.latitude,
           })
         }}
-        />
+        /> */}
       </div>
       <label
         onClick={() => {
-          setAdminLines(!selectAdminLines)
+          // setAdminLines(!selectAdminLines)
+          console.log('hiiiii! admineLines', adminLines)
+
+          if (adminLines === null || adminLines === false) {
+            localStorage.setItem('adminLines', "true")
+          } else {
+            localStorage.setItem('adminLines', "false")
+          }
+
+
+          console.log('this is local storage admin lines after click---', adminLines)
+          // localStorage.setItem("adminLines", "true");
         }}
         className="adminContainer"
       >

@@ -11,6 +11,7 @@ export const PopupBox = (props) => {
 
   // remove async await
   useEffect(() => {
+    console.log('props from popup---------', props)
     const lang = async () => {
       try {
         const langRef = db.collection('languages')
@@ -28,7 +29,8 @@ export const PopupBox = (props) => {
             setVocab(doc.data())
             // console.log('this is doc.id', doc.id)
           }
-        })
+        });
+        // props.setAdminLines(!!props.selectAdminLines)
       } catch (err) {
         console.log('error in PopupBox call-----', err)
       }
@@ -46,6 +48,8 @@ export const PopupBox = (props) => {
           className="poppy"
           onClose={() => {
             props.togglePopup(false)
+            // props.setAdminLines(!!props.selectAdminLines)
+
           }}
           tipSize={20}
         >
