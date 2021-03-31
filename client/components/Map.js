@@ -10,13 +10,12 @@ import {SolidPolygonLayer} from '@deck.gl/layers'
 import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
+import * as mdb from 'mdb-ui-kit';
 const {MAPTOKEN} = require('../../secrets')
+
 
 //global variables
 const MAPBOX_ACCESS_TOKEN = MAPTOKEN
-
-
-
 
 // MAP_STYLES
 const MAP_STYLE_BASIC = styleBasic;
@@ -29,7 +28,7 @@ const navControlStyle = {
 const Map = (props) => {
   // useState
   const [clickInfo, setClickInfo] = useState()
-  const [selectAdminLines, setAdminLines] = useState(false)
+  // const [selectAdminLines, setAdminLines] = useState()
   const [polygonData, setpolygonData] = useState()
   const [showPopup, togglePopup] = useState(false)
   const [viewport, setViewport] = useState({
@@ -40,6 +39,8 @@ const Map = (props) => {
   pitch: 0,
 })
   const [viewstate, setViewstate] = useState()
+  //localStorage:
+  const adminLines = JSON.parse(localStorage.getItem('adminLines'));
 
   let layers = []
 
@@ -88,6 +89,7 @@ const Map = (props) => {
           onClick: (info) => {
             setClickInfo(info)
             togglePopup(true)
+            // setAdminLines(selectAdminLines)
           },
         })
       )
@@ -99,21 +101,55 @@ const Map = (props) => {
   useEffect(() => {
     async function fetch(collectionName) {
       const ref = db.collection(collectionName)
-      const snapshot = await ref.get({source: 'cache'})
+       const snapshot = await ref.get({source: 'cache'})
       snapshot.forEach((doc) => {
         layers.push(doc.data())
       })
-       var source = snapshot.metadata.fromCache ? "local cache" : "server";
+      var source = snapshot.metadata.fromCache ? "local cache" : "server";
           console.log("Data came from " + source);
       setpolygonData(polygonCreator(layers))
     }
     fetch('languagesMap')
+  }, [localStorage])
 
-  }, [])
-
-  // waiting for firebase call to complete
+  // useEffect( () =>
+  //   console.log(viewstate)
+  // )
+  //waiting for firebase call to complete
   if (!polygonData) {
-    return <h1>Loading...</h1>
+    return (
+      <div id="loader-container">
+        <div id="loading-animations">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-border text-danger" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-border text-info" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-border text-dark" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+        </div>
+        <div id="loading-text">
+          <h1>Loading...</h1>
+        </div>
+      </div>
+    )
   }
   return (
     <div id='mapContainer'>
@@ -122,11 +158,12 @@ const Map = (props) => {
       controller={true}
       ContextProvider={MapContext.Provider}
       layers={polygonData}
+
     >
       {showPopup && clickInfo && (
         <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
       )}
-      {selectAdminLines ? (
+      {adminLines === false ? (
         <StaticMap
           mapStyle={MAP_STYLE_ADMIN}
           mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
@@ -141,7 +178,7 @@ const Map = (props) => {
         <NavigationControl
         style={navControlStyle}
         />
-        <GeolocateControl
+        {/* <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
           auto={true}
@@ -152,11 +189,22 @@ const Map = (props) => {
             latitude: pos.coords.latitude,
           })
         }}
-        />
+        /> */}
       </div>
       <label
         onClick={() => {
-          setAdminLines(!selectAdminLines)
+          // setAdminLines(!selectAdminLines)
+          console.log('hiiiii! admineLines', adminLines)
+
+          if (adminLines === null || adminLines === false) {
+            localStorage.setItem('adminLines', "true")
+          } else {
+            localStorage.setItem('adminLines', "false")
+          }
+
+
+          console.log('this is local storage admin lines after click---', adminLines)
+          // localStorage.setItem("adminLines", "true");
         }}
         className="adminContainer"
       >
