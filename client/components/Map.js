@@ -10,18 +10,17 @@ import {SolidPolygonLayer} from '@deck.gl/layers'
 import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
-import * as mdb from 'mdb-ui-kit';
+import * as mdb from 'mdb-ui-kit'
 const {MAPTOKEN} = require('../../secrets')
-
 
 //global variables
 const MAPBOX_ACCESS_TOKEN = MAPTOKEN
 
 // MAP_STYLES
-const MAP_STYLE_BASIC = styleBasic;
+const MAP_STYLE_BASIC = styleBasic
 const MAP_STYLE_ADMIN = styleAdmin
 const navControlStyle = {
-  top: 35
+  top: 35,
 }
 
 //Map Component
@@ -32,15 +31,13 @@ const Map = (props) => {
   const [polygonData, setpolygonData] = useState()
   const [showPopup, togglePopup] = useState(false)
   const [viewport, setViewport] = useState({
-  longitude: -74.00918185993224,
-  latitude: 40.70532791050518,
-  zoom: 8,
-  bearing: 0,
-  pitch: 0,
-})
+    longitude: -74.00918185993224,
+    latitude: 40.70532791050518,
+    zoom: 8,
+    bearing: 0,
+    pitch: 0,
+  })
   const [viewstate, setViewstate] = useState()
-
-
 
   let layers = []
 
@@ -57,16 +54,21 @@ const Map = (props) => {
   // helper functions
   function coordinateMaker(coordinates) {
     if (coordinates) {
-       const initialFormat = coordinates.map((coordinate) => {
-      return [coordinate._long, coordinate._lat, 0]
-    })
-    return [{polygon: initialFormat}]
+      const initialFormat = coordinates.map((coordinate) => {
+        return [coordinate._long, coordinate._lat, 0]
+      })
+      return [{polygon: initialFormat}]
     } else {
-      coordinates = [{polygon: [[-106.787109, 52.509535, 0],
-      [-107.314453, 52.402419, 0],
-      [-107.62207, 52.05249, 0],]}]
+      coordinates = [
+        {
+          polygon: [
+            [-106.787109, 52.509535, 0],
+            [-107.314453, 52.402419, 0],
+            [-107.62207, 52.05249, 0],
+          ],
+        },
+      ]
     }
-
   }
 
   const colorPicker = (array) => {
@@ -105,8 +107,8 @@ const Map = (props) => {
       snapshot.forEach((doc) => {
         layers.push(doc.data())
       })
-      var source = snapshot.metadata.fromCache ? "local cache" : "server";
-          console.log("Data came from " + source);
+      var source = snapshot.metadata.fromCache ? 'local cache' : 'server'
+      console.log('Data came from ' + source)
       setpolygonData(polygonCreator(layers))
     }
     fetch('languages')
@@ -116,9 +118,7 @@ const Map = (props) => {
     const adminLines = JSON.parse(localStorage.getItem('adminLines'));
     setAdminLines(adminLines)
     console.log('adminLines from useEffect------', adminLines)
-
-  }
-  )
+  })
   //waiting for firebase call to complete
   if (!polygonData) {
     return (
@@ -181,6 +181,7 @@ const Map = (props) => {
         <NavigationControl
         style={navControlStyle}
         />
+          
         {/* <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
@@ -193,6 +194,7 @@ const Map = (props) => {
           })
         }}
         /> */}
+
       </div>
       <label
         onClick={() => {
@@ -212,7 +214,6 @@ const Map = (props) => {
       >
         Admin Lines
         {selectAdminLines ? <input type="checkbox" checked="checked" /> : <input type="checkbox" />}
-
         <span className="checkmark" />
       </label>
     </DeckGL>
