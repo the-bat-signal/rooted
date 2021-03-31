@@ -133,7 +133,7 @@ const Map = (props) => {
       <div class="spinner-border text-dark" role="status">
         <span class="visually-hidden"></span>
       </div>
-        <h1>Loading...</h1>
+      <h1>Loading...</h1>
     </div>
     )
   }
