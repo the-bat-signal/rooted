@@ -101,7 +101,7 @@ const Map = (props) => {
   useEffect(() => {
     async function fetch(collectionName) {
       const ref = db.collection(collectionName)
-       const snapshot = await ref.get({source: 'cache'})
+       const snapshot = await ref.get({source: 'server'})
       snapshot.forEach((doc) => {
         layers.push(doc.data())
       })
@@ -109,16 +109,13 @@ const Map = (props) => {
           console.log("Data came from " + source);
       setpolygonData(polygonCreator(layers))
     }
-    fetch('languages')
+    fetch('languagesMap')
   }, [localStorage])
 
   useEffect( () =>
     console.log(viewstate)
   )
-  //waiting for firebase call to complete
-  // useEffect( () =>
-  //   console.log(viewstate)
-  // )
+
   //waiting for firebase call to complete
   if (!polygonData) {
     return (
@@ -162,7 +159,6 @@ const Map = (props) => {
       controller={true}
       ContextProvider={MapContext.Provider}
       layers={polygonData}
-
     >
       {showPopup && clickInfo && (
         <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
@@ -182,7 +178,7 @@ const Map = (props) => {
         <NavigationControl
         style={navControlStyle}
         />
-        {/* <GeolocateControl
+        <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
           auto={true}
@@ -193,7 +189,7 @@ const Map = (props) => {
             latitude: pos.coords.latitude,
           })
         }}
-        /> */}
+        />
       </div>
       <label
         onClick={() => {
