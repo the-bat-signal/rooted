@@ -16,11 +16,12 @@ export const StartPage = () => {
 
   return (
     <div className="startPage">
-      <img src="/images/icons-512.png" />
+      {/* <img src="/images/icons-512.png" /> */}
+       <img id="logo" src="/images/rooted-06.png" />
       <br />
       <div className="whatever">
-        <Link to={'/map'}>
-          <Button style={startButtonStyle}>Start</Button>
+        <Link to={'/map'} style={{ textDecoration: 'none' }}>
+          <Button className='startPageButton' >Start</Button>
         </Link>
       </div>
     </div>

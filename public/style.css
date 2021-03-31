@@ -12,10 +12,6 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-a {
-  text-decoration: none;
-}
-
 label {
   display: block;
 }
@@ -28,6 +24,10 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+#logo {
+  width: 500px
 }
 
 .poppy {
@@ -87,9 +87,32 @@ form div {
   height: auto;
 }
 
-.button {
+/* .button {
   background-color: rgb(100, 205, 237);
   color: black;
+} */
+
+/* .startPageButton {
+  background: linear-gradient(45deg
+, rgb(107 254 223) 30%, rgb(232, 255, 83) 90%);
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    padding: 7px 14px;
+} */
+
+.startPageButton {
+  color: #FFFFFF;
+  background: linear-gradient(45deg, #32936f, #edf7b5 );
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 7px 14px;
+  text-decoration: none;
+
+}
+
+.startPageButton:hover {
+  /* background: linear-gradient(45deg, #edf7b5, #32936f); */
+  background: linear-gradient(45deg, #32936fc6, #edf7b5d4 ) ;
+
+  text-decoration: none;
 }
 
 @keyframes fadeIn {
@@ -146,9 +169,9 @@ form div {
 }
 
 
-   tr:nth-child(odd) {
-    background-color: #32936f1d
-    }
+tr:nth-child(odd) {
+background-color: #32936f1d
+}
 
 
 #mapContainer {
