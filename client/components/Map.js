@@ -10,18 +10,17 @@ import {SolidPolygonLayer} from '@deck.gl/layers'
 import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
-import * as mdb from 'mdb-ui-kit';
+import * as mdb from 'mdb-ui-kit'
 const {MAPTOKEN} = require('../../secrets')
-
 
 //global variables
 const MAPBOX_ACCESS_TOKEN = MAPTOKEN
 
 // MAP_STYLES
-const MAP_STYLE_BASIC = styleBasic;
+const MAP_STYLE_BASIC = styleBasic
 const MAP_STYLE_ADMIN = styleAdmin
 const navControlStyle = {
-  top: 35
+  top: 35,
 }
 
 //Map Component
@@ -32,15 +31,15 @@ const Map = (props) => {
   const [polygonData, setpolygonData] = useState()
   const [showPopup, togglePopup] = useState(false)
   const [viewport, setViewport] = useState({
-  longitude: -74.00918185993224,
-  latitude: 40.70532791050518,
-  zoom: 8,
-  bearing: 0,
-  pitch: 0,
-})
+    longitude: -74.00918185993224,
+    latitude: 40.70532791050518,
+    zoom: 8,
+    bearing: 0,
+    pitch: 0,
+  })
   const [viewstate, setViewstate] = useState()
   //localStorage:
-  const adminLines = JSON.parse(localStorage.getItem('adminLines'));
+  const adminLines = JSON.parse(localStorage.getItem('adminLines'))
 
   let layers = []
 
@@ -57,16 +56,21 @@ const Map = (props) => {
   // helper functions
   function coordinateMaker(coordinates) {
     if (coordinates) {
-       const initialFormat = coordinates.map((coordinate) => {
-      return [coordinate._long, coordinate._lat, 0]
-    })
-    return [{polygon: initialFormat}]
+      const initialFormat = coordinates.map((coordinate) => {
+        return [coordinate._long, coordinate._lat, 0]
+      })
+      return [{polygon: initialFormat}]
     } else {
-      coordinates = [{polygon: [[-106.787109, 52.509535, 0],
-      [-107.314453, 52.402419, 0],
-      [-107.62207, 52.05249, 0],]}]
+      coordinates = [
+        {
+          polygon: [
+            [-106.787109, 52.509535, 0],
+            [-107.314453, 52.402419, 0],
+            [-107.62207, 52.05249, 0],
+          ],
+        },
+      ]
     }
-
   }
 
   const colorPicker = (array) => {
@@ -101,24 +105,19 @@ const Map = (props) => {
   useEffect(() => {
     async function fetch(collectionName) {
       const ref = db.collection(collectionName)
-       const snapshot = await ref.get({source: 'cache'})
+      const snapshot = await ref.get({source: 'server'})
       snapshot.forEach((doc) => {
         layers.push(doc.data())
       })
-      var source = snapshot.metadata.fromCache ? "local cache" : "server";
-          console.log("Data came from " + source);
+      var source = snapshot.metadata.fromCache ? 'local cache' : 'server'
+      console.log('Data came from ' + source)
       setpolygonData(polygonCreator(layers))
     }
     fetch('languages')
   }, [localStorage])
 
-  useEffect( () =>
-    console.log(viewstate)
-  )
-  //waiting for firebase call to complete
-  // useEffect( () =>
-  //   console.log(viewstate)
-  // )
+  useEffect(() => console.log(polygonData))
+
   //waiting for firebase call to complete
   if (!polygonData) {
     return (
@@ -156,33 +155,30 @@ const Map = (props) => {
     )
   }
   return (
-    <div id='mapContainer'>
-    <DeckGL
-      initialViewState={viewport}
-      controller={true}
-      ContextProvider={MapContext.Provider}
-      layers={polygonData}
-
-    >
-      {showPopup && clickInfo && (
-        <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
-      )}
-      {adminLines === false ? (
-        <StaticMap
-          mapStyle={MAP_STYLE_ADMIN}
-          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-        />
-      ) : (
-        <StaticMap
-          mapStyle={MAP_STYLE_BASIC}
-          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-        />
-      )}
-      <div id="map-controls">
-        <NavigationControl
-        style={navControlStyle}
-        />
-        {/* <GeolocateControl
+    <div id="mapContainer">
+      <DeckGL
+        initialViewState={viewport}
+        controller={true}
+        ContextProvider={MapContext.Provider}
+        layers={polygonData}
+      >
+        {showPopup && clickInfo && (
+          <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
+        )}
+        {adminLines === false ? (
+          <StaticMap
+            mapStyle={MAP_STYLE_ADMIN}
+            mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+          />
+        ) : (
+          <StaticMap
+            mapStyle={MAP_STYLE_BASIC}
+            mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+          />
+        )}
+        <div id="map-controls">
+          <NavigationControl style={navControlStyle} />
+          {/* <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
           auto={true}
@@ -194,27 +190,30 @@ const Map = (props) => {
           })
         }}
         /> */}
-      </div>
-      <label
-        onClick={() => {
-          // setAdminLines(!selectAdminLines)
-          console.log('hiiiii! admineLines', adminLines)
+        </div>
+        <label
+          onClick={() => {
+            // setAdminLines(!selectAdminLines)
+            console.log('hiiiii! admineLines', adminLines)
 
-          if (adminLines === null || adminLines === false) {
-            localStorage.setItem('adminLines', "true")
-          } else {
-            localStorage.setItem('adminLines', "false")
-          }
-          console.log('this is local storage admin lines after click---', adminLines)
-          // localStorage.setItem("adminLines", "true");
-        }}
-        className="adminContainer"
-      >
-        Admin Lines
-        <input type="checkbox" />
-        <span className="checkmark" />
-      </label>
-    </DeckGL>
+            if (adminLines === null || adminLines === false) {
+              localStorage.setItem('adminLines', 'true')
+            } else {
+              localStorage.setItem('adminLines', 'false')
+            }
+            console.log(
+              'this is local storage admin lines after click---',
+              adminLines
+            )
+            // localStorage.setItem("adminLines", "true");
+          }}
+          className="adminContainer"
+        >
+          Admin Lines
+          <input type="checkbox" />
+          <span className="checkmark" />
+        </label>
+      </DeckGL>
     </div>
   )
 }
