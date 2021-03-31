@@ -70,6 +70,11 @@ form div {
   justify-content: space-between;
 }
 
+.mapboxgl-map {
+  width: 80%;
+  height: 80%;
+}
+
 .startPage {
   display: flex;
   flex-direction: column;
