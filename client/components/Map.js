@@ -17,9 +17,6 @@ const {mapToken} = require('../../secrets')
 //global variables
 const MAPBOX_ACCESS_TOKEN = mapToken
 
-
-
-
 // MAP_STYLES
 const MAP_STYLE_BASIC = styleBasic;
 const MAP_STYLE_ADMIN = styleAdmin
@@ -116,32 +113,36 @@ const Map = (props) => {
   if (!polygonData) {
     return (
       <div id="loader-container">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden"></span>
+        <div id="loading-animations">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-border text-danger" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-border text-info" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-border text-dark" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+        </div>
+        <div id="loading-text">
+          <h1>Loading...</h1>
+        </div>
       </div>
-      <div class="spinner-border text-secondary" role="status">
-        <span class="visually-hidden"></span>
-      </div>
-      <div class="spinner-border text-success" role="status">
-        <span class="visually-hidden"></span>
-      </div>
-      <div class="spinner-border text-danger" role="status">
-        <span class="visually-hidden"></span>
-      </div>
-      <div class="spinner-border text-warning" role="status">
-        <span class="visually-hidden"></span>
-      </div>
-      <div class="spinner-border text-info" role="status">
-        <span class="visually-hidden"></span>
-      </div>
-      <div class="spinner-border text-light" role="status">
-        <span class="visually-hidden"></span>
-      </div>
-      <div class="spinner-border text-dark" role="status">
-        <span class="visually-hidden"></span>
-      </div>
-      <h1>Loading...</h1>
-    </div>
     )
   }
   return (

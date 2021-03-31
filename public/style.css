@@ -126,7 +126,6 @@ form div {
 
 #single-language {
   margin: 75px
-
 }
 
 #singleLangName {
@@ -180,11 +179,17 @@ background-color: #32936f1d
 
 }
 
-#loader-container {
+#loading-animations {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  align-content: space-between;
+  justify-content: center;
+  align-content: center;
+  /* flex-wrap: wrap; */
+}
+
+#loading-text {
+  display: flex;
+  justify-content: center;
+  align-: center;
 }
 
 /* #view-default-view {
