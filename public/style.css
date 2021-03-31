@@ -189,7 +189,7 @@ background-color: #32936f1d
 #loading-text {
   display: flex;
   justify-content: center;
-  align-: center;
+  align-items: center;
 }
 
 /* #view-default-view {
