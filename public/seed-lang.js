@@ -1,6 +1,6 @@
 const firebase = require('firebase') //not recomended?
 const {langData} = require('./languagesData')
-const firebaseAPI = require ('../secrets')
+const {firebaseAPI} = require ('../secrets')
 
 
 const firebaseApp = firebase.initializeApp({
