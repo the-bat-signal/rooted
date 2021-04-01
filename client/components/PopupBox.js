@@ -14,8 +14,8 @@ export const PopupBox = (props) => {
     console.log('props from popup---------', props)
     const lang = async () => {
       try {
-        const langRef = db.collection('languages')
-        const langSnapshot = await langRef.get()
+        const langRef = db.collection('languagesMap')
+        const langSnapshot = await langRef.get({source: 'cache'})
         langSnapshot.forEach((doc) => {
           if (doc.data().name === props.polygonPopupData.layer.id) {
             setLanguage(doc.data())
@@ -23,13 +23,14 @@ export const PopupBox = (props) => {
         })
         // console.log('inside useEffect of PopupBox')
         const vocabRef = db.collection('vocab')
-        const vocabSnapshot = await vocabRef.get()
+        const vocabSnapshot = await vocabRef.get({source: 'cache'})
         vocabSnapshot.forEach((doc) => {
           if (doc.id.includes(props.polygonPopupData.layer.id.toLowerCase())) {
             setVocab(doc.data())
             // console.log('this is doc.id', doc.id)
           }
         });
+
         // props.setAdminLines(!!props.selectAdminLines)
       } catch (err) {
         console.log('error in PopupBox call-----', err)
@@ -37,6 +38,8 @@ export const PopupBox = (props) => {
     }
     lang()
   }, [props.polygonPopupData])
+
+  console.log('VOCABBBB', vocab)
 
   return (
     <React.Fragment>
@@ -90,8 +93,9 @@ export const PopupBox = (props) => {
             {/* <p><a href>Nation 1</a></p>
             <p><a href>Nation 2</a></p>
             <p><a href>Nation 3</a></p> */}
+            {vocab['Hello!'] ?
+            <div>
             <h2><b> LANGUAGES IN SELECTED AREA </b></h2>
-            {/* links to language */}
             <p>
               <Link
                 to={{
@@ -105,6 +109,7 @@ export const PopupBox = (props) => {
                 {language.name}
               </Link>
             </p>
+            </div> : <div></div>}
           </div>
         </Popup>
       }
