@@ -3,10 +3,11 @@ import React from 'react'
 const MapToggles = (props) => {
 
   return (
-    // checkbox: layer for administrative lines
-    <div className='mapTogglesContainer'>
-    <label className="singleCheckboxContainer"
-      onChange={() => {
+    // button: layer for administrative lines
+  <div className='mapTogglesContainer'>
+
+    <button className="singleCheckboxContainer"
+      onClick={() => {
         const adminLines = JSON.parse(localStorage.getItem('adminLines'));
 
         if (!adminLines) {
@@ -16,18 +17,16 @@ const MapToggles = (props) => {
           localStorage.setItem('adminLines', "false")
           props.setAdminLines(false)
         }
-        console.log('this is local storage admin lines after click---', localStorage.getItem('adminLines'))
         }}
+      style={props.selectAdminLines ? {backgroundColor: '#B9E5D2'} : {backgroundColor: 'white'}}
       >
       Admin Lines{"  "}
-      {props.selectAdminLines ? <input type="checkbox" checked="checked" /> : <input type="checkbox" />}
       <span className="checkmark" />
-    </label>
+    </button>
 
-    {/* // checkbox: layer for language polygons */}
+    {/* // button: layer for language polygons */}
     <button className="singleCheckboxContainer"
       onClick={() => {
-        console.log('POLYGONDATA!---------', props.polygonData)
         const languages = JSON.parse(localStorage.getItem('languages'));
 
         if (!languages) {
@@ -40,7 +39,7 @@ const MapToggles = (props) => {
         console.log('this is local storage languages after click---', localStorage.getItem('languages'))
         }}
 
-      style={props.selectLanguageLayer ? {backgroundColor: 'red'} : {backgroundColor: 'white'}}
+      style={props.selectLanguageLayer ? {backgroundColor: '#B9E5D2'} : {backgroundColor: 'white'}}
       >
       Languages{"  "}
       <span className="checkmark" />
