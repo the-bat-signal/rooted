@@ -123,7 +123,7 @@ const Map = (props) => {
     async function fetch(collectionName) {
       const ref = db.collection(collectionName)
       // if something is not rendering, change this to server for one render, then it should be available from cache
-       const snapshot = await ref.get({source: 'cache'})
+       const snapshot = await ref.get({source: 'server'})
       snapshot.forEach((doc) => {
         layers.push(doc.data())
       })
