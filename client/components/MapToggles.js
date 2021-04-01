@@ -3,8 +3,10 @@ import React from 'react'
 const MapToggles = (props) => {
 
   return (
-    <div className='mapTogglesContainer'>
-    <label className="singleCheckboxContainer"
+    // button: layer for administrative lines
+  <div className='mapTogglesContainer'>
+
+    <button className="singleCheckboxContainer"
       onClick={() => {
         const adminLines = JSON.parse(localStorage.getItem('adminLines'));
 
@@ -15,33 +17,34 @@ const MapToggles = (props) => {
           localStorage.setItem('adminLines', "false")
           props.setAdminLines(false)
         }
-        console.log('this is local storage admin lines after click---', localStorage.getItem('adminLines'))
         }}
+      style={props.selectAdminLines ? {backgroundColor: '#B9E5D2'} : {backgroundColor: 'white'}}
       >
-      Admin Lines{"  "}
-      {props.selectAdminLines ? <input type="checkbox" checked="checked" /> : <input type="checkbox" />}
+      Lines{"  "}
       <span className="checkmark" />
-    </label>
+    </button>
 
-        <label className="singleCheckboxContainer"
+    {/* // button: layer for language polygons */}
+    <button className="singleCheckboxContainer"
       onClick={() => {
-        const adminLines = JSON.parse(localStorage.getItem('languages'));
+        const languages = JSON.parse(localStorage.getItem('languages'));
 
-        if (!adminLines) {
+        if (!languages) {
           localStorage.setItem('languages', "true")
-          props.setAdminLines(true)
+          props.setLanguageLayer(true)
         } else {
           localStorage.setItem('languages', "false")
-          props.setAdminLines(false)
+          props.setLanguageLayer(false)
         }
         console.log('this is local storage languages after click---', localStorage.getItem('languages'))
         }}
 
+      style={props.selectLanguageLayer ? {backgroundColor: '#B9E5D2'} : {backgroundColor: 'white'}}
       >
       Languages{"  "}
-      {props.selectAdminLines ? <input type="checkbox" checked="checked" /> : <input type="checkbox"/>}
       <span className="checkmark" />
-    </label>
+    </button>
+    {/* <button type='button' >languages</button> */}
     </div>
   )
 }
