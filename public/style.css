@@ -211,7 +211,9 @@ background-color: #32936f1d
   margin: 50px;
   background-color: rgba(255, 255, 255, 0.687);
   font-size: 11px;
-  padding: 20px
+  padding: 20px;
+  box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.379);
+
 
 }
 
