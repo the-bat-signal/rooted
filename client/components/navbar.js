@@ -38,8 +38,8 @@ export const NavBar = () => {
           </NavDropdown>
         </Nav>
         <Nav>
-          <Nav.Link href="#deets">Contact</Nav.Link>
-          <Nav.Link eventKey={2} href="#memes">
+          <Nav.Link href="/contact">Contact</Nav.Link>
+          <Nav.Link eventKey={2} href="/about">
             About
           </Nav.Link>
         </Nav>
