@@ -11,6 +11,7 @@ import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
 import * as mdb from 'mdb-ui-kit'
+import MapToggles from './MapToggles'
 const {MAPTOKEN} = require('../../secrets')
 
 //global variables
@@ -194,28 +195,9 @@ const Map = (props) => {
           })
         }}
         /> */}
-
+      <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines}/>
       </div>
-      <label
-        onClick={() => {
-          const adminLines = JSON.parse(localStorage.getItem('adminLines'));
 
-          if (!adminLines) {
-            localStorage.setItem('adminLines', "true")
-            setAdminLines(true)
-          } else {
-            localStorage.setItem('adminLines', "false")
-            setAdminLines(false)
-
-          }
-          console.log('this is local storage admin lines after click---', localStorage.getItem('adminLines'))
-        }}
-        className="adminContainer"
-      >
-        Admin Lines
-        {selectAdminLines ? <input type="checkbox" checked="checked" /> : <input type="checkbox" />}
-        <span className="checkmark" />
-      </label>
     </DeckGL>
     </div>
   )
