@@ -1,21 +1,20 @@
 import React from 'react'
 import '../../public/style.css'
 import {Nav, Navbar, NavDropdown} from 'react-bootstrap'
-import {ReactComponent as Logo} from '../../public/images/rooted-06.png'
+// import {ReactComponent as Logo} from '../../public/images/rooted-logo.svg'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-export default function Navbar() {
+export const NavBar = () => {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Navbar.Brand href="#home">
-        <Logo
+    <Navbar collapseOnSelect expand="xl" bg="light" variant="light">
+      <Navbar.Brand href="#/">
+        <img
           alt=""
-          width="30"
-          height="30"
+          width="150"
           className="d-inline-block align-top"
-        />
-        Dice Roller
+          src="/images/rooted-logo.svg"
+        />{' '}
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
@@ -35,12 +34,14 @@ export default function Navbar() {
           </NavDropdown>
         </Nav>
         <Nav>
-          <Nav.Link href="#deets">More deets</Nav.Link>
+          <Nav.Link href="#deets">Contact</Nav.Link>
           <Nav.Link eventKey={2} href="#memes">
-            Dank memes
+            About
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
   )
 }
+
+export default NavBar
