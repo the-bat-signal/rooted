@@ -201,6 +201,7 @@ tr:nth-child(odd) {
   flex-direction: row;
   justify-content: right;
   align-items: right;
+  top: 175px
 }
 
 .mapTogglesContainer {
@@ -208,8 +209,8 @@ tr:nth-child(odd) {
   justify-content: center;
   align-items: center;
   margin: 50px;
-  background-color: rgba(255, 255, 255, 0.687);
-  font-size: 11px;
+  background-color: rgba(255, 255, 255, 0.735);
+  font-size: 10px;
   padding: 20px;
   box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.379);
 
@@ -223,7 +224,9 @@ tr:nth-child(odd) {
 
 .singleCheckboxContainer{
   margin-left: 20px;
-  margin-right: 20px
+  margin-right: 20px;
+  border: .5px solid rgb(205, 196, 196);
+  border-radius: 4px
 }
 
 
@@ -288,3 +291,6 @@ tr:nth-child(odd) {
   background-color: #FFC300;
   margin-left: 20px
 } */
+
+
+

@@ -11,8 +11,8 @@ import {SolidPolygonLayer} from '@deck.gl/layers'
 import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
-import * as mdb from 'mdb-ui-kit'
 import MapToggles from './MapToggles'
+import MapLoader from "./MapLoader"
 const {MAPTOKEN} = require('../../secrets')
 
 //global variables
@@ -30,6 +30,7 @@ const Map = (props) => {
   // useState
   const [clickInfo, setClickInfo] = useState()
   const [selectAdminLines, setAdminLines] = useState()
+  const [selectLanguageLayer, setLanguageLayer] = useState(true)
   const [polygonData, setpolygonData] = useState()
   const [showPopup, togglePopup] = useState(false)
   const [viewport, setViewport] = useState({
@@ -73,6 +74,9 @@ const Map = (props) => {
     }
   }
 
+  let counter = 1;
+
+
   const colorPicker = (array) => {
     const randomIndex = Math.floor(Math.random() * array.length)
     return array[randomIndex]
@@ -82,8 +86,10 @@ const Map = (props) => {
     // currently rendering only 'pickable' polygons - THANKS DECK.GL
     for (let i = 0; i < docArray.length; i++) {
       resultsArray.push(
-        new SolidPolygonLayer({
+         new SolidPolygonLayer({
           id: docArray[i].name,
+          visible: selectLanguageLayer ? true : false,
+          // id: counter++,
           data: coordinateMaker(docArray[i].coordinates),
           // opacity for clickables different than non-clickables
           opacity: i <= 256 ? 0.9 : 0.1,
@@ -127,51 +133,19 @@ const Map = (props) => {
       setpolygonData(polygonCreator(layers))
     }
     fetch('languagesMap')
-    // fetch('territories')
-  }, [])
+  }, [selectLanguageLayer])
 
   useEffect(() => {
     const adminLines = JSON.parse(localStorage.getItem('adminLines'));
     setAdminLines(adminLines)
+    const languages = JSON.parse(localStorage.getItem('languages'));
+    setLanguageLayer(languages);
     console.log('adminLines from useEffect------', adminLines)
-  })
+  }, [])
   //waiting for firebase call to complete
   if (!polygonData) {
     return (
-      <div id="loader-container">
-        <div id="loading-animations">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden"></span>
-          </div>
-          <div className="spinner-border text-secondary" role="status">
-            <span className="visually-hidden"></span>
-          </div>
-          <div className="spinner-border text-success" role="status">
-            <span className="visually-hidden"></span>
-          </div>
-          <div className="spinner-border text-danger" role="status">
-            <span className="visually-hidden"></span>
-          </div>
-          <div className="spinner-border text-warning" role="status">
-            <span className="visually-hidden"></span>
-          </div>
-          <div className="spinner-border text-info" role="status">
-            <span className="visually-hidden"></span>
-          </div>
-          <div className="spinner-border text-light" role="status">
-            <span className="visually-hidden"></span>
-          </div>
-          <div className="spinner-border text-dark" role="status">
-            <span className="visually-hidden"></span>
-          </div>
-        </div>
-        <div id="loading-text">
-          <h1> Loading map... </h1>
-        <div id="disclaimer-text">
-          <h2> Please contact specific Indigenous nations to learn about their official/legal boundaries. </h2>
-        </div>
-        </div>
-      </div>
+      <MapLoader />
     )
   }
   return (
@@ -180,6 +154,7 @@ const Map = (props) => {
       initialViewState={viewport}
       controller={true}
       ContextProvider={MapContext.Provider}
+      // layers= {selectLanguageLayer ? polygonData : null}
       layers={polygonData}
     >
       {showPopup && clickInfo && (
@@ -212,7 +187,7 @@ const Map = (props) => {
           })
         }}
         /> */}
-      <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines}/>
+      <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines} selectLanguageLayer={selectLanguageLayer} setLanguageLayer={setLanguageLayer} polygonData={polygonData}/>
       </div>
 
     </DeckGL>
