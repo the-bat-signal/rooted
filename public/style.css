@@ -178,6 +178,12 @@ tr:nth-child(odd) {
   align-items: center;
 }
 
+#disclaimer-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #view-default-view {
   /* position: absolute; left: 50px; top: 50px; */
   /* display: flex;
