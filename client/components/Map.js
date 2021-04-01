@@ -167,7 +167,10 @@ const Map = (props) => {
           </div>
         </div>
         <div id="loading-text">
-          <h1>Loading...</h1>
+          <h1> Loading map... </h1>
+        <div id="disclaimer-text">
+          <h2> Please contact specific Indigenous nations to learn about their official/legal boundaries. </h2>
+        </div>
         </div>
       </div>
     )
