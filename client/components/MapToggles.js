@@ -20,7 +20,7 @@ const MapToggles = (props) => {
         }}
       style={props.selectAdminLines ? {backgroundColor: '#B9E5D2'} : {backgroundColor: 'white'}}
       >
-      Admin Lines{"  "}
+      Lines{"  "}
       <span className="checkmark" />
     </button>
 

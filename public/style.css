@@ -195,7 +195,7 @@ tr:nth-child(odd) {
   flex-direction: row;
   justify-content: right;
   align-items: right;
-  top: 200px
+  top: 175px
 }
 
 .mapTogglesContainer {
