@@ -87,7 +87,7 @@ const Map = (props) => {
           data: coordinateMaker(docArray[i].coordinates),
           // opacity for clickables different than non-clickables
           opacity: i <= 256 ? 0.9 : 0.1,
-          getFillColor: colorPicker(colorArray),
+          getFillColor: i <= 256 ? colorPicker(colorArray) : [192,192,192],
           getPolygon: (d) => d.polygon,
           pickable: true,
           onClick: (info) => {
@@ -97,10 +97,7 @@ const Map = (props) => {
           },
           wireframe: true,
           extruded: true,
-          getLineColor: [39, 11, 31],
-          getElevation: ((d) => {
-            return i <= 256 ? Math.floor(Math.random() * 100000) : 1
-          }),
+          getElevation: docArray[i].speakers ? docArray[i].speakers * 10 : 1
           // getFillPattern: f => 'hatch-1x',
           // fillPatternAtlas: 'https://raw.githubusercontent.com/visgl/deck.gl/master/examples/layer-browser/data/pattern.png',
           // fillPatternMapping: 'https://raw.githubusercontent.com/visgl/deck.gl/master/examples/layer-browser/data/pattern.json',
@@ -124,11 +121,13 @@ const Map = (props) => {
       snapshot.forEach((doc) => {
         layers.push(doc.data())
       })
-      var source = snapshot.metadata.fromCache ? 'local cache' : 'server'
+
+    let source = snapshot.metadata.fromCache ? 'local cache' : 'server'
       console.log('Data came from ' + source)
       setpolygonData(polygonCreator(layers))
     }
-    fetch('languages')
+    fetch('languagesMap')
+    // fetch('territories')
   }, [])
 
   useEffect(() => {
