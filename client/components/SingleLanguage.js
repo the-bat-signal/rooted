@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import CountUp from 'react-countup';
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,6 +10,24 @@ const SingleLanguage = (props) => {
 
   const language = props.location.state.language
   const vocab = props.location.state.vocab
+
+  let links = []
+
+  // should I instead try to do this whole query in PopupBox???
+  // const [languageLinks, setLanguageLinks] = useState()
+
+  // useEffect(() => {
+  //   async function fetch(collectionName) {
+  //     const ref = db.collection(collectionName).doc().where("name", "==", language.name).collection().doc()
+  //     const snapshot = await ref.get()
+  //     console.log('this is snapshot', snapshot)
+  //     snapshot.forEach((link) => {
+  //       links.push(link.data())
+  //     })
+  //     setLanguageLinks(links)
+  //   }
+  //   fetch('languages')
+  // }, [])
 
   return (
     <div id="single-language">
@@ -72,9 +90,11 @@ const SingleLanguage = (props) => {
         </tbody>
         </Table>
         <p> Here are some more useful links, including resources for further language-learning and links to current nations/communities to whom this language belongs: </p>
-        <ul>
-          <li>{console.log('are links here inside this?', language)}</li>
-        </ul>
+        {/* <ul>
+          {languageLinks.map((languageLink) => {
+            <li> {languageLink} </li>
+          })}
+        </ul> */}
         {/* <Table striped bordered hover>
           <thead>
             <tr>

@@ -103,6 +103,7 @@ const Map = (props) => {
   useEffect(() => {
     async function fetch(collectionName) {
       const ref = db.collection(collectionName)
+      // would it be possible at all to manipulate this query so it also calls the "links" collections on the documents?
       const snapshot = await ref.get({source: 'server'})
       snapshot.forEach((doc) => {
         layers.push(doc.data())
@@ -124,29 +125,29 @@ const Map = (props) => {
     return (
       <div id="loader-container">
         <div id="loading-animations">
-          <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden"></span>
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden"></span>
           </div>
-          <div class="spinner-border text-secondary" role="status">
-            <span class="visually-hidden"></span>
+          <div className="spinner-border text-secondary" role="status">
+            <span className="visually-hidden"></span>
           </div>
-          <div class="spinner-border text-success" role="status">
-            <span class="visually-hidden"></span>
+          <div className="spinner-border text-success" role="status">
+            <span className="visually-hidden"></span>
           </div>
-          <div class="spinner-border text-danger" role="status">
-            <span class="visually-hidden"></span>
+          <div className="spinner-border text-danger" role="status">
+            <span className="visually-hidden"></span>
           </div>
-          <div class="spinner-border text-warning" role="status">
-            <span class="visually-hidden"></span>
+          <div className="spinner-border text-warning" role="status">
+            <span className="visually-hidden"></span>
           </div>
-          <div class="spinner-border text-info" role="status">
-            <span class="visually-hidden"></span>
+          <div className="spinner-border text-info" role="status">
+            <span className="visually-hidden"></span>
           </div>
-          <div class="spinner-border text-light" role="status">
-            <span class="visually-hidden"></span>
+          <div className="spinner-border text-light" role="status">
+            <span className="visually-hidden"></span>
           </div>
-          <div class="spinner-border text-dark" role="status">
-            <span class="visually-hidden"></span>
+          <div className="spinner-border text-dark" role="status">
+            <span className="visually-hidden"></span>
           </div>
         </div>
         <div id="loading-text">
