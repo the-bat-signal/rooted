@@ -25,8 +25,8 @@ const MapToggles = (props) => {
     </label>
 
     {/* // checkbox: layer for language polygons */}
-    <label className="singleCheckboxContainer"
-      onChange={() => {
+    <button className="singleCheckboxContainer"
+      onClick={() => {
         console.log('POLYGONDATA!---------', props.polygonData)
         const languages = JSON.parse(localStorage.getItem('languages'));
 
@@ -40,11 +40,11 @@ const MapToggles = (props) => {
         console.log('this is local storage languages after click---', localStorage.getItem('languages'))
         }}
 
+      style={props.selectLanguageLayer ? {backgroundColor: 'red'} : {backgroundColor: 'white'}}
       >
       Languages{"  "}
-      {props.setLanguageLayer ? <input type="checkbox" checked="checked"/> : <input type="checkbox" />}
       <span className="checkmark" />
-    </label>
+    </button>
     {/* <button type='button' >languages</button> */}
     </div>
   )
