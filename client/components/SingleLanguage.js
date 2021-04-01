@@ -43,7 +43,7 @@ const SingleLanguage = (props) => {
         </div>
       </div>
       <div id="single-language__pronunciation-guide">
-
+        <p id="single-language__pronunciation-summary"> {language.pronunciation} </p>
       </div>
       <div id="single-language__vocab">
         <Table id="single-language__vocab__table"  success bordered >
