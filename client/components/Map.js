@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import {BrushingExtension, FillStyleExtension} from '@deck.gl/extensions';
 import DeckGL from '@deck.gl/react'
 import {
   StaticMap,
@@ -32,12 +33,12 @@ const Map = (props) => {
   const [polygonData, setpolygonData] = useState()
   const [showPopup, togglePopup] = useState(false)
   const [viewport, setViewport] = useState({
-    longitude: -74.00918185993224,
-    latitude: 40.70532791050518,
-    zoom: 8,
-    bearing: 0,
-    pitch: 0,
-  })
+  longitude: -74.00918185993224,
+  latitude: 40.70532791050518,
+  zoom: 7,
+  bearing: 0,
+  pitch: 0,
+})
   const [viewstate, setViewstate] = useState()
 
   let layers = []
@@ -94,6 +95,20 @@ const Map = (props) => {
             togglePopup(true)
             // setAdminLines(selectAdminLines)
           },
+          wireframe: true,
+          extruded: true,
+          getLineColor: [39, 11, 31],
+          getElevation: ((d) => {
+            return i <= 256 ? Math.floor(Math.random() * 100000) : 1
+          }),
+          // getFillPattern: f => 'hatch-1x',
+          // fillPatternAtlas: 'https://raw.githubusercontent.com/visgl/deck.gl/master/examples/layer-browser/data/pattern.png',
+          // fillPatternMapping: 'https://raw.githubusercontent.com/visgl/deck.gl/master/examples/layer-browser/data/pattern.json',
+          // getFillPatternOffset: [0, 0],
+          // getFillPatternScale: 10,
+          // brushingEnabled: true,
+          // brushingRadius: 1000000,
+          // extensions: [new BrushingExtension()]
         })
       )
     }
@@ -104,8 +119,8 @@ const Map = (props) => {
   useEffect(() => {
     async function fetch(collectionName) {
       const ref = db.collection(collectionName)
-      // would it be possible at all to manipulate this query so it also calls the "links" collections on the documents?
-      const snapshot = await ref.get({source: 'server'})
+      // if something is not rendering, change this to server for one render, then it should be available from cache
+       const snapshot = await ref.get({source: 'cache'})
       snapshot.forEach((doc) => {
         layers.push(doc.data())
       })
@@ -183,12 +198,11 @@ const Map = (props) => {
         <NavigationControl
         style={navControlStyle}
         />
-
         {/* <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
-          auto={true}
-          fitBoundsOptions={{maxZoom: 10}}
+          auto={false}
+          fitBoundsOptions={{maxZoom: 6}}
           onGeolocate={(pos) => {
           setViewstate({
             longitude: pos.coords.longitude,
