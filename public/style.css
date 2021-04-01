@@ -165,12 +165,6 @@ tr:nth-child(odd) {
   background-color: #32936f1d;
 }
 
-#mapContainer {
-  justify-content: right;
-  align-items: right;
-  display: flex;
-}
-
 #loading-animations {
   display: flex;
   justify-content: center;
@@ -186,13 +180,105 @@ tr:nth-child(odd) {
 
 #view-default-view {
   /* position: absolute; left: 50px; top: 50px; */
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between */
 }
 
-.adminContainer {
+#deckgl-wrapper {
+  position: fixed
+}
+
+#map-controls {
+  position: fixed;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: right;
+}
+
+.mapTogglesContainer {
   display: flex;
   justify-content: center;
-  align-items: left;
+  align-items: center;
   margin: 50px;
+  background-color: rgba(255, 255, 255, 0.687);
+  font-size: 11px;
+  padding: 20px;
+  box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.379);
+
+
 }
+
+/* .adminContainer{
+  background-color: rgba(255, 255, 255, 0.502);
+
+}*/
+
+.singleCheckboxContainer{
+  margin-left: 20px;
+  margin-right: 20px
+}
+
+
+/* .singleCheckboxContainer {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.singleCheckboxContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: rgb(255, 255, 255);
+}
+.singleCheckboxContainer input:checked ~ .checkmark {
+  background-color: #F517BC;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.singleCheckboxContainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.singleCheckboxContainer .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+} */
+
+
+/*
+.checkbox input:checked ~ .checkmark {
+  background-color: #FFC300;
+  margin-left: 20px
+} */

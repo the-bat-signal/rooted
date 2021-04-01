@@ -3,7 +3,7 @@ import '../../public/style.css'
 import {Nav, Navbar, NavDropdown} from 'react-bootstrap'
 // import {ReactComponent as Logo} from '../../public/images/rooted-logo.svg'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 
 export const NavBar = () => {
   return (
