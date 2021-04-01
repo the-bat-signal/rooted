@@ -3,9 +3,10 @@ import React from 'react'
 const MapToggles = (props) => {
 
   return (
+    // checkbox: layer for administrative lines
     <div className='mapTogglesContainer'>
     <label className="singleCheckboxContainer"
-      onClick={() => {
+      onChange={() => {
         const adminLines = JSON.parse(localStorage.getItem('adminLines'));
 
         if (!adminLines) {
@@ -23,25 +24,28 @@ const MapToggles = (props) => {
       <span className="checkmark" />
     </label>
 
-        <label className="singleCheckboxContainer"
-      onClick={() => {
-        const adminLines = JSON.parse(localStorage.getItem('languages'));
+    {/* // checkbox: layer for language polygons */}
+    <label className="singleCheckboxContainer"
+      onChange={() => {
+        console.log('POLYGONDATA!---------', props.polygonData)
+        const languages = JSON.parse(localStorage.getItem('languages'));
 
-        if (!adminLines) {
+        if (!languages) {
           localStorage.setItem('languages', "true")
-          props.setAdminLines(true)
+          props.setLanguageLayer(true)
         } else {
           localStorage.setItem('languages', "false")
-          props.setAdminLines(false)
+          props.setLanguageLayer(false)
         }
         console.log('this is local storage languages after click---', localStorage.getItem('languages'))
         }}
 
       >
       Languages{"  "}
-      {props.selectAdminLines ? <input type="checkbox" checked="checked" /> : <input type="checkbox"/>}
+      {props.setLanguageLayer ? <input type="checkbox" checked="checked"/> : <input type="checkbox" />}
       <span className="checkmark" />
     </label>
+    {/* <button type='button' >languages</button> */}
     </div>
   )
 }
