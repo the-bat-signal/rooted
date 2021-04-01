@@ -94,18 +94,18 @@ const Map = (props) => {
           },
           wireframe: true,
           extruded: true,
-          getLineColor: [9, 1, 1],
+          getLineColor: [39, 11, 31],
           getElevation: ((d) => {
-            return i <= 256 ? 100000 : 1
+            return i <= 256 ? Math.floor(Math.random() * 100000) : 1
           }),
-          getFillPattern: f => 'hatch-cross',
-          fillPatternAtlas: 'https://raw.githubusercontent.com/visgl/deck.gl/master/examples/layer-browser/data/pattern.png',
-          fillPatternMapping: 'https://raw.githubusercontent.com/visgl/deck.gl/master/examples/layer-browser/data/pattern.json',
-          getFillPatternOffset: [0, 0],
-          getFillPatternScale: 10,
+          // getFillPattern: f => 'hatch-1x',
+          // fillPatternAtlas: 'https://raw.githubusercontent.com/visgl/deck.gl/master/examples/layer-browser/data/pattern.png',
+          // fillPatternMapping: 'https://raw.githubusercontent.com/visgl/deck.gl/master/examples/layer-browser/data/pattern.json',
+          // getFillPatternOffset: [0, 0],
+          // getFillPatternScale: 10,
           // brushingEnabled: true,
           // brushingRadius: 1000000,
-          extensions: i <= 256 ? [] : [new FillStyleExtension({pattern: true})]
+          // extensions: [new BrushingExtension()]
         })
       )
     }
