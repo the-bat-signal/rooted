@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome} from './components'
+import SignIn from './components/Login'
+import SignUp from './components/SignUp'
 import {StartPage} from './components/StartPage'
-import Navbar from './components/navbar'
 import Map from './components/Map'
 import {me} from './store'
 import SingleLanguage from './components/SingleLanguage'
@@ -26,8 +26,8 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={StartPage} />
         <Route path="/map" component={Map} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        <Route path="/SignIn" component={SignIn} />
+        <Route path="/SignUp" component={SignUp} />
         <Route path="/:singleLanguage" component={SingleLanguage} />
         {isLoggedIn && (
           <Switch>
@@ -35,8 +35,8 @@ class Routes extends Component {
             <Route path="/home" component={UserHome} />
           </Switch>
         )}
-        {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        {/* Displays our SignIn component as a fallback */}
+        {/* <Route component={SignIn} /> */}
       </Switch>
     )
   }
