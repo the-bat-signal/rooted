@@ -31,7 +31,8 @@ const Map = (props) => {
   const [clickInfo, setClickInfo] = useState()
   const [selectAdminLines, setAdminLines] = useState()
   const [selectLanguageLayer, setLanguageLayer] = useState(true)
-  const [polygonData, setpolygonData] = useState()
+  const [languagePolygons, setLanguagePolygons] = useState()
+  const [territoryPolygons, setTerritoryPolygons] = useState()
   const [showPopup, togglePopup] = useState(false)
   const [viewport, setViewport] = useState({
   longitude: -74.00918185993224,
@@ -40,9 +41,10 @@ const Map = (props) => {
   bearing: 0,
   pitch: 0,
 })
-  const [viewstate, setViewstate] = useState()
 
-  let layers = []
+ // helper variables
+  let languagePolygons = []
+  let territoryPolygons = []
 
   const colorArray = [
     [190, 231, 176],
@@ -83,11 +85,12 @@ const Map = (props) => {
   }
   const polygonCreator = (docArray) => {
     let resultsArray = []
+    let counter = 0
     // currently rendering only 'pickable' polygons - THANKS DECK.GL
     for (let i = 0; i < docArray.length; i++) {
       resultsArray.push(
          new SolidPolygonLayer({
-          id: docArray[i].name,
+          id: docArray === 'languagePolygons' ? docArray[i].name : counter++,
           visible: selectLanguageLayer ? true : false,
           // id: counter++,
           data: coordinateMaker(docArray[i].coordinates),
@@ -120,19 +123,23 @@ const Map = (props) => {
 
   // this is where we grab the data from Firestore to render polygons
   useEffect(() => {
-    async function fetch(collectionName) {
+    async function fetch(collectionName, inputArray) {
       const ref = db.collection(collectionName)
       // if something is not rendering, change this to server for one render, then it should be available from cache
-       const snapshot = await ref.get({source: 'server'})
+      const snapshot = await ref.get({source: 'server'})
       snapshot.forEach((doc) => {
-        layers.push(doc.data())
+        inputArray.push(doc.data())
       })
-
-    let source = snapshot.metadata.fromCache ? 'local cache' : 'server'
-      console.log('Data came from ' + source)
-      setpolygonData(polygonCreator(layers))
+      let source = snapshot.metadata.fromCache ? 'local cache' : 'server'
+        console.log('Data came from ' + source)
+      if (collectionName === 'languagesMap') {
+         setLanguagePolygons(polygonCreator(inputArray))
+      } else {
+        setTerritoryPolygons(polygonCreator(inputArray))
+      }
     }
-    fetch('languagesMap')
+    fetch('languagesMap', languagePolygons)
+    fetch('territories', territoryPolygons)
   }, [selectLanguageLayer])
 
   useEffect(() => {
