@@ -5,14 +5,44 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import '../../public/src';
 import {IoPlayCircle} from 'react-icons/io5'
 // import {db} from '../../server/firebase'
-
 import {Link} from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 
 const SingleLanguage = (props) => {
 
-  const language = props.location.state.language
-  const vocab = props.location.state.vocab
+  const [language, setLanguage] = useState({
+    name: props.match.params.id
+  })
+  const [vocab, setVocab] = useState({})
+
+  useEffect(() => {
+    console.log('this is language from SingleLanguages useEffect', language)
+    // const lang = async () => {
+    //   try {
+    //     const langRef = db.collection('languagesMap')
+    //     const langSnapshot = await langRef.get({source: 'server'})
+    //     langSnapshot.filter((doc) => {
+    //       if (doc.data().name === inheritedLanguage.name) {
+    //         setLanguage(doc.data())
+    //       }
+    //     })
+    //     // console.log('inside useEffect of PopupBox')
+    //     const vocabRef = db.collection('vocab')
+    //     const vocabSnapshot = await vocabRef.get({source: 'server'})
+    //     vocabSnapshot.filter((doc) => {
+    //       if (doc.id.includes(inheritedVocab.id.toLowerCase())) {
+    //         setVocab(doc.data())
+    //         // console.log('this is doc.id', doc.id)
+    //       }
+    //     });
+
+    //     // props.setAdminLines(!!props.selectAdminLines)
+    //   } catch (err) {
+    //     console.log('error in SingleLanguage call-----', err)
+    //   }
+    // }
+    // lang()
+  }, [])
 
   let links = []
 
@@ -76,8 +106,9 @@ const SingleLanguage = (props) => {
           </tr>
         </tbody>
         </Table>
+
         <Link to={{
-          pathname: `${language.name}/practice`,
+          pathname: `/language/${language.name}/practice`,
           state: {
             language,
             vocab,

@@ -17,7 +17,7 @@ const LanguagePractice = (props) => {
       data-aos-easing="ease-in-out"
       data-aos-mirror="true"
       data-aos-once="false"
-      data-aos-anchor-placement="top-center"> Ready practice? Scroll down!
+      data-aos-anchor-placement="top-center"> Ready to practice? Scroll down!
     </div>
     <div class="item item--primary"
      data-aos="fade-left"

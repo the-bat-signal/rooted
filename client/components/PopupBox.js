@@ -11,7 +11,7 @@ export const PopupBox = (props) => {
 
   // remove async await
   useEffect(() => {
-    console.log('props from popup---------', props)
+    // console.log('props from popup---------', props)
     const lang = async () => {
       try {
         const langRef = db.collection('languagesMap')
@@ -39,7 +39,7 @@ export const PopupBox = (props) => {
     lang()
   }, [props.polygonPopupData])
 
-  console.log('VOCABBBB', vocab)
+  // console.log('VOCABBBB', vocab)
 
   return (
     <React.Fragment>
@@ -99,7 +99,7 @@ export const PopupBox = (props) => {
             <p>
               <Link
                 to={{
-                  pathname: `${language.name}`,
+                  pathname: `/language/${language.name}`,
                   state: {
                     language,
                     vocab,
