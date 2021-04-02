@@ -38,14 +38,14 @@ const SingleLanguage = (props) => {
       <div id="single-language__header">
         <div id='counterContainer'>
         <h1 id='singleLangName'> {language.name} </h1>
-        <div data-aos="fade-up-left"
-        data-aos-offset="200"
-        data-aos-delay="50"
-        data-aos-duration="1000"
-        data-aos-easing="ease-in-out"
-        data-aos-mirror="true"
-        data-aos-once="false"
-        data-aos-anchor-placement="top-center"> Thanks for checking out this language! </div>
+          <div data-aos="fade-up-left"
+          data-aos-offset="200"
+          data-aos-delay="50"
+          data-aos-duration="1000"
+          data-aos-easing="ease-in-out"
+          data-aos-mirror="true"
+          data-aos-once="false"
+          data-aos-anchor-placement="top-center"> Thanks for checking out this language! </div>
         <h4 id='singleLangSubhead'> By learning this language, you are adding to a community of this many speakers!: </h4>
         <CountUp className="speakersAnimate" start={0} end={language.speakers} duration={2.5} separator="," />
         </div>
