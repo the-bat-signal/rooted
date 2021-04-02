@@ -31,6 +31,7 @@ const Map = (props) => {
   const [clickInfo, setClickInfo] = useState()
   const [selectAdminLines, setAdminLines] = useState()
   const [selectLanguageLayer, setLanguageLayer] = useState(true)
+  const [selectTerritoryLayer, setTerritoryLayer] = useState(true)
   const [languagePolygons, setLanguagePolygons] = useState()
   const [territoryPolygons, setTerritoryPolygons] = useState()
   const [showPopup, togglePopup] = useState(false)
@@ -43,8 +44,8 @@ const Map = (props) => {
 })
 
  // helper variables
-  let languagePolygons = []
-  let territoryPolygons = []
+  let languageArray = []
+  let territoryArray = []
 
   const colorArray = [
     [190, 231, 176],
@@ -76,8 +77,6 @@ const Map = (props) => {
     }
   }
 
-  let counter = 1;
-
 
   const colorPicker = (array) => {
     const randomIndex = Math.floor(Math.random() * array.length)
@@ -90,9 +89,8 @@ const Map = (props) => {
     for (let i = 0; i < docArray.length; i++) {
       resultsArray.push(
          new SolidPolygonLayer({
-          id: docArray === 'languagePolygons' ? docArray[i].name : counter++,
-          visible: selectLanguageLayer ? true : false,
-          // id: counter++,
+          id: docArray === 'languageArray' ? docArray[i].name : counter++,
+          visible: docArray === 'languageArray' ? selectLanguageLayer ? true : false : selectTerritoryLayer ? true : false,
           data: coordinateMaker(docArray[i].coordinates),
           // opacity for clickables different than non-clickables
           opacity: i <= 256 ? 0.9 : 0.1,
@@ -102,7 +100,6 @@ const Map = (props) => {
           onClick: (info) => {
             setClickInfo(info)
             togglePopup(true)
-            // setAdminLines(selectAdminLines)
           },
           wireframe: true,
           extruded: true,
@@ -126,7 +123,7 @@ const Map = (props) => {
     async function fetch(collectionName, inputArray) {
       const ref = db.collection(collectionName)
       // if something is not rendering, change this to server for one render, then it should be available from cache
-      const snapshot = await ref.get({source: 'server'})
+      const snapshot = await ref.get({source: 'cache'})
       snapshot.forEach((doc) => {
         inputArray.push(doc.data())
       })
@@ -138,8 +135,8 @@ const Map = (props) => {
         setTerritoryPolygons(polygonCreator(inputArray))
       }
     }
-    fetch('languagesMap', languagePolygons)
-    fetch('territories', territoryPolygons)
+    fetch('languagesMap', languageArray)
+    fetch('territories', territoryArray)
   }, [selectLanguageLayer])
 
   useEffect(() => {
@@ -161,8 +158,7 @@ const Map = (props) => {
       initialViewState={viewport}
       controller={true}
       ContextProvider={MapContext.Provider}
-      // layers= {selectLanguageLayer ? polygonData : null}
-      layers={polygonData}
+      layers={languagePolygons, territoryPolygons} // we may have to combine both states into one large array to pass into layers
     >
       {showPopup && clickInfo && (
         <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
@@ -194,7 +190,7 @@ const Map = (props) => {
           })
         }}
         /> */}
-      <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines} selectLanguageLayer={selectLanguageLayer} setLanguageLayer={setLanguageLayer} polygonData={polygonData}/>
+      <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines} selectLanguageLayer={selectLanguageLayer} setLanguageLayer={setLanguageLayer} />
       </div>
 
     </DeckGL>
