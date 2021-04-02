@@ -36,7 +36,6 @@ const MapToggles = (props) => {
           localStorage.setItem('languages', "false")
           props.setLanguageLayer(false)
         }
-        console.log('this is local storage languages after click---', localStorage.getItem('languages'))
         }}
 
       style={props.selectLanguageLayer ? {backgroundColor: '#B9E5D2'} : {backgroundColor: 'white'}}
@@ -44,7 +43,27 @@ const MapToggles = (props) => {
       Languages{"  "}
       <span className="checkmark" />
     </button>
-    {/* <button type='button' >languages</button> */}
+
+        {/* // button: layer for language polygons */}
+    <button className="singleCheckboxContainer"
+      onClick={() => {
+        const territories = JSON.parse(localStorage.getItem('territories'));
+
+        if (!territories) {
+          localStorage.setItem('territories', "true")
+          props.setTerritoryLayer(true)
+        } else {
+          localStorage.setItem('territories', "false")
+          props.setTerritoryLayer(false)
+        }
+        console.log('this is local storage territories after click---', localStorage.getItem('territories'))
+        }}
+
+      style={props.selectTerritoryLayer ? {backgroundColor: '#B9E5D2'} : {backgroundColor: 'white'}}
+      >
+      Territories{"  "}
+      <span className="checkmark" />
+    </button>
     </div>
   )
 }
