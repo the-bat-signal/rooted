@@ -8,12 +8,8 @@ import {StartPage} from './components/StartPage'
 import Map from './components/Map'
 import {me} from './store'
 import SingleLanguage from './components/SingleLanguage'
-import LanguagePractice from "./components/Practice"
-// import Data from './data'
+import LanguagePractice from './components/LanguagePractice'
 
-/**
- * COMPONENT
- */
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()

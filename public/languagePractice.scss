@@ -1,0 +1,42 @@
+@mixin center-v () {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.item {
+  width: 200px;
+  height: 200px;
+  margin: 50px auto;
+  padding-top: 75px;
+  background: #ccc;
+  text-align: center;
+  color: #FFF;
+  font-size: 3em;
+
+  span {
+    display: block;
+    font-size: 1rem;
+  }
+
+  &--primary {
+    @include center-v;
+    right: 20px;
+    background: green;
+  }
+
+  &--secondary {
+    @include center-v;
+    left: 20px;
+    background: red;
+  }
+}

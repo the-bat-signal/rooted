@@ -57,6 +57,32 @@ const Map = (props) => {
     [5, 29, 35],
   ]
 
+  // const langTextPolygon = new TextLayer({
+  //   id: 'text-layer',
+  //   data: languageArray,
+  //   pickable: false,
+  //   getPosition: d => d.coordinates,
+  //   getText: d => d.name,
+  //   getSize: 32,
+  //   getAngle: 0,
+  //   getTextAnchor: 'middle',
+  //   getAlignmentBaseline: 'center'
+  // });
+
+  // const territoryTextPolygon = new TextLayer({
+  //   id: 'text-layer',
+  //   data: territoryArray,
+  //   pickable: false,
+  //   getPosition: d => centerCoordinate(d.coordinates),
+  //   getText: d => d.name,
+  //   getSize: 32,
+  //   getAngle: 0,
+  //   getTextAnchor: 'middle',
+  //   getAlignmentBaseline: 'center'
+  // });
+
+
+
   // helper functions
   function coordinateMaker(coordinates) {
     if (coordinates) {
@@ -78,38 +104,38 @@ const Map = (props) => {
   }
 
 
-  function centerCoordinate(coordinates) {
-    let x = 0.0;
-    let y = 0.0;
-    let z = 0.0;
+  // function centerCoordinate(coordinates) {
+  //   let x = 0.0;
+  //   let y = 0.0;
+  //   let z = 0.0;
 
-  if (coordinates) {
-     for (let i = 0; i < coordinates.length; i++) {
-    let latitude = coordinates[i]._lat * Math.PI / 180;
-    let longitude = coordinates[i]._long * Math.PI / 180;
+  // if (coordinates) {
+  //    for (let i = 0; i < coordinates.length; i++) {
+  //   let latitude = coordinates[i]._lat * Math.PI / 180;
+  //   let longitude = coordinates[i]._long * Math.PI / 180;
 
-    x += Math.cos(latitude) * Math.cos(longitude);
-    y += Math.cos(latitude) * Math.sin(longitude);
-    z += Math.sin(latitude);
-  }
+  //   x += Math.cos(latitude) * Math.cos(longitude);
+  //   y += Math.cos(latitude) * Math.sin(longitude);
+  //   z += Math.sin(latitude);
+  // }
 
-    let total = coordinates.length;
+  //   let total = coordinates.length;
 
-    x = x / total;
-    y = y / total;
-    z = z / total;
+  //   x = x / total;
+  //   y = y / total;
+  //   z = z / total;
 
-    let centralLongitude = Math.atan2(y, x);
-    let centralSquareRoot = Math.sqrt(x * x + y * y);
-    let centralLatitude = Math.atan2(z, centralSquareRoot);
+  //   let centralLongitude = Math.atan2(y, x);
+  //   let centralSquareRoot = Math.sqrt(x * x + y * y);
+  //   let centralLatitude = Math.atan2(z, centralSquareRoot);
 
-    return {coordinates: [centralLongitude * 180 / Math.PI, centralLatitude * 180 / Math.PI]}
-  } else {
-    return {coordinates: [0, 0, 0]}
-  }
-
-
-  }
+  //   let resultsArray = []
+  //   resultsArray.push([centralLongitude * 180 / Math.PI, centralLatitude * 180 / Math.PI])
+  //   return {coordinates: resultsArray}
+  // } else {
+  //   return {coordinates: [0, 0, 0]}
+  //  }
+  // }
 
   const colorPicker = (array) => {
     const randomIndex = Math.floor(Math.random() * array.length)
@@ -147,16 +173,6 @@ const Map = (props) => {
           // brushingEnabled: true,
           // brushingRadius: 1000000,
           // extensions: [new BrushingExtension()]
-        }),
-        new TextLayer({
-          id: counterTwo++,
-          data: centerCoordinate(docArray[i].coordinates),
-          getPosition: d => d.coordinates,
-          getText: docArray[i].name,
-          getSize: 32,
-          getAngle: 0,
-          getTextAnchor: 'middle',
-          getAlignmentBaseline: 'center'
         })
       )
     }
