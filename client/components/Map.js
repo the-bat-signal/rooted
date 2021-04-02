@@ -223,7 +223,7 @@ const Map = (props) => {
       initialViewState={viewport}
       controller={true}
       ContextProvider={MapContext.Provider}
-      layers={[languagePolygons, territoryPolygons]} // we may have to combine both states into one large array to pass into layers
+      layers={languagePolygons} // we may have to combine both states into one large array to pass into layers
     >
       {showPopup && clickInfo && (
         <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />

@@ -15,7 +15,7 @@ export const PopupBox = (props) => {
     const lang = async () => {
       try {
         const langRef = db.collection('languagesMap')
-        const langSnapshot = await langRef.get({source: 'server'})
+        const langSnapshot = await langRef.get({source: 'cache'})
         langSnapshot.forEach((doc) => {
           if (doc.data().name === props.polygonPopupData.layer.id) {
             setLanguage(doc.data())
@@ -23,7 +23,7 @@ export const PopupBox = (props) => {
         })
         // console.log('inside useEffect of PopupBox')
         const vocabRef = db.collection('vocab')
-        const vocabSnapshot = await vocabRef.get({source: 'server'})
+        const vocabSnapshot = await vocabRef.get({source: 'cache'})
         vocabSnapshot.forEach((doc) => {
           if (doc.id.includes(props.polygonPopupData.layer.id.toLowerCase())) {
             setVocab(doc.data())

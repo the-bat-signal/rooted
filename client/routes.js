@@ -9,11 +9,7 @@ import Map from './components/Map'
 import {me} from './store'
 import SingleLanguage from './components/SingleLanguage'
 import LanguagePractice from './components/LanguagePractice'
-// import Data from './data'
 
-/**
- * COMPONENT
- */
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
@@ -29,8 +25,8 @@ class Routes extends Component {
         <Route path="/map" component={Map} />
         <Route path="/SignIn" component={SignIn} />
         <Route path="/SignUp" component={SignUp} />
-        <Route path="/language/:singleLanguage" component={SingleLanguage} />
-        <Route path="/language/:singleLanguage/practice" component={LanguagePractice} />
+        <Route exact path="/language/:singleLanguage" component={SingleLanguage} />
+        <Route exact path='/language/:singlelanguage/practice' component={LanguagePractice} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
