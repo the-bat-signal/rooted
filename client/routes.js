@@ -8,6 +8,7 @@ import {StartPage} from './components/StartPage'
 import Map from './components/Map'
 import {me} from './store'
 import SingleLanguage from './components/SingleLanguage'
+import LanguagePractice from './components/LanguagePractice'
 // import Data from './data'
 
 /**
@@ -29,6 +30,7 @@ class Routes extends Component {
         <Route path="/SignIn" component={SignIn} />
         <Route path="/SignUp" component={SignUp} />
         <Route path="/:singleLanguage" component={SingleLanguage} />
+        <Route path="/:singleLanguage/practice" component={LanguagePractice} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

@@ -5,9 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import '../../public/src';
 import {IoPlayCircle} from 'react-icons/io5'
 // import {db} from '../../server/firebase'
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-AOS.init();
+
+import {Link} from 'react-router-dom'
+import Button from '@material-ui/core/Button'
 
 const SingleLanguage = (props) => {
 
@@ -16,36 +16,11 @@ const SingleLanguage = (props) => {
 
   let links = []
 
-  // should I instead try to do this whole query in PopupBox???
-  // const [languageLinks, setLanguageLinks] = useState()
-
-  // useEffect(() => {
-  //   async function fetch(collectionName) {
-  //     const ref = db.collection(collectionName).doc().where("name", "==", language.name).collection().doc()
-  //     const snapshot = await ref.get()
-  //     console.log('this is snapshot', snapshot)
-  //     snapshot.forEach((link) => {
-  //       links.push(link.data())
-  //     })
-  //     setLanguageLinks(links)
-  //   }
-  //   fetch('languages')
-  // }, [])
-
-
   return (
     <div id="single-language">
       <div id="single-language__header">
         <div id='counterContainer'>
         <h1 id='singleLangName'> {language.name} </h1>
-          <div data-aos="fade-up-left"
-          data-aos-offset="200"
-          data-aos-delay="50"
-          data-aos-duration="1000"
-          data-aos-easing="ease-in-out"
-          data-aos-mirror="true"
-          data-aos-once="false"
-          data-aos-anchor-placement="top-center"> Thanks for checking out this language! </div>
         <h4 id='singleLangSubhead'> By learning this language, you are adding to a community of this many speakers!: </h4>
         <CountUp className="speakersAnimate" start={0} end={language.speakers} duration={2.5} separator="," />
         </div>
@@ -101,6 +76,18 @@ const SingleLanguage = (props) => {
           </tr>
         </tbody>
         </Table>
+        <Link to={{
+          pathname: `${language.name}/practice`,
+          state: {
+            language,
+            vocab,
+          }
+        }}
+        >
+          {/* <Button className='startPageButton' > */}
+            Wanna test your memorization? Try practicing!
+          {/* </Button> */}
+        </Link>
         <p> Here are some more useful links, including resources for further language-learning and links to current nations/communities to whom this language belongs: </p>
         {/* <ul>
           {languageLinks.map((languageLink) => {
