@@ -135,6 +135,7 @@ const Map = (props) => {
     fetch('languagesMap')
   }, [selectLanguageLayer])
 
+  // using local storage to set state for toggling layers
   useEffect(() => {
     const adminLines = JSON.parse(localStorage.getItem('adminLines'));
     setAdminLines(adminLines)
@@ -142,19 +143,20 @@ const Map = (props) => {
     setLanguageLayer(languages);
     console.log('adminLines from useEffect------', adminLines)
   }, [])
-  //waiting for firebase call to complete
+
+  // loader page while waiting for firebase call to complete
   if (!polygonData) {
     return (
       <MapLoader />
     )
   }
+
   return (
     <div id='mapContainer'>
     <DeckGL
       initialViewState={viewport}
       controller={true}
       ContextProvider={MapContext.Provider}
-      // layers= {selectLanguageLayer ? polygonData : null}
       layers={polygonData}
     >
       {showPopup && clickInfo && (
