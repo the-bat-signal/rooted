@@ -12,12 +12,12 @@ export const NavBar = () => {
       expand="xl"
       bg="light"
       variant="light"
-      style={{zIndex: 100}}
+      style={{zIndex: 100, height: 100}}
     >
       <Navbar.Brand href="/">
         <img
           alt=""
-          width="150"
+          width="75"
           className="d-inline-block align-top"
           src="/images/rooted-logo.svg"
         />{' '}

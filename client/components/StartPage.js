@@ -19,11 +19,16 @@ export const StartPage = () => {
       {/* <img src="/images/icons-512.png" /> */}
        <img id="logo" src="/images/rooted-06.png" />
       <br />
+            <div id='mission'>
+        Promote, preserve, and protect Indigenous languages/heritage,
+        <br/>based on the user’s location
+      </div>
       <div className="whatever">
         <Link to={'/map'} style={{ textDecoration: 'none' }}>
           <Button className='startPageButton' >Start</Button>
         </Link>
       </div>
+
     </div>
   )
 }
