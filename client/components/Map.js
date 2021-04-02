@@ -77,11 +77,11 @@ const Map = (props) => {
     }
   }
 
-
   const colorPicker = (array) => {
     const randomIndex = Math.floor(Math.random() * array.length)
     return array[randomIndex]
   }
+
   const polygonCreator = (docArray) => {
     let resultsArray = []
     let counter = 0
@@ -89,8 +89,8 @@ const Map = (props) => {
     for (let i = 0; i < docArray.length; i++) {
       resultsArray.push(
          new SolidPolygonLayer({
-          id: docArray === 'languageArray' ? docArray[i].name : counter++,
-          visible: docArray === 'languageArray' ? selectLanguageLayer ? true : false : selectTerritoryLayer ? true : false,
+          id: docArray.length < 1500 ? docArray[i].name : counter++,
+          visible: docArray.length < 1500 ? selectLanguageLayer ? true : false : selectTerritoryLayer ? true : false,
           data: coordinateMaker(docArray[i].coordinates),
           // opacity for clickables different than non-clickables
           opacity: i <= 256 ? 0.9 : 0.1,
@@ -149,7 +149,7 @@ const Map = (props) => {
   }, [])
 
   // loader page while waiting for firebase call to complete
-  if (!polygonData) {
+  if (!languagePolygons) {
     return (
       <MapLoader />
     )
@@ -161,7 +161,7 @@ const Map = (props) => {
       initialViewState={viewport}
       controller={true}
       ContextProvider={MapContext.Provider}
-      layers={languagePolygons, territoryPolygons} // we may have to combine both states into one large array to pass into layers
+      layers={languagePolygons} // we may have to combine both states into one large array to pass into layers
     >
       {showPopup && clickInfo && (
         <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
