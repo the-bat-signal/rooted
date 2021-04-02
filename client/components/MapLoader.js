@@ -11,7 +11,6 @@ const MapLoader = () => {
 
       <div id="loading-text">
         <h1> Loading... </h1>
-        <h2> Please contact specific Indigenous nations to learn about their official, legal, and/or definitive boundaries. </h2>
       </div>
     </div>
   )
