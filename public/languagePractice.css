@@ -1,0 +1,40 @@
+body {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.item {
+  width: 200px;
+  height: 200px;
+  margin: 50px auto;
+  padding-top: 75px;
+  background: #ccc;
+  text-align: center;
+  color: #FFF;
+  font-size: 3em;
+}
+.item span {
+  display: block;
+  font-size: 1rem;
+}
+.item--primary {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 20px;
+  background: green;
+}
+.item--secondary {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 20px;
+  background: red;
+}
+
+/*# sourceMappingURL=languagePractice.css.map */
