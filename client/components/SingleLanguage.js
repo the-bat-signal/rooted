@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom'
+
 import CountUp from 'react-countup';
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -102,41 +104,12 @@ const SingleLanguage = (props) => {
         </tbody>
         </Table>
         <p> Here are some more useful links, including resources for further language-learning and links to current nations/communities to whom this language belongs: </p>
-        {/* <ul>
-          {languageLinks.map((languageLink) => {
-            <li> {languageLink} </li>
-          })}
-        </ul> */}
-        {/* <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Play Audio</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td colSpan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </Table> */}
-        {/* <Button>Test</Button> */}
+        <Link to={{
+          pathname: `/${language.name}/practice`,
+          state: {language, vocab}
+        }}>
+        <p>Link</p></Link>
+
       </div>
     </div>
   )
