@@ -45,7 +45,7 @@ form div {
   /* height: 35%; */
   padding: 8px;
   /* box-shadow: 1px 1px 3px grey; */
-  z-index: 99;
+  z-index: 1100;
 }
 
 #popuptext {

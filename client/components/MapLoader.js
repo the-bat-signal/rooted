@@ -4,7 +4,7 @@ import * as mdb from 'mdb-ui-kit'
 const MapLoader = () => {
   return (
     <div id="loader-container">
-      <p id='thankYou'>Thanks for contributing to Indigenous language and culture!</p>
+      <p id='thankYou'>Please contact specific Indigenous nations to learn about their official, legal, and/or definitive boundaries.</p>
     <div className='spinnyLoaderContainer'>
       <div className='customLoader'></div>
     </div>
