@@ -257,6 +257,7 @@ tr:nth-child(odd) {
   font-size: 10px;
   padding: 20px;
   box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.379);
+  z-index: 98;
 
 
 }
