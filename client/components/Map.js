@@ -7,7 +7,7 @@ import {
   NavigationControl,
   GeolocateControl,
 } from 'react-map-gl'
-import {SolidPolygonLayer} from '@deck.gl/layers'
+import {SolidPolygonLayer, TextLayer} from '@deck.gl/layers'
 import {PopupBox} from './PopupBox'
 import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
@@ -77,6 +77,40 @@ const Map = (props) => {
     }
   }
 
+
+  function centerCoordinate(coordinates) {
+    let x = 0.0;
+    let y = 0.0;
+    let z = 0.0;
+
+  if (coordinates) {
+     for (let i = 0; i < coordinates.length; i++) {
+    let latitude = coordinates[i]._lat * Math.PI / 180;
+    let longitude = coordinates[i]._long * Math.PI / 180;
+
+    x += Math.cos(latitude) * Math.cos(longitude);
+    y += Math.cos(latitude) * Math.sin(longitude);
+    z += Math.sin(latitude);
+  }
+
+    let total = coordinates.length;
+
+    x = x / total;
+    y = y / total;
+    z = z / total;
+
+    let centralLongitude = Math.atan2(y, x);
+    let centralSquareRoot = Math.sqrt(x * x + y * y);
+    let centralLatitude = Math.atan2(z, centralSquareRoot);
+
+    return {coordinates: [centralLongitude * 180 / Math.PI, centralLatitude * 180 / Math.PI]}
+  } else {
+    return {coordinates: [0, 0, 0]}
+  }
+
+
+  }
+
   const colorPicker = (array) => {
     const randomIndex = Math.floor(Math.random() * array.length)
     return array[randomIndex]
@@ -85,6 +119,7 @@ const Map = (props) => {
   const polygonCreator = (docArray) => {
     let resultsArray = []
     let counter = 0
+    let counterTwo = 2000
     // currently rendering only 'pickable' polygons - THANKS DECK.GL
     for (let i = 0; i < docArray.length; i++) {
       resultsArray.push(
@@ -96,7 +131,7 @@ const Map = (props) => {
           opacity: i <= 256 ? 0.9 : 0.1,
           getFillColor: i <= 256 ? colorPicker(colorArray) : [192,192,192],
           getPolygon: (d) => d.polygon,
-          pickable: true,
+          pickable: docArray.length < 1500 ? true : false,
           onClick: (info) => {
             setClickInfo(info)
             togglePopup(true)
@@ -112,6 +147,16 @@ const Map = (props) => {
           // brushingEnabled: true,
           // brushingRadius: 1000000,
           // extensions: [new BrushingExtension()]
+        }),
+        new TextLayer({
+          id: counterTwo++,
+          data: centerCoordinate(docArray[i].coordinates),
+          getPosition: d => d.coordinates,
+          getText: docArray[i].name,
+          getSize: 32,
+          getAngle: 0,
+          getTextAnchor: 'middle',
+          getAlignmentBaseline: 'center'
         })
       )
     }
@@ -137,7 +182,7 @@ const Map = (props) => {
     }
     fetch('languagesMap', languageArray)
     fetch('territories', territoryArray)
-  }, [selectLanguageLayer])
+  }, [selectLanguageLayer, selectTerritoryLayer])
 
   // using local storage to set state for toggling layers
   useEffect(() => {
@@ -145,7 +190,8 @@ const Map = (props) => {
     setAdminLines(adminLines)
     const languages = JSON.parse(localStorage.getItem('languages'));
     setLanguageLayer(languages);
-    console.log('adminLines from useEffect------', adminLines)
+    const territories = JSON.parse(localStorage.getItem('territories'));
+    setTerritoryLayer(territories);
   }, [])
 
   // loader page while waiting for firebase call to complete
@@ -161,7 +207,7 @@ const Map = (props) => {
       initialViewState={viewport}
       controller={true}
       ContextProvider={MapContext.Provider}
-      layers={languagePolygons} // we may have to combine both states into one large array to pass into layers
+      layers={[languagePolygons, territoryPolygons]} // we may have to combine both states into one large array to pass into layers
     >
       {showPopup && clickInfo && (
         <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
@@ -181,7 +227,7 @@ const Map = (props) => {
         <NavigationControl
         style={navControlStyle}
         />
-        {/* <GeolocateControl
+        <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
           auto={false}
@@ -192,8 +238,8 @@ const Map = (props) => {
             latitude: pos.coords.latitude,
           })
         }}
-        /> */}
-      <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines} selectLanguageLayer={selectLanguageLayer} setLanguageLayer={setLanguageLayer} />
+        />
+      <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines} selectLanguageLayer={selectLanguageLayer} setLanguageLayer={setLanguageLayer} selectTerritoryLayer={selectTerritoryLayer} setTerritoryLayer={setTerritoryLayer}/>
       </div>
 
     </DeckGL>
