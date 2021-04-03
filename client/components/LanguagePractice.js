@@ -4,10 +4,14 @@ import 'aos/dist/aos.css';
 import '../../public/languagePractice.css';
 
 AOS.init({
- duration: 1200
+ duration: 1200,
+ easing: 'ease-in-out-back'
 });
 
 const LanguagePractice = (props) => {
+
+  const vocab = props.vocab
+
   return (
     <div id="language-practice-page">
     <div data-aos="fade-up-left"
@@ -17,18 +21,90 @@ const LanguagePractice = (props) => {
       data-aos-easing="ease-in-out"
       data-aos-mirror="true"
       data-aos-once="false"
-      data-aos-anchor-placement="top-center"> Ready to practice? Scroll down!
+      data-aos-anchor-placement="top-center"> Ready to practice? Scroll down! Prompts will be on the right and answers on the left!
     </div>
     <div class="item item--primary"
      data-aos="fade-left"
      data-aos-anchor="#trigger-right">
-      RIGHT
+      How would you greet someone?
     </div>
 
     <div class="item item--secondary"
         data-aos="fade-right"
         data-aos-anchor="#trigger-left">
-      LEFT
+      {vocab['Hello!']}
+    </div>
+
+    <div class="item item--primary"
+     data-aos="fade-left"
+     data-aos-anchor="#trigger-right">
+      How would you greet someone?
+    </div>
+
+    <div class="item item--secondary"
+        data-aos="fade-right"
+        data-aos-anchor="#trigger-left">
+      {vocab['Hello!']}
+    </div>
+
+        <div class="item item--primary"
+     data-aos="fade-left"
+     data-aos-anchor="#trigger-right">
+      How would you greet someone?
+    </div>
+
+    <div class="item item--secondary"
+        data-aos="fade-right"
+        data-aos-anchor="#trigger-left">
+      {vocab['Hello!']}
+    </div>
+
+    <div class="item item--primary"
+     data-aos="fade-left"
+     data-aos-anchor="#trigger-right">
+      How would you greet someone?
+    </div>
+
+    <div class="item item--secondary"
+        data-aos="fade-right"
+        data-aos-anchor="#trigger-left">
+      {vocab['Hello!']}
+    </div>
+
+    <div class="item item--primary"
+     data-aos="fade-left"
+     data-aos-anchor="#trigger-right">
+      How would you greet someone?
+    </div>
+
+    <div class="item item--secondary"
+        data-aos="fade-right"
+        data-aos-anchor="#trigger-left">
+      {vocab['Hello!']}
+    </div>
+
+        <div class="item item--primary"
+     data-aos="fade-left"
+     data-aos-anchor="#trigger-right">
+      How would you greet someone?
+    </div>
+
+    <div class="item item--secondary"
+        data-aos="fade-right"
+        data-aos-anchor="#trigger-left">
+      {vocab['Hello!']}
+    </div>
+
+    <div class="item item--primary"
+     data-aos="fade-left"
+     data-aos-anchor="#trigger-right">
+      How would you greet someone?
+    </div>
+
+    <div class="item item--secondary"
+        data-aos="fade-right"
+        data-aos-anchor="#trigger-left">
+      {vocab['Hello!']}
     </div>
 
     <div class="item">1</div>
