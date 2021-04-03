@@ -42,14 +42,15 @@ const SingleLanguage = (props) => {
   }, [])
 
   let links = []
-
+  console.log('language----------', language)
   return (
     <div id="single-language">
       <div id="single-language__header">
         <div id='counterContainer'>
         <h1 id='singleLangName'> {language.name} </h1>
         <h4 id='singleLangSubhead'> By learning this language, you are adding to a community of this many speakers!: </h4>
-        <CountUp className="speakersAnimate" start={0} end={language.speakers} duration={2.5} separator="," />
+        {language.speakers ?  <CountUp className="speakersAnimate" start={0} end={language.speakers} duration={2.5} separator="," /> : null}
+
         </div>
         <div>
           <p id="language-description"> {language.description} </p>
@@ -59,7 +60,7 @@ const SingleLanguage = (props) => {
         <p id="single-language__pronunciation-summary"> {language.pronunciation} </p>
       </div>
       <div id="single-language__vocab">
-        <Table id="single-language__vocab__table"  success bordered >
+        <Table id="single-language__vocab__table"  bordered >
         <tbody>
           <tr id="column-names-row">
             <th scope="col"> Audio </th>
