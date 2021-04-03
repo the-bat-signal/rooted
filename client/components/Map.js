@@ -48,42 +48,30 @@ const Map = (props) => {
   let territoryArray = []
 
   const colorArray = [
-    [190, 231, 176],
-    [50, 147, 111],
-    [122, 132, 80],
-    [62, 25, 41],
-    [255, 112, 115],
-    [245, 192, 0],
-    [5, 29, 35],
+    [190, 231, 176], // tea green
+    [50, 147, 111], // illuminating emerald
+    [122, 132, 80], // moss green
+    [62, 25, 41], // dark purple
+    [255, 112, 115], // light coral
+    [245, 192, 0], // golden poppy
+    [5, 29, 35], // dark jungle green
+    //newly added
+    [12, 116, 137], // teal blue
+    [179, 194, 242], // lavender blue
+    [229, 75, 75], // imperial red
+    [249, 223, 116], // jasmine
   ]
-
-  // const langTextPolygon = new TextLayer({
-  //   id: 'text-layer',
-  //   data: languageArray,
-  //   pickable: false,
-  //   getPosition: d => d.coordinates,
-  //   getText: d => d.name,
-  //   getSize: 32,
-  //   getAngle: 0,
-  //   getTextAnchor: 'middle',
-  //   getAlignmentBaseline: 'center'
-  // });
-
-  // const territoryTextPolygon = new TextLayer({
-  //   id: 'text-layer',
-  //   data: territoryArray,
-  //   pickable: false,
-  //   getPosition: d => centerCoordinate(d.coordinates),
-  //   getText: d => d.name,
-  //   getSize: 32,
-  //   getAngle: 0,
-  //   getTextAnchor: 'middle',
-  //   getAlignmentBaseline: 'center'
-  // });
 
 
 
   // helper functions
+
+  function splitter(string) {
+    const array = string.split(' ')
+    array.push(' ')
+    return array
+  }
+
   function coordinateMaker(coordinates) {
     if (coordinates) {
       const initialFormat = coordinates.map((coordinate) => {
@@ -104,38 +92,36 @@ const Map = (props) => {
   }
 
 
-  // function centerCoordinate(coordinates) {
-  //   let x = 0.0;
-  //   let y = 0.0;
-  //   let z = 0.0;
+  function centerCoordinate(coordinates) {
+    let x = 0.0;
+    let y = 0.0;
+    let z = 0.0;
 
-  // if (coordinates) {
-  //    for (let i = 0; i < coordinates.length; i++) {
-  //   let latitude = coordinates[i]._lat * Math.PI / 180;
-  //   let longitude = coordinates[i]._long * Math.PI / 180;
+  if (coordinates) {
+     for (let i = 0; i < coordinates.length; i++) {
+    let latitude = coordinates[i]._lat * Math.PI / 180;
+    let longitude = coordinates[i]._long * Math.PI / 180;
 
-  //   x += Math.cos(latitude) * Math.cos(longitude);
-  //   y += Math.cos(latitude) * Math.sin(longitude);
-  //   z += Math.sin(latitude);
-  // }
+    x += Math.cos(latitude) * Math.cos(longitude);
+    y += Math.cos(latitude) * Math.sin(longitude);
+    z += Math.sin(latitude);
+  }
 
-  //   let total = coordinates.length;
+    let total = coordinates.length;
 
-  //   x = x / total;
-  //   y = y / total;
-  //   z = z / total;
+    x = x / total;
+    y = y / total;
+    z = z / total;
 
-  //   let centralLongitude = Math.atan2(y, x);
-  //   let centralSquareRoot = Math.sqrt(x * x + y * y);
-  //   let centralLatitude = Math.atan2(z, centralSquareRoot);
+    let centralLongitude = Math.atan2(y, x);
+    let centralSquareRoot = Math.sqrt(x * x + y * y);
+    let centralLatitude = Math.atan2(z, centralSquareRoot);
 
-  //   let resultsArray = []
-  //   resultsArray.push([centralLongitude * 180 / Math.PI, centralLatitude * 180 / Math.PI])
-  //   return {coordinates: resultsArray}
-  // } else {
-  //   return {coordinates: [0, 0, 0]}
-  //  }
-  // }
+    return [centralLongitude * 180 / Math.PI, centralLatitude * 180 / Math.PI]
+  } else {
+    return [0, 0, 0]
+   }
+  }
 
   const colorPicker = (array) => {
     const randomIndex = Math.floor(Math.random() * array.length)
@@ -155,7 +141,7 @@ const Map = (props) => {
           data: coordinateMaker(docArray[i].coordinates),
           // opacity for clickables different than non-clickables
           opacity: i <= 256 ? 0.9 : 0.1,
-          getFillColor: i <= 256 ? colorPicker(colorArray) : [192,192,192],
+          getFillColor: docArray.length < 1500 ? i <= 256 ? colorPicker(colorArray) : [192,192,192] : colorPicker(colorArray),
           getPolygon: (d) => d.polygon,
           pickable: docArray.length < 1500 ? true : false,
           onClick: (info) => {
@@ -176,6 +162,22 @@ const Map = (props) => {
         })
       )
     }
+    const territoryText = new TextLayer({
+    id: 'territory-text-layer',
+    data: territoryArray,
+    pickable: false,
+    getPosition: d => centerCoordinate(d.coordinates),
+    getText: d => d.name,
+    getSize: 7500,
+    fontFamily: 'Montserrat, sans-serif',
+    getAngle: 0,
+    getTextAnchor: 'middle',
+    getAlignmentBaseline: 'center',
+    visible: selectTerritoryLayer ? true : false,
+    sizeUnits: 'meters',
+    characterSet: splitter(`  ' ᐁ ᐃ ᐄ ᐅ ᐆ ᐊ ᐋ ᐦ ᐍ ᐏ ᐑ ᐓ ᐕ ᐘ ᐚ ᐗ  ᐤ ᐯ ᐻ ᐱ ᐲ ᐽ ᐿ ᐳ ᐴ ᑁ ᑃ ᐸ ᐹ ᑅ ᑇ ᑊ ᑌ ᑘ ᑎ ᑏ ᑚ ᑜ ᑐ ᑑ ᑞ ᑠ ᑕ ᑖ ᑢ ᑤ ᐟ ᑫ ᑵ ᑭ ᑮ ᑷ ᑹ ᑯ ᑰ ᑻ ᑽ ᑲ ᑳ ᑿ ᒁ ᐠ ᕽ ᒉ ᒓ ᒋ ᒌ ᒕ ᒗ ᒍ ᒎ ᒙ ᒛ ᒐ ᒑ ᒝ ᒟ ᐨ ᒣ ᒭ ᒥ ᒦ ᒯ ᒱ ᒧ ᒨ ᒳ ᒵ ᒪ ᒫ ᒷ ᒹ ᒼ ᓀ ᓊ ᓂ ᓃ ᣇ ᣉ ᓄ ᓅ ᣋ ᣍ ᓇ ᓈ ᓌ ᓈ ᐣ ᓭ ᓷ ᓯ ᓰ ᓹ ᓻ ᓱ ᓲ ᓽ ᓿ ᓴ ᓵ ᔁ ᔃ ᐢ ᔐ ᔘ ᔑ ᔒ ᔚ ᔜ ᔓ ᔔ ᔞ ᔠ ᔕ ᔖ ᔢ ᔤ ᐡ ᔦ ᔰ ᔨ ᔩ ᔲ ᔴ ᔪ ᔫ ᔶ ᔸ ᔭ ᔮ ᔺ ᔼ ᣟ a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z á / é í ( ñ ) ' ū ã ê ó ú - ä Ḱ Ć ï , & ł ᗸ ᒡ ᗲ ᘏ ᑋ ë ų â É ${` `} ɨ  ̱ : 7 Ō ĩ Ɂ ü ą ǫ õ ə ń ś ô š · ʔ Á Ƚ ö ē ā ī ō ᖹ ᐧ ᖾ ʉ ʷ ḍ ⁿ ę ˀ à ì ʌ • č Š ŋ ø ũ .  ̓  ̄ Ā Ñ ı  ̨ è  ̂ ʰ ĺ Ḵ ƚ " [ ] ò β ώ ɫ ḥ θ ‧ ɬ  ̣ Ṉ Ȼ Ã Ä Ó ƛ Ꮳ Ꮃ Ꭻ Ꮺ Ꮨ Ᏹ ᑦ ᔅ ᕀ 𐓏 𐒰 𐓓 𐒷 𐒼 𐓂 𐓊 𐒻 𐓆 𐒿 𐓀 ^ ’ –  ́ ‘  ̀ ʻ ʼ ꞉ ${' '}`)
+    })
+    resultsArray.push(territoryText)
     return resultsArray
   }
 
@@ -211,7 +213,7 @@ const Map = (props) => {
   }, [])
 
   // loader page while waiting for firebase call to complete
-  if (!languagePolygons) {
+  if (!territoryPolygons) {
     return (
       <MapLoader />
     )
@@ -223,7 +225,11 @@ const Map = (props) => {
       initialViewState={viewport}
       controller={true}
       ContextProvider={MapContext.Provider}
-      layers={languagePolygons} // we may have to combine both states into one large array to pass into layers
+      layers={[languagePolygons, territoryPolygons]} // we may have to combine both states into one large array to pass into layers
+      onViewStateChange={(pos) => {
+        setViewport(pos.viewState)
+      }}
+
     >
       {showPopup && clickInfo && (
         <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
