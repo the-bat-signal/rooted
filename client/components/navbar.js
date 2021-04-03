@@ -28,13 +28,13 @@ export const NavBar = () => {
           <Nav.Link href="/SignIn">Sign In</Nav.Link>
           <Nav.Link href="/map">Map</Nav.Link>
           <NavDropdown title="Learn" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="/Cherokee">Cherokee</NavDropdown.Item>
-            <NavDropdown.Item href="/Dakota">Dakota</NavDropdown.Item>
-            <NavDropdown.Item href="/Mohegan-Pequot">
+            <NavDropdown.Item href="/language/Cherokee">Cherokee</NavDropdown.Item>
+            <NavDropdown.Item href="/language/Dakota">Dakota</NavDropdown.Item>
+            <NavDropdown.Item href="/language/Mohegan">
               Mohegan-Pequot
             </NavDropdown.Item>
             {/* <NavDropdown.Divider /> */}
-            <NavDropdown.Item href="/Navajo">Navajo</NavDropdown.Item>
+            <NavDropdown.Item href="/language/Diné Bizaad">Diné Bizaad</NavDropdown.Item>
           </NavDropdown>
         </Nav>
         <Nav>
