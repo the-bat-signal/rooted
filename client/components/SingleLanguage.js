@@ -7,13 +7,10 @@ import {IoPlayCircle} from 'react-icons/io5'
 import {db} from '../../server/firebase'
 
 const SingleLanguage = (props) => {
-
-
   const [language, setLanguage] = useState({})
   const [vocab, setVocab] = useState({})
 
   useEffect(() => {
-    console.log('this is PROPS from SingleLanguages useEffect', props)
     const lang = async () => {
       try {
         const langRef = db.collection('languagesMap')
@@ -43,6 +40,8 @@ const SingleLanguage = (props) => {
 
   let links = []
 
+  // console.log('this is typeof language.pronunciation', typeof language.pronunciation)
+
   return (
     <div id="single-language">
       <div id="single-language__header">
@@ -56,7 +55,12 @@ const SingleLanguage = (props) => {
         </div>
       </div>
       <div id="single-language__pronunciation-guide">
-        <p id="single-language__pronunciation-summary"> {language.pronunciation} </p>
+        <ul id="single-language__pronunciation-summary">
+          {language.pronunciation}
+          {/* {language.pronunciation.split('; ').map(sound => {
+            return <li>{sound}</li>
+          })}  */}
+        </ul>
       </div>
       <div id="single-language__vocab">
         <Table id="single-language__vocab__table" bordered >
