@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom'
-
 import CountUp from 'react-countup';
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import '../../public/src';
 import {IoPlayCircle} from 'react-icons/io5'
 // import {db} from '../../server/firebase'
-import {Link} from 'react-router-dom'
-import Button from '@material-ui/core/Button'
 
 const SingleLanguage = (props) => {
 
@@ -112,7 +109,7 @@ const SingleLanguage = (props) => {
         <Link to={{
           pathname: `/language/${language.name}/practice`,
           state: {
-            language,
+            // language,
             vocab,
           }
         }}
