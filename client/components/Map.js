@@ -160,7 +160,6 @@ const Map = (props) => {
           pickable: docArray.length < 1500 ? true : false,
           onClick: (info) => {
             setClickInfo(info)
-            console.log('THIS IS CLICK INFO------', info)
             togglePopup(true)
           },
           wireframe: true,
