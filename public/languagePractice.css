@@ -7,8 +7,8 @@ body {
 }
 
 .item {
-  width: 200px;
-  height: 200px;
+  width: 45%;
+  height: 300px;
   margin: 50px auto;
   padding-top: 75px;
   background: #ccc;
@@ -26,7 +26,7 @@ body {
   bottom: 0;
   margin: auto;
   right: 20px;
-  background: green;
+  background: #32936f;
 }
 .item--secondary {
   position: fixed;
@@ -34,7 +34,7 @@ body {
   bottom: 0;
   margin: auto;
   left: 20px;
-  background: red;
+  background: #f5c000;
 }
 
 /*# sourceMappingURL=languagePractice.css.map */

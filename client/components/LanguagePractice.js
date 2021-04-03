@@ -9,12 +9,12 @@ AOS.init({
 });
 
 const LanguagePractice = (props) => {
-
-  const vocab = props.vocab
+  console.log('this is props inside LanguagePractice', props)
+  const vocab = props.location.state.vocab
 
   return (
     <div id="language-practice-page">
-    <div data-aos="fade-up-left"
+    {/* <div data-aos="fade-up-left"
       data-aos-offset="200"
       data-aos-delay="50"
       data-aos-duration="1000"
@@ -22,109 +22,152 @@ const LanguagePractice = (props) => {
       data-aos-mirror="true"
       data-aos-once="false"
       data-aos-anchor-placement="top-center"> Ready to practice? Scroll down! Prompts will be on the right and answers on the left!
-    </div>
-    <div class="item item--primary"
+    </div> */}
+    <div className="item item--primary"
      data-aos="fade-left"
      data-aos-anchor="#trigger-right">
-      How would you greet someone?
+       <span>How would you greet someone?</span>
     </div>
 
-    <div class="item item--secondary"
+    <div className="item item--secondary"
         data-aos="fade-right"
         data-aos-anchor="#trigger-left">
-      {vocab['Hello!']}
+        {vocab['Hello!']}
     </div>
 
-    <div class="item item--primary"
+    <div className="item item--primary"
      data-aos="fade-left"
      data-aos-anchor="#trigger-right">
-      How would you greet someone?
+      How day you say "How are you?"
     </div>
 
-    <div class="item item--secondary"
+    <div className="item item--secondary"
         data-aos="fade-right"
         data-aos-anchor="#trigger-left">
-      {vocab['Hello!']}
+      {vocab['How are you?']}
     </div>
 
-        <div class="item item--primary"
+    <div className="item item--primary"
      data-aos="fade-left"
      data-aos-anchor="#trigger-right">
-      How would you greet someone?
+      "I am fine.""
     </div>
 
-    <div class="item item--secondary"
+    <div className="item item--secondary"
         data-aos="fade-right"
         data-aos-anchor="#trigger-left">
-      {vocab['Hello!']}
+      {vocab['I am fine.']}
     </div>
 
-    <div class="item item--primary"
+    <div className="item item--primary"
      data-aos="fade-left"
      data-aos-anchor="#trigger-right">
-      How would you greet someone?
+      How do you thank someone?
     </div>
 
-    <div class="item item--secondary"
+    <div className="item item--secondary"
         data-aos="fade-right"
         data-aos-anchor="#trigger-left">
-      {vocab['Hello!']}
+      {vocab['Thank you.']}
     </div>
 
-    <div class="item item--primary"
+    <div className="item item--primary"
      data-aos="fade-left"
      data-aos-anchor="#trigger-right">
-      How would you greet someone?
+      {vocab['What is your name?']}
     </div>
 
-    <div class="item item--secondary"
+    <div className="item item--secondary"
         data-aos="fade-right"
         data-aos-anchor="#trigger-left">
-      {vocab['Hello!']}
+      {vocab['My name is ___.']}
     </div>
 
-        <div class="item item--primary"
+    <div className="item item--primary"
      data-aos="fade-left"
      data-aos-anchor="#trigger-right">
-      How would you greet someone?
+      "Goodbye!""
     </div>
 
-    <div class="item item--secondary"
+    <div className="item item--secondary"
         data-aos="fade-right"
         data-aos-anchor="#trigger-left">
-      {vocab['Hello!']}
+      {vocab['Goodbye!']}
     </div>
 
-    <div class="item item--primary"
-     data-aos="fade-left"
-     data-aos-anchor="#trigger-right">
-      How would you greet someone?
-    </div>
-
-    <div class="item item--secondary"
-        data-aos="fade-right"
-        data-aos-anchor="#trigger-left">
-      {vocab['Hello!']}
-    </div>
-
-    <div class="item">1</div>
-    <div class="item">2</div>
-    <div class="item">3</div>
-    <div class="item">4</div>
-    <div class="item" id="trigger-left">
-      5
+    <div className="item"> Ready to practice? Scroll down! Prompts will be on the right and answers on the left! </div>
+    <div className="item"></div>
+    <div className="item"></div>
+    <div className="item"></div>
+    <div className="item" id="trigger-left">
       <span>trigger left</span>
     </div>
-    <div class="item">6</div>
-    <div class="item">7</div>
-    <div class="item" id="trigger-right">
-      8
+    <div className="item"></div>
+    <div className="item"></div>
+    <div className="item" id="trigger-right">
       <span>trigger right</span>
     </div>
-    <div class="item">9</div>
-    <div class="item">10</div>
-    <div class="item">11</div>
-    <div class="item">12</div>
+    <div className="item"></div>
+    <div className="item"></div>
+    <div className="item" id="trigger-left">
+      <span>trigger left</span>
+    </div>
+    <div className="item"></div>
+    <div className="item"></div>
+    <div className="item" id="trigger-right">
+      <span>trigger right</span>
+    </div>
+     <div className="item"></div>
+    <div className="item"></div>
+    <div className="item" id="trigger-left">
+      <span>trigger left</span>
+    </div>
+    <div className="item"></div>
+    <div className="item"></div>
+    <div className="item" id="trigger-right">
+      <span>trigger right</span>
+    </div>
+     <div className="item"></div>
+    <div className="item"></div>
+    <div className="item" id="trigger-left">
+      <span>trigger left</span>
+    </div>
+    <div className="item"></div>
+    <div className="item"></div>
+    <div className="item" id="trigger-right">
+      <span>trigger right</span>
+    </div>
+     <div className="item"></div>
+    <div className="item"></div>
+    <div className="item" id="trigger-left">
+      <span>trigger left</span>
+    </div>
+    <div className="item"></div>
+    <div className="item"></div>
+    <div className="item" id="trigger-right">
+      <span>trigger right</span>
+    </div>
+     <div className="item"></div>
+    <div className="item"></div>
+    <div className="item" id="trigger-left">
+      <span>trigger left</span>
+    </div>
+    <div className="item"></div>
+    <div className="item"></div>
+    <div className="item" id="trigger-right">
+      <span>trigger right</span>
+    </div>
+     <div className="item"></div>
+    <div className="item"></div>
+    <div className="item" id="trigger-left">
+      <span>trigger left</span>
+    </div>
+    <div className="item"></div>
+    <div className="item"></div>
+    <div className="item" id="trigger-right">
+      <span>trigger right</span>
+    </div>
+    <div className="item"> END </div>
   </div>
   )
 }

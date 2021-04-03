@@ -25,9 +25,10 @@ export const PopupBox = (props) => {
         const vocabRef = db.collection('vocab')
         const vocabSnapshot = await vocabRef.get({source: 'cache'})
         vocabSnapshot.forEach((doc) => {
+          console.log('this is props.polygonPopupData inside of PopupBox', props.polygonPopupData)
           if (doc.id.includes(props.polygonPopupData.layer.id.toLowerCase())) {
             setVocab(doc.data())
-            // console.log('this is doc.id', doc.id)
+
           }
         });
 
@@ -39,7 +40,7 @@ export const PopupBox = (props) => {
     lang()
   }, [props.polygonPopupData])
 
-  // console.log('VOCABBBB', vocab)
+  console.log('this is language inside PopupBox------', language)
 
   return (
     <React.Fragment>
