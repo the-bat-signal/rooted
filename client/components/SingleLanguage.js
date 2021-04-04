@@ -6,6 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {IoPlayCircle} from 'react-icons/io5'
 import {db} from '../../server/firebase'
 import Button from '@material-ui/core/Button'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+AOS.init();
 
 const SingleLanguage = (props) => {
   const [language, setLanguage] = useState({})
@@ -39,16 +43,18 @@ const SingleLanguage = (props) => {
     lang()
   }, [])
 
+  //
   let links = []
+
   return (
     <div id="single-language">
       <div id="single-language__header">
         <div id='counterContainer'>
-        <h1 id='singleLangName'> {language.name} </h1>
-        <h4 id='singleLangSubhead'> By learning this language, you are adding to a community of this many speakers!: </h4>
-        {language.speakers ?  <CountUp className="speakersAnimate" start={0} end={language.speakers} duration={2.5} separator="," /> : null}
-
+          <h1 id='singleLangName'> {language.name} </h1>
+          <h4 id='singleLangSubhead'> By learning this language, you are adding to a community of this many speakers!: </h4>
+          {language.speakers ?  <CountUp className="speakersAnimate" start={0} end={language.speakers} duration={2.5} separator="," /> : null}
         </div>
+        <div data-aos="fade-down-left"> Test your language skills at the bottom of the page! </div>
         <div>
           <p id="language-description"> {language.description} </p>
         </div>
@@ -57,9 +63,9 @@ const SingleLanguage = (props) => {
         <ul id="single-language__pronunciation-summary">
           {language.pronunciation ?
           language.pronunciation.split('; ').map(sound => {
-            return <li>{sound}</li>
+            return <li key={sound}>{sound}</li>
           })
-          : <div></div>
+          : <div> Pronunciation guide coming soon! </div>
         }
         </ul>
       </div>
