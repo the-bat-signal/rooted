@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useEffect }  from 'react'
 import {Link} from 'react-router-dom'
 import Button from '@material-ui/core/Button'
+import LogoSVG from './LogoSVG'
+import anime from "animejs";
+
 
 // const startButtonStyle = {
 //   background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -14,9 +17,27 @@ import Button from '@material-ui/core/Button'
 
 export const StartPage = () => {
 
+  const animate = () => {
+    anime.timeline({loop: false})
+    .add({
+      duration: 2000,
+    })
+    .add({
+      targets: "#mainLogo g #roots .st4",
+      strokeDashoffset: [anime.setDashoffset, 0],
+      easing: "easeInOutSine",
+      duration: 1750,
+    })
+  }
+
+    useEffect(() => {
+    animate();
+  }, []);
+
   return (
     <div className="startPage">
        <img id="logo" src="/images/rooted-06.png" />
+       {/* <LogoSVG /> */}
       <br />
             <div id='mission'>
         Promote, preserve, and protect Indigenous languages/heritage,
@@ -31,3 +52,6 @@ export const StartPage = () => {
     </div>
   )
 }
+
+
+// style="enable-background:new 0 0 430.62 184.98;" xmlSpace="preserve"

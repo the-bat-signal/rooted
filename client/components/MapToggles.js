@@ -6,6 +6,7 @@ const MapToggles = (props) => {
     // button: layer for administrative lines
   <div className='mapTogglesContainer'>
 
+    <div className='toggleContainer'>
     <button className="singleCheckboxContainer"
       onClick={() => {
         const adminLines = JSON.parse(localStorage.getItem('adminLines'));
@@ -64,6 +65,9 @@ const MapToggles = (props) => {
       Territories{"  "}
       <span className="checkmark" />
     </button>
+    </div>
+
+    <div className='elevationContainer'>press <span className='keyboardStyle'>shift</span> and <span className='keyboardStyle'>&#8592; &#8593; &#8594; &#8595;</span> arrows to see the elevation differences representing relative number of speakers</div>
     </div>
   )
 }

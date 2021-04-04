@@ -40,16 +40,14 @@ const SingleLanguage = (props) => {
   }, [])
 
   let links = []
-
-  // console.log('this is typeof language.pronunciation', typeof language.pronunciation)
-
   return (
     <div id="single-language">
       <div id="single-language__header">
         <div id='counterContainer'>
         <h1 id='singleLangName'> {language.name} </h1>
         <h4 id='singleLangSubhead'> By learning this language, you are adding to a community of this many speakers!: </h4>
-        <CountUp className="speakersAnimate" start={0} end={language.speakers} duration={2.5} separator="," />
+        {language.speakers ?  <CountUp className="speakersAnimate" start={0} end={language.speakers} duration={2.5} separator="," /> : null}
+
         </div>
         <div>
           <p id="language-description"> {language.description} </p>
