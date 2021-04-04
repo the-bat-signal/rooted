@@ -104,8 +104,6 @@ form div {
   font-size: 22px;
   color: #32936f;
   text-align: center;
-
-
 }
 
 @media screen and (max-width: 400px) {
@@ -259,13 +257,17 @@ tr:nth-child(odd) {
   padding: 20px;
   box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.379);
   z-index: 98;
+}
 
-
+.toggleContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
 }
 
 .singleCheckboxContainer{
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
   border: .5px solid rgb(205, 196, 196);
   border-radius: 4px
 }
