@@ -34,6 +34,7 @@ const Map = (props) => {
   const [selectTerritoryLayer, setTerritoryLayer] = useState(true)
   const [languagePolygons, setLanguagePolygons] = useState()
   const [territoryPolygons, setTerritoryPolygons] = useState()
+  const [geolocate, setGeolocate] = useState(true)
   const [showPopup, togglePopup] = useState(false)
   const [viewport, setViewport] = useState({
   longitude: -74.00918185993224,
@@ -188,6 +189,9 @@ const Map = (props) => {
       const ref = db.collection(collectionName)
       // if something is not rendering, change this to server for one render, then it should be available from cache
       const snapshot = await ref.get({source: 'cache'})
+      if (snapshot.empty) {
+        snapshot = await ref.get({source: 'server'})
+      }
       snapshot.forEach((doc) => {
         inputArray.push(doc.data())
       })
@@ -213,6 +217,9 @@ const Map = (props) => {
     setTerritoryLayer(territories);
   }, [])
 
+  useEffect(() => {
+    setGeolocate(true)
+  }, [])
   // loader page while waiting for firebase call to complete
   if (!territoryPolygons) {
     return (
@@ -253,8 +260,11 @@ const Map = (props) => {
         <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
-          auto={false}
+          auto={geolocate}
           fitBoundsOptions={{maxZoom: 6}}
+          onGeolocate={() => {
+            setGeolocate(false)
+          }}
         />
       <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines} selectLanguageLayer={selectLanguageLayer} setLanguageLayer={setLanguageLayer} selectTerritoryLayer={selectTerritoryLayer} setTerritoryLayer={setTerritoryLayer}/>
       </div>
