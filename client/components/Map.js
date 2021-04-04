@@ -162,6 +162,7 @@ const Map = (props) => {
         })
       )
     }
+    if (docArray.length > 1500) {
     const territoryText = new TextLayer({
     id: 'territory-text-layer',
     data: territoryArray,
@@ -178,15 +179,15 @@ const Map = (props) => {
     characterSet: splitter(`  ' ᐁ ᐃ ᐄ ᐅ ᐆ ᐊ ᐋ ᐦ ᐍ ᐏ ᐑ ᐓ ᐕ ᐘ ᐚ ᐗ  ᐤ ᐯ ᐻ ᐱ ᐲ ᐽ ᐿ ᐳ ᐴ ᑁ ᑃ ᐸ ᐹ ᑅ ᑇ ᑊ ᑌ ᑘ ᑎ ᑏ ᑚ ᑜ ᑐ ᑑ ᑞ ᑠ ᑕ ᑖ ᑢ ᑤ ᐟ ᑫ ᑵ ᑭ ᑮ ᑷ ᑹ ᑯ ᑰ ᑻ ᑽ ᑲ ᑳ ᑿ ᒁ ᐠ ᕽ ᒉ ᒓ ᒋ ᒌ ᒕ ᒗ ᒍ ᒎ ᒙ ᒛ ᒐ ᒑ ᒝ ᒟ ᐨ ᒣ ᒭ ᒥ ᒦ ᒯ ᒱ ᒧ ᒨ ᒳ ᒵ ᒪ ᒫ ᒷ ᒹ ᒼ ᓀ ᓊ ᓂ ᓃ ᣇ ᣉ ᓄ ᓅ ᣋ ᣍ ᓇ ᓈ ᓌ ᓈ ᐣ ᓭ ᓷ ᓯ ᓰ ᓹ ᓻ ᓱ ᓲ ᓽ ᓿ ᓴ ᓵ ᔁ ᔃ ᐢ ᔐ ᔘ ᔑ ᔒ ᔚ ᔜ ᔓ ᔔ ᔞ ᔠ ᔕ ᔖ ᔢ ᔤ ᐡ ᔦ ᔰ ᔨ ᔩ ᔲ ᔴ ᔪ ᔫ ᔶ ᔸ ᔭ ᔮ ᔺ ᔼ ᣟ a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z á / é í ( ñ ) ' ū ã ê ó ú - ä Ḱ Ć ï , & ł ᗸ ᒡ ᗲ ᘏ ᑋ ë ų â É ${` `} ɨ  ̱ : 7 Ō ĩ Ɂ ü ą ǫ õ ə ń ś ô š · ʔ Á Ƚ ö ē ā ī ō ᖹ ᐧ ᖾ ʉ ʷ ḍ ⁿ ę ˀ à ì ʌ • č Š ŋ ø ũ .  ̓  ̄ Ā Ñ ı  ̨ è  ̂ ʰ ĺ Ḵ ƚ " [ ] ò β ώ ɫ ḥ θ ‧ ɬ  ̣ Ṉ Ȼ Ã Ä Ó ƛ Ꮳ Ꮃ Ꭻ Ꮺ Ꮨ Ᏹ ᑦ ᔅ ᕀ 𐓏 𐒰 𐓓 𐒷 𐒼 𐓂 𐓊 𐒻 𐓆 𐒿 𐓀 ^ ’ –  ́ ‘  ̀ ʻ ʼ ꞉ ${' '}`)
     })
     resultsArray.push(territoryText)
-    return resultsArray
   }
-
+   return resultsArray
+}
   // this is where we grab the data from Firestore to render polygons
   useEffect(() => {
     async function fetch(collectionName, inputArray) {
       const ref = db.collection(collectionName)
       // if something is not rendering, change this to server for one render, then it should be available from cache
-      const snapshot = await ref.get({source: 'server'})
+      const snapshot = await ref.get({source: 'cache'})
       snapshot.forEach((doc) => {
         inputArray.push(doc.data())
       })
@@ -254,12 +255,6 @@ const Map = (props) => {
           trackUserLocation={true}
           auto={false}
           fitBoundsOptions={{maxZoom: 6}}
-          onGeolocate={(pos) => {
-          setViewstate({
-            longitude: pos.coords.longitude,
-            latitude: pos.coords.latitude,
-          })
-        }}
         />
       <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines} selectLanguageLayer={selectLanguageLayer} setLanguageLayer={setLanguageLayer} selectTerritoryLayer={selectTerritoryLayer} setTerritoryLayer={setTerritoryLayer}/>
       </div>
