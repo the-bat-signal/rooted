@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {IoPlayCircle} from 'react-icons/io5'
 import {db} from '../../server/firebase'
+import Button from '@material-ui/core/Button'
 
 const SingleLanguage = (props) => {
   const [language, setLanguage] = useState({})
@@ -56,10 +57,12 @@ const SingleLanguage = (props) => {
       </div>
       <div id="single-language__pronunciation-guide">
         <ul id="single-language__pronunciation-summary">
-          {language.pronunciation}
-          {/* {language.pronunciation.split('; ').map(sound => {
+          {language.pronunciation ?
+          language.pronunciation.split('; ').map(sound => {
             return <li>{sound}</li>
-          })}  */}
+          })
+          : <div></div>
+        }
         </ul>
       </div>
       <div id="single-language__vocab">
@@ -116,9 +119,9 @@ const SingleLanguage = (props) => {
           }
         }}
         >
-          {/* <Button className='startPageButton' > */}
-            Wanna test your memorization? Try practicing!
-          {/* </Button> */}
+          <Button className='startPageButton' >
+            Try practicing!
+          </Button>
         </Link>
         <p> Here are some more useful links, including resources for further language-learning and links to current nations/communities to whom this language belongs: </p>
       </div>
