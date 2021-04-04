@@ -14,8 +14,8 @@ body {
 }
 
 .item {
-  width: 200px;
-  height: 200px;
+  width: 45%;
+  height: 300px;
   margin: 50px auto;
   padding-top: 75px;
   background: #ccc;
@@ -31,12 +31,12 @@ body {
   &--primary {
     @include center-v;
     right: 20px;
-    background: green;
+    background: #32936f;
   }
 
   &--secondary {
     @include center-v;
     left: 20px;
-    background: red;
+    background: #f5c000;
   }
 }

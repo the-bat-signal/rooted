@@ -3,12 +3,13 @@ body {
 }
 
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .item {
-  width: 45%;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   margin: 50px auto;
   padding-top: 75px;
   background: #ccc;
@@ -16,25 +17,27 @@ body {
   color: #FFF;
   font-size: 3em;
 }
+
 .item span {
   display: block;
   font-size: 1rem;
 }
+
 .item--primary {
   position: fixed;
   top: 0;
   bottom: 0;
   margin: auto;
   right: 20px;
-  background: #32936f;
+  background: green;
 }
+
 .item--secondary {
   position: fixed;
   top: 0;
   bottom: 0;
   margin: auto;
   left: 20px;
-  background: #f5c000;
+  background: red;
 }
-
 /*# sourceMappingURL=languagePractice.css.map */

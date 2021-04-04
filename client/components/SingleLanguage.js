@@ -5,15 +5,13 @@ import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {IoPlayCircle} from 'react-icons/io5'
 import {db} from '../../server/firebase'
+import Button from '@material-ui/core/Button'
 
 const SingleLanguage = (props) => {
-
-
   const [language, setLanguage] = useState({})
   const [vocab, setVocab] = useState({})
 
   useEffect(() => {
-    console.log('this is PROPS from SingleLanguages useEffect', props)
     const lang = async () => {
       try {
         const langRef = db.collection('languagesMap')
@@ -43,6 +41,8 @@ const SingleLanguage = (props) => {
 
   let links = []
 
+  // console.log('this is typeof language.pronunciation', typeof language.pronunciation)
+
   return (
     <div id="single-language">
       <div id="single-language__header">
@@ -56,10 +56,17 @@ const SingleLanguage = (props) => {
         </div>
       </div>
       <div id="single-language__pronunciation-guide">
-        <p id="single-language__pronunciation-summary"> {language.pronunciation} </p>
+        <ul id="single-language__pronunciation-summary">
+          {language.pronunciation ?
+          language.pronunciation.split('; ').map(sound => {
+            return <li>{sound}</li>
+          })
+          : <div></div>
+        }
+        </ul>
       </div>
       <div id="single-language__vocab">
-        <Table id="single-language__vocab__table"  success bordered >
+        <Table id="single-language__vocab__table" bordered >
         <tbody>
           <tr id="column-names-row">
             <th scope="col"> Audio </th>
@@ -112,9 +119,9 @@ const SingleLanguage = (props) => {
           }
         }}
         >
-          {/* <Button className='startPageButton' > */}
-            Wanna test your memorization? Try practicing!
-          {/* </Button> */}
+          <Button className='startPageButton' >
+            Try practicing!
+          </Button>
         </Link>
         <p> Here are some more useful links, including resources for further language-learning and links to current nations/communities to whom this language belongs: </p>
       </div>
