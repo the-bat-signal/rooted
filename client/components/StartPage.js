@@ -20,24 +20,37 @@ export const StartPage = () => {
   const animate = () => {
     anime.timeline({loop: false})
     .add({
-      duration: 2000,
+      duration: 1500,
     })
     .add({
-      targets: "#mainLogo g #roots .st4",
+      targets: "#mainLogo #letters",
+      // strokeDashoffset: [anime.setDashoffset, 0],
+      // easing: "easeInOutSine",
+      // duration: 1750,
+      delay: 500,
+      opacity: [{ value: [0, 1], duration: 1200, easing: "easeOutQuad" }],
+      color: "#ff3d00",
+    })
+    .add({
+      targets: "#mainLogo #roots .st4",
       strokeDashoffset: [anime.setDashoffset, 0],
       easing: "easeInOutSine",
       duration: 1750,
+      color: "#ff3d00",
+
     })
   }
 
-    useEffect(() => {
-    animate();
+  useEffect(() => {
+  animate();
   }, []);
 
   return (
     <div className="startPage">
-       <img id="logo" src="/images/rooted-06.png" />
-       {/* <LogoSVG /> */}
+      {/* <div> */}
+       {/* <img id="logo" src="/images/rooted-06.png" /> */}
+       <LogoSVG />
+       {/* </div> */}
       <br />
             <div id='mission'>
         Promote, preserve, and protect Indigenous languages/heritage,
