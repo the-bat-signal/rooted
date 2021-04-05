@@ -52,16 +52,13 @@ const Map = (props) => {
   const colorArray = [
     [190, 231, 176], // tea green
     [50, 147, 111], // illuminating emerald
-    [122, 132, 80], // moss green
-    [62, 25, 41], // dark purple
+    [171, 92, 250], // medium purple
+    [0, 193, 255], // capri
     [255, 112, 115], // light coral
     [255, 247, 0], // lemon
     [5, 29, 35], // dark jungle green
-    //newly added
-    [12, 116, 137], // teal blue
-    [179, 194, 242], // lavender blue
+    [255, 155, 0], // orange peel
     [229, 75, 75], // imperial red
-    [249, 223, 116], // jasmine
   ]
 
 
@@ -191,11 +188,15 @@ const Map = (props) => {
       // if something is not rendering, change this to server for one render, then it should be available from cache
       const snapshot = await ref.get({source: 'cache'})
       if (snapshot.empty) {
-        snapshot = await ref.get({source: 'server'})
-      }
+        const newSnapshot = await ref.get({source: 'server'})
+        newSnapshot.forEach((doc) => {
+          inputArray.push(doc.data())
+        })
+      } else {
       snapshot.forEach((doc) => {
         inputArray.push(doc.data())
       })
+    }
       let source = snapshot.metadata.fromCache ? 'local cache' : 'server'
         console.log('Data came from ' + source)
       if (collectionName === 'languagesMap') {
