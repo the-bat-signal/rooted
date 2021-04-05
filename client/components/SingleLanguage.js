@@ -111,7 +111,7 @@ const SingleLanguage = (props) => {
   //   helloAudio.play();
   // }
 
-
+{/* <audio controls src='/audio/Mohegan_vocab/Nukôkicá.mp3' type='audio/mpeg'></audio>  */}
   // const play = () => {
   //   audio.play()
   // }
@@ -146,8 +146,7 @@ const SingleLanguage = (props) => {
             <th scope="col"> {language.name} </th>
           </tr>
           <tr className="single-vocab-row">
-            <th scope="audio">
-              {/* <IoPlayCircle onClick={playHelloAudio()}/>  */}
+            <th>
               <IoPlayCircle/>
               </th>
             <td> Hello! </td>
@@ -159,7 +158,7 @@ const SingleLanguage = (props) => {
             <td> {vocab['How are you?']} </td>
           </tr>
           <tr className="single-vocab-row">
-            <th scope="audio"> <IoPlayCircle/></th>
+            <th scope="audio"> <IoPlayCircle/> </th>
             <td> I am fine. </td>
             <td> {vocab['I am fine.']} </td>
           </tr>
@@ -183,6 +182,7 @@ const SingleLanguage = (props) => {
             <td> Goodbye! </td>
             <td> {vocab['Goodbye!']} </td>
           </tr>
+
         </tbody>
         </Table>
 
