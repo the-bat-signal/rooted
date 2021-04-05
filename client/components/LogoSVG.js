@@ -1,7 +1,7 @@
 import React from "react";
 
 const LogoSVG = () => (
-  <svg id='mainLogo'  xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+  <svg id='mainLogo'  xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width='500px'
 	 viewBox="0 0 430.62 184.98" >
 {/* <style type="text/css"> */}
 	{/* .st0{fill:#488769;}
