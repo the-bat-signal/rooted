@@ -124,7 +124,7 @@ const SingleLanguage = (props) => {
           <h4 id='singleLangSubhead'> By learning this language, you are adding to a community of this many speakers!: </h4>
           {language.speakers ?  <CountUp className="speakersAnimate" start={0} end={language.speakers} duration={2.5} separator="," /> : null}
         </div>
-        <div data-aos="fade-down-left"> Test your language skills at the bottom of the page! </div>
+        {/* <div id="test-ad" data-aos="fade-down-left"> Test your language skills at the bottom of the page! </div> */}
         <div>
           <p id="language-description"> {language.description} </p>
         </div>
