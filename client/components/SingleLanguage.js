@@ -32,7 +32,7 @@ const SingleLanguage = (props) => {
       try {
         const langRef = db.collection('languagesMap')
         const langSnapshot = await langRef.get({source: 'cache'})
-        if (langSnapshot.empty) {
+        if (langSnapshot.length === 0) {
         langSnapshot = await ref.get({source: 'server'}) // always leave this as server
         }
         langSnapshot.forEach((doc) => {
@@ -43,7 +43,7 @@ const SingleLanguage = (props) => {
         // console.log('inside useEffect of PopupBox')
         const vocabRef = db.collection('vocab')
         const vocabSnapshot = await vocabRef.get({source: 'cache'})
-          if (vocabSnapshot.empty) {
+          if (vocabSnapshot.length === 0) {
         vocabSnapshot = await ref.get({source: 'server'}) // always leave this as server
       }
         vocabSnapshot.forEach((doc) => {
