@@ -187,16 +187,15 @@ const Map = (props) => {
       const ref = db.collection(collectionName)
       // if something is not rendering, change this to server for one render, then it should be available from cache
       const snapshot = await ref.get({source: 'cache'})
-      console.log('this is snapshot', snapshot)
-      if (snapshot.docs.length === 0) {
-        const newSnapshot = await ref.get({source: 'server'})
+      if (!snapshot.empty) {
+         snapshot.forEach((doc) => {
+        inputArray.push(doc.data())
+      })
+      } else {
+      const newSnapshot = await ref.get({source: 'server'})
         newSnapshot.forEach((doc) => {
           inputArray.push(doc.data())
         })
-      } else {
-      snapshot.forEach((doc) => {
-        inputArray.push(doc.data())
-      })
     }
       let source = snapshot.metadata.fromCache ? 'local cache' : 'server'
         console.log('Data came from ' + source)
