@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import SignIn from './components/Login'
 import SignUp from './components/SignUp'
 import {StartPage} from './components/StartPage'
+import {AboutPage} from './components/AboutPage'
 import Map from './components/Map'
 import {me} from './store'
 import SingleLanguage from './components/SingleLanguage'
@@ -25,8 +26,17 @@ class Routes extends Component {
         <Route path="/map" component={Map} />
         <Route path="/SignIn" component={SignIn} />
         <Route path="/SignUp" component={SignUp} />
-        <Route exact path="/language/:singleLanguage" component={SingleLanguage} />
-        <Route exact path='/language/:singlelanguage/practice' component={LanguagePractice} />
+        <Route path="/About" component={AboutPage} />
+        <Route
+          exact
+          path="/language/:singleLanguage"
+          component={SingleLanguage}
+        />
+        <Route
+          exact
+          path="/language/:singlelanguage/practice"
+          component={LanguagePractice}
+        />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
