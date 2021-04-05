@@ -17,27 +17,39 @@ export const PopupBox = (props) => {
         const langRef = db.collection('languagesMap')
         const langSnapshot = await langRef.get({source: 'cache'})
         if (langSnapshot.length === 0) {
-        langSnapshot = await ref.get({source: 'server'})
-        }
+        const newLangSnapshot = await ref.get({source: 'server'})
+        newLangSnapshot.forEach((doc) => {
+          if (doc.data().name === props.polygonPopupData.layer.id) {
+            setLanguage(doc.data())
+          }
+        })
+        } else {
         langSnapshot.forEach((doc) => {
           if (doc.data().name === props.polygonPopupData.layer.id) {
             setLanguage(doc.data())
           }
         })
+      }
         // console.log('inside useEffect of PopupBox')
         const vocabRef = db.collection('vocab')
         const vocabSnapshot = await vocabRef.get({source: 'cache'})
-        if (vocabSnapshot.length === 0) {
-        vocabSnapshot = await ref.get({source: 'server'})
-        }
-        vocabSnapshot.forEach((doc) => {
+        if (vocabSnapshot.docs.length === 0) {
+        const newVocabSnapshot = await ref.get({source: 'server'})
+         newVocabSnapshot.forEach((doc) => {
           // console.log('this is props.polygonPopupData inside of PopupBox', props.polygonPopupData)
           if (doc.id.includes(props.polygonPopupData.layer.id.toLowerCase())) {
             setVocab(doc.data())
 
           }
         });
-
+        } else {
+        vocabSnapshot.forEach((doc) => {
+          // console.log('this is props.polygonPopupData inside of PopupBox', props.polygonPopupData)
+          if (doc.id.includes(props.polygonPopupData.layer.id.toLowerCase())) {
+            setVocab(doc.data())
+          }
+        });
+      }
         // props.setAdminLines(!!props.selectAdminLines)
       } catch (err) {
         console.log('error in PopupBox call-----', err)

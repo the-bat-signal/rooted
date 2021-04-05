@@ -32,27 +32,39 @@ const SingleLanguage = (props) => {
       try {
         const langRef = db.collection('languagesMap')
         const langSnapshot = await langRef.get({source: 'cache'})
-        if (langSnapshot.length === 0) {
-        langSnapshot = await ref.get({source: 'server'}) // always leave this as server
-        }
+        if (langSnapshot.docs.length === 0) {
+        const newLangSnapshot = await ref.get({source: 'server'}) // always leave this as server
+         newLangSnapshot.forEach((doc) => {
+          if (doc.data().name === props.match.params.singleLanguage) {
+            setLanguage(doc.data())
+          }
+        })
+        } else {
         langSnapshot.forEach((doc) => {
           if (doc.data().name === props.match.params.singleLanguage) {
             setLanguage(doc.data())
           }
         })
+      }
         // console.log('inside useEffect of PopupBox')
         const vocabRef = db.collection('vocab')
-        const vocabSnapshot = await vocabRef.get({source: 'cache'})
-          if (vocabSnapshot.length === 0) {
-        vocabSnapshot = await ref.get({source: 'server'}) // always leave this as server
-      }
+        const vocabSnapshot = await vocabRef.get({source: 'server'})
+          if (vocabSnapshot.docs.length === 0) {
+        const newVocabSnapshot = await ref.get({source: 'server'}) // always leave this as server
+         newVocabSnapshot.forEach((doc) => {
+          if (doc.id.includes(props.match.params.singleLanguage.toLowerCase())) {
+            setVocab(doc.data())
+            // console.log('this is doc.id', doc.id)
+          }
+        });
+      } else {
         vocabSnapshot.forEach((doc) => {
           if (doc.id.includes(props.match.params.singleLanguage.toLowerCase())) {
             setVocab(doc.data())
             // console.log('this is doc.id', doc.id)
           }
         });
-
+      }
         // props.setAdminLines(!!props.selectAdminLines)
       } catch (err) {
         console.log('error in SingleLanguage call-----', err)
