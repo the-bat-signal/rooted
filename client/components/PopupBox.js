@@ -31,7 +31,7 @@ export const PopupBox = (props) => {
         vocabSnapshot = await ref.get({source: 'server'})
         }
         vocabSnapshot.forEach((doc) => {
-          console.log('this is props.polygonPopupData inside of PopupBox', props.polygonPopupData)
+          // console.log('this is props.polygonPopupData inside of PopupBox', props.polygonPopupData)
           if (doc.id.includes(props.polygonPopupData.layer.id.toLowerCase())) {
             setVocab(doc.data())
 
@@ -66,7 +66,7 @@ export const PopupBox = (props) => {
           <div id="popuptext">
             <h3 id="popupHeader">
               {' '}
-              {vocab['Hello!']} The language spoken in this region is{' '}
+              <span style={{color: "#ab5cfa"}}>{vocab['Hello!']}</span> The language spoken in this region is{' '}
               {language.name}{' '}
             </h3>
             <br />
@@ -90,16 +90,11 @@ export const PopupBox = (props) => {
             </p>
               <h3 id='landAck'>
                   {' '}
-                  "{vocab['Hello!']} I would like to acknowledge that we are on
-                  the traditional, ancestral territory of the {language.name}-speaking people. {vocab['Thank you.']}"
+                  "<span style={{color: "#ab5cfa"}}>{vocab['Hello!']}</span> I would like to acknowledge that we are on
+                  the traditional, ancestral territory of the {language.name}-speaking people. <span style={{color: "#ab5cfa"}}>{vocab['Thank you.']}</span>"
                   <br />
               </h3>
               <br/>
-            {/* only conditionally render the Current Nations if there are links to the current nations in the database for this language */}
-            {/* <h2> <b>CURRENT NATIONS </b></h2> */}
-            {/* <p><a href>Nation 1</a></p>
-            <p><a href>Nation 2</a></p>
-            <p><a href>Nation 3</a></p> */}
             {vocab['Hello!'] ?
             <div>
             <h2><b> LANGUAGES IN SELECTED AREA </b></h2>

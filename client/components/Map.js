@@ -48,13 +48,14 @@ const Map = (props) => {
   let languageArray = []
   let territoryArray = []
 
+  // our palette: https://coolors.co/bee7b8-32936f-ab5cfa-00c1ff-fff700-ff9b00-ff7073-e63946-051d23
   const colorArray = [
     [190, 231, 176], // tea green
     [50, 147, 111], // illuminating emerald
     [122, 132, 80], // moss green
     [62, 25, 41], // dark purple
     [255, 112, 115], // light coral
-    [245, 192, 0], // golden poppy
+    [255, 247, 0], // lemon
     [5, 29, 35], // dark jungle green
     //newly added
     [12, 116, 137], // teal blue
@@ -170,7 +171,7 @@ const Map = (props) => {
     pickable: false,
     getPosition: d => centerCoordinate(d.coordinates),
     getText: d => d.name,
-    getSize: 7500,
+    getSize: 8500,
     fontFamily: 'Montserrat, sans-serif',
     getAngle: 0,
     getTextAnchor: 'middle',
