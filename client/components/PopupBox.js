@@ -16,15 +16,15 @@ export const PopupBox = (props) => {
       try {
         const langRef = db.collection('languagesMap')
         const langSnapshot = await langRef.get({source: 'cache'})
-        if (langSnapshot.length === 0) {
-        const newLangSnapshot = await ref.get({source: 'server'})
-        newLangSnapshot.forEach((doc) => {
+        if (!langSnapshot.empty) {
+          langSnapshot.forEach((doc) => {
           if (doc.data().name === props.polygonPopupData.layer.id) {
             setLanguage(doc.data())
           }
         })
         } else {
-        langSnapshot.forEach((doc) => {
+         const newLangSnapshot = await langRef.get({source: 'server'})
+        newLangSnapshot.forEach((doc) => {
           if (doc.data().name === props.polygonPopupData.layer.id) {
             setLanguage(doc.data())
           }
@@ -33,20 +33,19 @@ export const PopupBox = (props) => {
         // console.log('inside useEffect of PopupBox')
         const vocabRef = db.collection('vocab')
         const vocabSnapshot = await vocabRef.get({source: 'cache'})
-        if (vocabSnapshot.docs.length === 0) {
-        const newVocabSnapshot = await ref.get({source: 'server'})
-         newVocabSnapshot.forEach((doc) => {
+        if (!vocabSnapshot.empty) {
+           vocabSnapshot.forEach((doc) => {
           // console.log('this is props.polygonPopupData inside of PopupBox', props.polygonPopupData)
           if (doc.id.includes(props.polygonPopupData.layer.id.toLowerCase())) {
             setVocab(doc.data())
-
           }
         });
         } else {
-        vocabSnapshot.forEach((doc) => {
-          // console.log('this is props.polygonPopupData inside of PopupBox', props.polygonPopupData)
+       const newVocabSnapshot = await vocabRef.get({source: 'server'})
+         newVocabSnapshot.forEach((doc) => {
           if (doc.id.includes(props.polygonPopupData.layer.id.toLowerCase())) {
             setVocab(doc.data())
+
           }
         });
       }

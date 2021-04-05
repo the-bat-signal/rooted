@@ -32,15 +32,15 @@ const SingleLanguage = (props) => {
       try {
         const langRef = db.collection('languagesMap')
         const langSnapshot = await langRef.get({source: 'cache'})
-        if (langSnapshot.docs.length === 0) {
-        const newLangSnapshot = await ref.get({source: 'server'}) // always leave this as server
-         newLangSnapshot.forEach((doc) => {
+        if (!langSnapshot.empty) {
+          langSnapshot.forEach((doc) => {
           if (doc.data().name === props.match.params.singleLanguage) {
             setLanguage(doc.data())
           }
         })
         } else {
-        langSnapshot.forEach((doc) => {
+         const newLangSnapshot = await langRef.get({source: 'server'}) // always leave this as server
+         newLangSnapshot.forEach((doc) => {
           if (doc.data().name === props.match.params.singleLanguage) {
             setLanguage(doc.data())
           }
@@ -48,17 +48,17 @@ const SingleLanguage = (props) => {
       }
         // console.log('inside useEffect of PopupBox')
         const vocabRef = db.collection('vocab')
-        const vocabSnapshot = await vocabRef.get({source: 'server'})
-          if (vocabSnapshot.docs.length === 0) {
-        const newVocabSnapshot = await ref.get({source: 'server'}) // always leave this as server
-         newVocabSnapshot.forEach((doc) => {
+        const vocabSnapshot = await vocabRef.get({source: 'cache'})
+          if (!vocabSnapshot.empty) {
+            vocabSnapshot.forEach((doc) => {
           if (doc.id.includes(props.match.params.singleLanguage.toLowerCase())) {
             setVocab(doc.data())
             // console.log('this is doc.id', doc.id)
           }
         });
       } else {
-        vocabSnapshot.forEach((doc) => {
+         const newVocabSnapshot = await vocabRef.get({source: 'server'}) // always leave this as server
+         newVocabSnapshot.forEach((doc) => {
           if (doc.id.includes(props.match.params.singleLanguage.toLowerCase())) {
             setVocab(doc.data())
             // console.log('this is doc.id', doc.id)
