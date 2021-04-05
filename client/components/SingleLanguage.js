@@ -11,6 +11,18 @@ import 'aos/dist/aos.css';
 
 AOS.init();
 
+
+//helper function
+const linkRender = (links) => {
+  const returnValue = []
+  for (let key in links) {
+     returnValue.push(<li key={key}><a href={links[key]}>{key}</a></li>)
+  }
+  return returnValue.map(val => {
+    return val
+  })
+}
+
 const SingleLanguage = (props) => {
   const [language, setLanguage] = useState({})
   const [vocab, setVocab] = useState({})
@@ -175,6 +187,7 @@ const SingleLanguage = (props) => {
           </Button>
         </Link>
         <p> Here are some more useful links, including resources for further language-learning and links to current nations/communities to whom this language belongs: </p>
+       <ul id='info-links'> {language.links ? linkRender(language.links) : <p>Links coming soon!</p>} </ul>
       </div>
     </div>
   )
