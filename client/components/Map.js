@@ -13,10 +13,10 @@ import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
 import MapToggles from './MapToggles'
 import MapLoader from "./MapLoader"
-const {MAPTOKEN} = require('../../secrets')
+// const {MAPTOKEN} = require('../../secrets')
 
 //global variables
-const MAPBOX_ACCESS_TOKEN = MAPTOKEN
+const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoia2VuZGltb3Jhc2tpIiwiYSI6ImNra2U4YmpnODA4bXIycHA3dnA3ZHRxazMifQ.Xj6bAzbzUVih02szrFGa_Q'
 
 // MAP_STYLES
 const MAP_STYLE_BASIC = styleBasic

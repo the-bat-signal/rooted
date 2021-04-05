@@ -2,7 +2,7 @@ import firebase from 'firebase'
 const {FIREBASE_API} = require('../secrets')
 
 const firebaseApp = firebase.initializeApp({
-  apiKey: FIREBASE_API,
+  apiKey: 'AIzaSyCSikpCX0x6ROlcvaLe8kC1GDTVMvkVVDE',
   authDomain: 'rooted-4da8a.firebaseapp.com',
   databaseURL: 'https://rooted-4da8a-default-rtdb.firebaseio.com',
   projectId: 'rooted-4da8a',
