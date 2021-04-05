@@ -185,6 +185,8 @@ form div {
   flex-direction: column;
   justify-content: center;
   padding: 10px;
+  border: white;
+  margin: 10px;
 }
 
 #singleLangName {

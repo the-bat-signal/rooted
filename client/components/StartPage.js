@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button'
 import LogoSVG from './LogoSVG'
 import anime from "animejs";
 
-
 export const StartPage = () => {
 
   const animate = () => {
