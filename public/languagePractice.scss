@@ -28,15 +28,75 @@ body {
     font-size: 1rem;
   }
 
-  &--primary {
+  &--hello-right {
+    @include center-v;
+    right: 20px;
+    background: #FF7073;
+  }
+
+  &--hello-left {
+    @include center-v;
+    left: 20px;
+    background: #ffadaf;
+  }
+
+  &--how-right {
     @include center-v;
     right: 20px;
     background: #32936f;
   }
 
-  &--secondary {
+  &--how-left {
     @include center-v;
     left: 20px;
-    background: #f5c000;
+    background: #95dbc1;
+  }
+
+  &--fine-right {
+    @include center-v;
+    right: 20px;
+    background: #AB5CFA;
+  }
+
+  &--fine-left {
+    @include center-v;
+    left: 20px;
+    background: #d3b0fd;
+  }
+
+  &--thanks-right {
+    @include center-v;
+    right: 20px;
+    background: #00C1FF;
+  }
+
+  &--thanks-left {
+    @include center-v;
+    left: 20px;
+    background: #99e6ff;
+  }
+
+  &--name-right {
+    @include center-v;
+    right: 20px;
+    background: #E63946;
+  }
+
+  &--name-left {
+    @include center-v;
+    left: 20px;
+    background: #ef8089;
+  }
+
+  &--bye-right {
+    @include center-v;
+    right: 20px;
+    background: #FF9B00;
+  }
+
+  &--bye-left {
+    @include center-v;
+    left: 20px;
+    background: #ffbe5c;
   }
 }

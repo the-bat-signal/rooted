@@ -21,7 +21,7 @@ const SingleLanguage = (props) => {
         const langRef = db.collection('languagesMap')
         const langSnapshot = await langRef.get({source: 'cache'})
         if (langSnapshot.empty) {
-        langSnapshot = await ref.get({source: 'server'})
+        langSnapshot = await ref.get({source: 'server'}) // always leave this as server
         }
         langSnapshot.forEach((doc) => {
           if (doc.data().name === props.match.params.singleLanguage) {
@@ -32,7 +32,7 @@ const SingleLanguage = (props) => {
         const vocabRef = db.collection('vocab')
         const vocabSnapshot = await vocabRef.get({source: 'cache'})
           if (vocabSnapshot.empty) {
-        vocabSnapshot = await ref.get({source: 'server'})
+        vocabSnapshot = await ref.get({source: 'server'}) // always leave this as server
       }
         vocabSnapshot.forEach((doc) => {
           if (doc.id.includes(props.match.params.singleLanguage.toLowerCase())) {
@@ -52,6 +52,46 @@ const SingleLanguage = (props) => {
   //
   let links = []
 
+  // PRONUNCIATION GUIDE SOURCES
+  const pronunciationSources = [
+    'http://www.thudscave.com/petroglyphs/pdf/dakota-pronounce.pdf', // Dakota
+    'http://www.native-languages.org/navajo_guide.htm', // Diné Bizaad
+    'https://rmc.library.cornell.edu/pdf/MoheganDictionary.pdf', // Mohegan
+  ]
+  // HELPER FUNCTION FOR SOURCING
+  const sourceLinker = (language) => {
+    const splitLang = language.pronunciation.split('; ')
+    return splitLang.map(sound => {
+      if (language.name === 'Dakota') {
+        if (splitLang[1] === sound) {
+          return <li key={sound}><a href={`${pronunciationSources[0]}`}>{sound}</a></li>
+        }
+      } else if (language.name === 'Diné Bizaad') {
+        if (splitLang[1] === sound) {
+          return <li key={sound}><a href={`${pronunciationSources[1]}`}>{sound}</a></li>
+        }
+      } else if (language.name === 'Mohegan') {
+        if (splitLang[1] === sound) {
+          return <a href={`${pronunciationSources[2]}`}>{sound}</a>
+        }
+      }
+      return <li key={sound}>{sound}</li>
+    })
+  }
+
+  // <audio id="Hello!">
+  //   <source src={`../../public/audio/${language.name}_vocab/Hello!.m4a`} type="audio/m4a" />
+  // </audio>
+  // function playHelloAudio() {
+  //   var helloAudio = document.getElementById("Hello!");
+  //   helloAudio.play();
+  // }
+
+
+  // const play = () => {
+  //   audio.play()
+  // }
+
   return (
     <div id="single-language">
       <div id="single-language__header">
@@ -68,9 +108,7 @@ const SingleLanguage = (props) => {
       <div id="single-language__pronunciation-guide">
         <ul id="single-language__pronunciation-summary">
           {language.pronunciation ?
-          language.pronunciation.split('; ').map(sound => {
-            return <li key={sound}>{sound}</li>
-          })
+          <div> {sourceLinker(language)} </div>
           : <div> Pronunciation guide coming soon! </div>
         }
         </ul>
@@ -84,7 +122,10 @@ const SingleLanguage = (props) => {
             <th scope="col"> {language.name} </th>
           </tr>
           <tr className="single-vocab-row">
-            <th scope="audio"> <IoPlayCircle/> </th>
+            <th scope="audio">
+              {/* <IoPlayCircle onClick={playHelloAudio()}/>  */}
+              <IoPlayCircle/>
+              </th>
             <td> Hello! </td>
             <td> {vocab['Hello!']} </td>
           </tr>
