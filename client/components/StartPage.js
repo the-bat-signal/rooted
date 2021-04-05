@@ -42,10 +42,8 @@ export const StartPage = () => {
 
   return (
     <div className="startPage">
-      {/* <div> */}
        {/* <img id="logo" src="/images/rooted-06.png" /> */}
        <LogoSVG />
-       {/* </div> */}
       <br />
             <div id='mission'>
         Promote, preserve, and protect Indigenous languages and cultures,

@@ -67,6 +67,8 @@ export const PopupBox = (props) => {
           longitude={props.polygonPopupData.coordinate[0]}
           offset={[0, 15]}
           className="poppy"
+          dynamicPosition={true}
+          captureScroll={true}
           onClose={() => {
             props.togglePopup(false)
             // props.setAdminLines(!!props.selectAdminLines)
@@ -80,10 +82,9 @@ export const PopupBox = (props) => {
               <span style={{color: "#ab5cfa"}}>{vocab['Hello!']}</span> The language spoken in this region is{' '}
               {language.name}{' '}
             </h3>
-            <br />
             <h2><b> LAND ACKNOWLEDGEMENT </b></h2>
             <p>
-              <i>
+              <i id='popupPara1'>
                 {' '}
                 We encourage you to learn more about this language and the
                 Indigenous people on whose territory you are in order to
@@ -91,10 +92,10 @@ export const PopupBox = (props) => {
                 following land acknowledgement. It should be structured and
                 detailed with careful research, community outreach, and
                 meaningful.{' '}
-              </i>
+              </i >
             </p>
             <p>
-              <i>
+              <i id='popupPara2'>
                 {' '}
                 A sample land acknowledgement for this territory could be:{' '}
               </i>
@@ -103,14 +104,12 @@ export const PopupBox = (props) => {
                   {' '}
                   "<span style={{color: "#ab5cfa"}}>{vocab['Hello!']}</span> I would like to acknowledge that we are on
                   the traditional, ancestral territory of the {language.name}-speaking people. <span style={{color: "#ab5cfa"}}>{vocab['Thank you.']}</span>"
-                  <br />
               </h3>
-              <br/>
             {vocab['Hello!'] ?
             <div>
             <h2><b> LANGUAGES IN SELECTED AREA </b></h2>
             <p>
-              <Link
+              <Link id='languageLink'
                 to={{
                   pathname: `/language/${language.name}`,
                 }}
