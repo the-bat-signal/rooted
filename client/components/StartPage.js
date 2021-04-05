@@ -49,7 +49,7 @@ export const StartPage = () => {
        {/* </div> */}
       <br />
             <div id='mission'>
-        Promote, preserve, and protect Indigenous languages/heritage,
+        Promote, preserve, and protect Indigenous languages and cultures,
         <br/>based on the user’s location
       </div>
       <div className="whatever">

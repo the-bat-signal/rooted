@@ -114,6 +114,21 @@ form div {
   #logo {
     width: 80vw
   }
+
+  #single-language-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .column-left {
+    width: 100%;
+    height: 50vh;
+  }
+
+  .column-right {
+    width: 100%;
+    height: 50vh;
+  }
 }
 
 /* .button {
@@ -152,8 +167,24 @@ form div {
   }
 }
 
-#single-language {
-  margin: 75px;
+#single-language-wrapper {
+  margin: 100px;
+  display: flex;
+  flex-direction: row;
+}
+
+.column-left {
+  width: 66%;
+  height: 100vh;
+}
+
+.column-right {
+  width: 33%;
+  background-color: #edf9fc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
 }
 
 #singleLangName {
@@ -163,10 +194,6 @@ form div {
 
 #singleLangSubhead {
   font-size: 40px;
-}
-
-#test-ad {
-
 }
 
 #single-language__header {
@@ -186,11 +213,6 @@ form div {
 #language-description {
   margin: 25;
   padding: 25;
-}
-
-.counterContainer {
-  background-color: pink;
-  justify-content: center;
 }
 
 .speakersAnimate {
