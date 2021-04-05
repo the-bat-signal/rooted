@@ -6,11 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {IoPlayCircle} from 'react-icons/io5'
 import {db} from '../../server/firebase'
 import Button from '@material-ui/core/Button'
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-
-AOS.init();
-
 
 //helper function
 const linkRender = (links) => {
@@ -117,29 +112,22 @@ const SingleLanguage = (props) => {
   // }
 
   return (
-    <div id="single-language">
-      <div id="single-language__header">
-        <div id='counterContainer'>
-          <h1 id='singleLangName'> {language.name} </h1>
-          <h4 id='singleLangSubhead'> By learning this language, you are adding to a community of this many speakers!: </h4>
-          {language.speakers ?  <CountUp className="speakersAnimate" start={0} end={language.speakers} duration={2.5} separator="," /> : null}
-        </div>
-        {/* <div id="test-ad" data-aos="fade-down-left"> Test your language skills at the bottom of the page! </div> */}
-        <div>
-          <p id="language-description"> {language.description} </p>
-        </div>
-      </div>
-      <div id="single-language__pronunciation-guide">
-        <ul id="single-language__pronunciation-summary">
-          {language.pronunciation ?
-          <div> {sourceLinker(language)} </div>
-          : <div> Pronunciation guide coming soon! </div>
-        }
-        </ul>
-      </div>
-      <div id="single-language__vocab">
-        <Table id="single-language__vocab__table" bordered >
-        <tbody>
+    <div className="single-language-wrapper">
+      <div className="column-left">
+        <div id="single-language__header">
+          <div id='counterContainer'>
+            <h1 id='singleLangName'> {language.name} </h1>
+            <h4 id='singleLangSubhead'> By learning this language, you are adding to a community of this many speakers!: </h4>
+                {language.speakers ?  <CountUp className="speakersAnimate" start={0} end={language.speakers} duration={2.5} separator="," /> : null}
+                <p id="language-description">
+                {language.description}
+                </p>
+                {/* <div id="test-ad" data-aos="fade-down-left"> Test your language skills at the bottom of the page! </div> */}
+            </div>
+
+            <div id="single-language__vocab">
+              <Table id="single-language__vocab__table" bordered >
+                <tbody>
           <tr id="column-names-row">
             <th scope="col"> Audio </th>
             <th scope="col"> English </th>
@@ -186,21 +174,41 @@ const SingleLanguage = (props) => {
         </tbody>
         </Table>
 
+        <br />
+
         <Link to={{
           pathname: `/language/${language.name}/practice`,
           state: {
             // language,
             vocab,
           }
-        }}
-        >
+        }}>
           <Button className='startPageButton' >
             Try practicing!
           </Button>
         </Link>
-        <p> Here are some more useful links, including resources for further language-learning and links to current nations/communities to whom this language belongs: </p>
-       <ul id='info-links'> {language.links ? linkRender(language.links) : <p>Links coming soon!</p>} </ul>
+
+        <br />
+
+        <p>
+          Here are some more useful links, including resources for further language-learning and links to current nations/communities to whom this language belongs:
+        </p>
+       <ul id='info-links'>
+        {language.links ? linkRender(language.links) : <p>Links coming soon!</p>}
+       </ul>
       </div>
+    </div>
+     </div>
+      <div className="column-right">
+          <div id="single-language__pronunciation-guide">
+            <ul id="single-language__pronunciation-summary">
+            {language.pronunciation ?
+              <div> {sourceLinker(language)} </div>
+              : <div> Pronunciation guide coming soon! </div>
+             }
+            </ul>
+          </div>
+        </div>
     </div>
   )
 }
