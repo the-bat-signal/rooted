@@ -33,26 +33,38 @@ const SingleLanguage = (props) => {
         const langRef = db.collection('languagesMap')
         const langSnapshot = await langRef.get({source: 'cache'})
         if (langSnapshot.empty) {
-        langSnapshot = await ref.get({source: 'server'}) // always leave this as server
-        }
+        const newLangSnapshot = await ref.get({source: 'server'}) // always leave this as server
+         newLangSnapshot.forEach((doc) => {
+          if (doc.data().name === props.match.params.singleLanguage) {
+            setLanguage(doc.data())
+          }
+        })
+        } else {
         langSnapshot.forEach((doc) => {
           if (doc.data().name === props.match.params.singleLanguage) {
             setLanguage(doc.data())
           }
         })
+      }
         // console.log('inside useEffect of PopupBox')
         const vocabRef = db.collection('vocab')
-        const vocabSnapshot = await vocabRef.get({source: 'cache'})
+        const vocabSnapshot = await vocabRef.get({source: 'server'})
           if (vocabSnapshot.empty) {
-        vocabSnapshot = await ref.get({source: 'server'}) // always leave this as server
-      }
+        const newVocabSnapshot = await ref.get({source: 'server'}) // always leave this as server
+         newVocabSnapshot.forEach((doc) => {
+          if (doc.id.includes(props.match.params.singleLanguage.toLowerCase())) {
+            setVocab(doc.data())
+            // console.log('this is doc.id', doc.id)
+          }
+        });
+      } else {
         vocabSnapshot.forEach((doc) => {
           if (doc.id.includes(props.match.params.singleLanguage.toLowerCase())) {
             setVocab(doc.data())
             // console.log('this is doc.id', doc.id)
           }
         });
-
+      }
         // props.setAdminLines(!!props.selectAdminLines)
       } catch (err) {
         console.log('error in SingleLanguage call-----', err)
