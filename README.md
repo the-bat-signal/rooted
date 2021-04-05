@@ -1,1 +1,1 @@
-Promote, preserve, and protect Indigenous languages/heritage, based on the user’s location
+Promote, preserve, and protect Indigenous languages and cultures, based on the user’s location.
