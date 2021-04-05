@@ -112,7 +112,7 @@ const SingleLanguage = (props) => {
   // }
 
   return (
-    <div id="single-language-wrapper">
+    <div className="single-language-wrapper">
       <div className="column-left">
         <div id="single-language__header">
           <div id='counterContainer'>
