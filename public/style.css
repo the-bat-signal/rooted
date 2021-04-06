@@ -330,6 +330,10 @@ tr:nth-child(odd) {
   justify-content: center;
 }
 
+#scroll-down {
+ text-align: center;
+}
+
 .spinnyLoaderContainer {
   display: flex;
   flex-direction: row;
