@@ -15,7 +15,7 @@ export const AboutPage = () => {
           <div className="carousel-item active">
             <img
               className="d-block w-100"
-              src="https://images.pexels.com/photos/1725330/pexels-photo-1725330.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+              src="https://images.unsplash.com/photo-1597347263549-9e3762679eff?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
               alt="First slide"
               style={{
                 maxHeight: 550,
@@ -23,13 +23,13 @@ export const AboutPage = () => {
             />
             <div className="carousel-caption d-none d-md-block">
               <h5>Promote</h5>
-              <p>Sentence About Promoting things</p>
+              <p>Promoting the speaking and learning of Indigenous languages</p>
             </div>
           </div>
           <div className="carousel-item">
             <img
               className="d-block w-100"
-              src="https://images.pexels.com/photos/240040/pexels-photo-240040.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+              src="https://images.unsplash.com/photo-1599575239832-9a211999a97a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1934&q=80"
               alt="Second slide"
               style={{
                 maxHeight: 550,
@@ -37,13 +37,15 @@ export const AboutPage = () => {
             />
             <div className="carousel-caption d-none d-md-block">
               <h5>Preserve</h5>
-              <p>Sentence About Preserving things</p>
+              <p>
+                Preserving and acknowledging Indigenous histories and cultures
+              </p>
             </div>
           </div>
           <div className="carousel-item">
             <img
               className="d-block w-100"
-              src="https://images.pexels.com/photos/6510280/pexels-photo-6510280.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+              src="https://images.pexels.com/photos/129539/pexels-photo-129539.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
               alt="Third slide"
               style={{
                 maxHeight: 550,
@@ -51,84 +53,128 @@ export const AboutPage = () => {
             />
             <div className="carousel-caption d-none d-md-block">
               <h5>Protect</h5>
-              <p>Sentence About Protecting things</p>
+              <p>Protecting endangered languages from going extinct</p>
             </div>
           </div>
         </div>
-        <a
-          className="carousel-control-prev"
-          href="#carouselExampleControls"
-          role="button"
-          data-slide="prev"
-        >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="sr-only">Previous</span>
-        </a>
-        <a
-          className="carousel-control-next"
-          href="#carouselExampleControls"
-          role="button"
-          data-slide="next"
-        >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="sr-only">Next</span>
-        </a>
       </div>
-      <h3>Our Mission</h3>
-      <p>
-        I'm baby iceland tote bag pork belly roof party occupy iPhone biodiesel.
-        Bitters raclette portland freegan, coloring book intelligentsia
-        pinterest paleo tattooed VHS narwhal chartreuse. Cray waistcoat hammock
-        typewriter offal taxidermy brooklyn ethical shabby chic. Normcore raw
-        denim unicorn occupy tbh blog la croix pork belly readymade vice. Food
-        truck yr gochujang pabst four dollar toast skateboard bushwick DIY meh
-        man braid. La croix butcher four loko, umami tousled hot chicken
-        letterpress vexillologist sustainable hexagon prism aesthetic you
-        probably haven't heard of them narwhal. 90's occupy intelligentsia
-        forage pok pok, fashion axe subway tile you probably haven't heard of
-        them brooklyn raclette XOXO cloud bread retro. Copper mug stumptown
-        cronut man braid seitan subway tile. Messenger bag mustache normcore,
-        next level selvage hashtag schlitz sustainable umami small batch offal
-        listicle truffaut yuccie lo-fi. Kinfolk whatever woke wolf marfa pickled
-        meh franzen cred fingerstache godard. Forage everyday carry crucifix man
-        braid chambray activated charcoal tofu enamel pin locavore actually
-        pop-up. Chartreuse cornhole shoreditch umami hexagon cray pabst chambray
-        raw denim adaptogen stumptown copper mug. Pickled ethical 8-bit unicorn
-        shabby chic vice waistcoat woke, sartorial glossier hella craft beer
-        synth. Pitchfork keffiyeh letterpress, next level woke lomo kickstarter
-        man bun. Yuccie gastropub cardigan skateboard kickstarter lyft. Copper
-        mug +1 photo booth shoreditch activated charcoal ramps gluten-free
-        pop-up yuccie hexagon 90's freegan food truck celiac. Distillery
-        activated charcoal four loko thundercats hammock beard dreamcatcher fam
-        master cleanse cliche palo santo gentrify.
-      </p>
-      <div className="card" style={{width: 10 + 'rem'}}>
-        <img
-          className="card-img-top"
-          src="https://media-exp1.licdn.com/dms/image/C5635AQGI2fxOcoTuZA/profile-framedphoto-shrink_800_800/0/1615845578261?e=1617764400&v=beta&t=iVwstSk5pBvPf9E9tJLijTBFl0S2ZZh9iQReojEuEaY"
-          alt="Card image cap"
-        />
-        <div className="card-body">
-          <Button
-            size="small"
-            color="primary"
-            href="https://www.linkedin.com/in/katelyndevinekd/"
-          >
-            <LinkedInIcon />
-          </Button>
-          <Button
-            size="small"
-            color="primary"
-            href="https://github.com/katelyndevine"
-          >
-            <GitHubIcon />
-          </Button>
+      <div className="AboutText">
+        <h3>Our Mission</h3>
+        <p>
+          Inspired by <a href="https://native-land.ca/">Native-Land.ca</a>, our
+          mission is to promote, preserve, and protect Indigenous languages,
+          histories, and cultures. Rooted provides materials and resources to
+          aid people looking to acknowledge the Indigenous peoples on whose land
+          they are on, and language-learning resources for those who want to add
+          to the local community of Indigenous language speakers.
+          <br />
+          <br />
+          We recognize that our data and information is currently incomplete,
+          and we’re striving to create more interactive, accurate, and
+          accessible resources. If you find that anything on our site is
+          inaccurate we encourage you to reach out to us through the chat
+          feature on the bottom right of our website.
+        </p>
+        <h3>Our Team</h3>
+      </div>
+      <div className="AboutCards">
+        <div class="card-deck">
+          <div className="card border-white" style={{width: 11 + 'rem'}}>
+            <img
+              className="rounded-circle"
+              src="https://avatars.githubusercontent.com/u/66745009?v=4"
+              alt="Card image cap"
+            />
+            <div className="card-body">
+              <h5>Katelyn</h5>
+              <Button
+                size="default"
+                color="primary"
+                href="https://www.linkedin.com/in/katelyndevinekd/"
+              >
+                <LinkedInIcon />
+              </Button>
+              <Button
+                size="default"
+                color="primary"
+                href="https://github.com/katelyndevine"
+              >
+                <GitHubIcon />
+              </Button>
+            </div>
+          </div>
+          <div className="card border-white" style={{width: 11 + 'rem'}}>
+            <img
+              className="rounded-circle"
+              src="https://media-exp1.licdn.com/dms/image/C4D03AQGUs3MvHS7VTA/profile-displayphoto-shrink_800_800/0/1610827922354?e=1623283200&v=beta&t=3uRddZbLb-Kdz4lmj383CxA7-ZuLLaAJLiWJ0XxmoX4"
+              alt="Card image cap"
+            />
+            <div className="card-body">
+              <h5>John</h5>
+              <Button
+                size="small"
+                color="primary"
+                href="https://www.linkedin.com/in/johnrmccray/"
+              >
+                <LinkedInIcon />
+              </Button>
+              <Button
+                size="small"
+                color="primary"
+                href="https://github.com/mccrayjr"
+              >
+                <GitHubIcon />
+              </Button>
+            </div>
+          </div>
+          <div className="card border-white" style={{width: 11 + 'rem'}}>
+            <img
+              className="rounded-circle"
+              src="https://avatars.githubusercontent.com/u/71110821?v=4"
+              alt="Card image cap"
+            />
+            <div className="card-body">
+              <h5>Kendall</h5>
+              <Button
+                size="small"
+                color="primary"
+                href="https://www.linkedin.com/in/kmoraski/"
+              >
+                <LinkedInIcon />
+              </Button>
+              <Button
+                size="small"
+                color="primary"
+                href="https://github.com/kendimoraski"
+              >
+                <GitHubIcon />
+              </Button>
+            </div>
+          </div>
+          <div className="card border-white" style={{width: 11 + 'rem'}}>
+            <img
+              className="rounded-circle"
+              src="https://media-exp1.licdn.com/dms/image/C5603AQFxpEpPdJMOxA/profile-displayphoto-shrink_200_200/0/1603244088701?e=1623283200&v=beta&t=QhBRLWha5tmQZ1FU7-N8gkaa5tVXMZeR00AtqY2ROWs"
+              alt="Card image cap"
+            />
+            <div className="card-body">
+              <h5>Elijah</h5>
+              <Button
+                size="small"
+                color="primary"
+                href="https://www.linkedin.com/in/elijahsciam/"
+              >
+                <LinkedInIcon />
+              </Button>
+              <Button
+                size="small"
+                color="primary"
+                href="https://github.com/orgs/the-bat-signal/people/elijahsciam"
+              >
+                <GitHubIcon />
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

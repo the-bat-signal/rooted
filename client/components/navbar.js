@@ -42,7 +42,7 @@ export const NavBar = () => {
           </NavDropdown>
         </Nav>
         <Nav>
-          <Nav.Link href="/contact">Contact</Nav.Link>
+          {/* <Nav.Link href="/contact">Contact</Nav.Link> */}
           <Nav.Link eventKey={2} href="/About">
             About
           </Nav.Link>
