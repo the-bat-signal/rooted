@@ -41,14 +41,12 @@ const SingleLanguage = (props) => {
           }
         })
       }
-        // console.log('inside useEffect of PopupBox')
         const vocabRef = db.collection('vocab')
         const vocabSnapshot = await vocabRef.get({source: 'cache'})
           if (!vocabSnapshot.empty) {
             vocabSnapshot.forEach((doc) => {
           if (doc.id.includes(props.match.params.singleLanguage.toLowerCase())) {
             setVocab(doc.data())
-            // console.log('this is doc.id', doc.id)
           }
         });
       } else {
@@ -56,11 +54,9 @@ const SingleLanguage = (props) => {
          newVocabSnapshot.forEach((doc) => {
           if (doc.id.includes(props.match.params.singleLanguage.toLowerCase())) {
             setVocab(doc.data())
-            // console.log('this is doc.id', doc.id)
           }
         });
       }
-        // props.setAdminLines(!!props.selectAdminLines)
       } catch (err) {
         console.log('error in SingleLanguage call-----', err)
       }
@@ -98,19 +94,6 @@ const SingleLanguage = (props) => {
     })
   }
 
-  // <audio id="Hello!">
-  //   <source src={`../../public/audio/${language.name}_vocab/Hello!.m4a`} type="audio/m4a" />
-  // </audio>
-  // function playHelloAudio() {
-  //   var helloAudio = document.getElementById("Hello!");
-  //   helloAudio.play();
-  // }
-
-{/* <audio controls src='/audio/Mohegan_vocab/Nukôkicá.mp3' type='audio/mpeg'></audio>  */}
-  // const play = () => {
-  //   audio.play()
-  // }
-
   return (
     <div className="single-language-wrapper">
       <div className="column-left">
@@ -122,7 +105,6 @@ const SingleLanguage = (props) => {
                 <p id="language-description">
                 {language.description}
                 </p>
-                {/* <div id="test-ad" data-aos="fade-down-left"> Test your language skills at the bottom of the page! </div> */}
             </div>
 
             <div id="single-language__vocab">

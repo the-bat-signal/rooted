@@ -14,15 +14,10 @@ const LanguagePractice = (props) => {
 
   return (
     <div id="language-practice-page">
-    {/* <div data-aos="fade-up-left"
-      data-aos-offset="200"
-      data-aos-delay="50"
-      data-aos-duration="1000"
-      data-aos-easing="ease-in-out"
-      data-aos-mirror="true"
-      data-aos-once="false"
-      data-aos-anchor-placement="top-center"> Ready to practice? Scroll down! Prompts will be on the right and answers on the left!
-    </div> */}
+    <div id='scroll-down'>
+      <h1>Scroll Down</h1>
+      <img src='https://content.invisioncic.com/p289038/monthly_2020_05/arrow-down.gif.8d9aec7b8f92f2a50a1a64fce1733f3a.gif' id="scrolling"/>
+    </div>
     <div className="item item--hello-right"
      data-aos="fade-left"
      data-aos-anchor="#trigger-right-hello">
