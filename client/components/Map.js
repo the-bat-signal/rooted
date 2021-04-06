@@ -6,6 +6,7 @@ import {
   MapContext,
   NavigationControl,
   GeolocateControl,
+  FullscreenControl,
 } from 'react-map-gl'
 import {SolidPolygonLayer, TextLayer} from '@deck.gl/layers'
 import {PopupBox} from './PopupBox'
@@ -30,8 +31,8 @@ const Map = (props) => {
   // useState
   const [clickInfo, setClickInfo] = useState()
   const [selectAdminLines, setAdminLines] = useState()
-  const [selectLanguageLayer, setLanguageLayer] = useState(true)
-  const [selectTerritoryLayer, setTerritoryLayer] = useState(true)
+  const [selectLanguageLayer, setLanguageLayer] = useState(false)
+  const [selectTerritoryLayer, setTerritoryLayer] = useState(false)
   const [languagePolygons, setLanguagePolygons] = useState()
   const [territoryPolygons, setTerritoryPolygons] = useState()
   const [geolocate, setGeolocate] = useState(true)
@@ -239,7 +240,9 @@ const Map = (props) => {
       onViewStateChange={(pos) => {
         setViewport(pos.viewState)
       }}
-
+      width='100%'
+      height='88.5%'
+      style={{marginTop: '5em'}}
     >
       {showPopup && clickInfo && (
         <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
@@ -268,6 +271,7 @@ const Map = (props) => {
             setGeolocate(false)
           }}
         />
+        <FullscreenControl />
       <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines} selectLanguageLayer={selectLanguageLayer} setLanguageLayer={setLanguageLayer} selectTerritoryLayer={selectTerritoryLayer} setTerritoryLayer={setTerritoryLayer}/>
       </div>
 
