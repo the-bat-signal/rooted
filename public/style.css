@@ -168,11 +168,11 @@ form div {
   width: 25%;
   margin: 5px;
   padding: 5px;
-  /* background-color: #edf9fc; */
-  /* display: flex;
+  background-color: #edf9fc;
+  display: flex;
   flex-direction: column;
-  justify-content: center; */
-  /* border: white; */
+  justify-content: center;
+  border: white;
 }
 
 #singleLangName {
