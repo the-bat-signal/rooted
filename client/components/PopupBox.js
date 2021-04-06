@@ -11,7 +11,6 @@ export const PopupBox = (props) => {
 
   // remove async await
   useEffect(() => {
-    // console.log('props from popup---------', props)
     const lang = async () => {
       try {
         const langRef = db.collection('languagesMap')
@@ -30,12 +29,10 @@ export const PopupBox = (props) => {
           }
         })
       }
-        // console.log('inside useEffect of PopupBox')
         const vocabRef = db.collection('vocab')
         const vocabSnapshot = await vocabRef.get({source: 'cache'})
         if (!vocabSnapshot.empty) {
            vocabSnapshot.forEach((doc) => {
-          // console.log('this is props.polygonPopupData inside of PopupBox', props.polygonPopupData)
           if (doc.id.includes(props.polygonPopupData.layer.id.toLowerCase())) {
             setVocab(doc.data())
           }
@@ -48,8 +45,7 @@ export const PopupBox = (props) => {
 
           }
         });
-      }
-        // props.setAdminLines(!!props.selectAdminLines)
+        }
       } catch (err) {
         console.log('error in PopupBox call-----', err)
       }
@@ -57,7 +53,6 @@ export const PopupBox = (props) => {
     lang()
   }, [props.polygonPopupData])
 
-  console.log('this is language inside PopupBox------', language)
 
   return (
     <React.Fragment>
@@ -71,8 +66,6 @@ export const PopupBox = (props) => {
           captureScroll={true}
           onClose={() => {
             props.togglePopup(false)
-            // props.setAdminLines(!!props.selectAdminLines)
-
           }}
           tipSize={20}
         >
