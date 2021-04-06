@@ -113,92 +113,94 @@ const SingleLanguage = (props) => {
 
   return (
     <div className="single-language-wrapper">
+
       <div className="column-left">
+
         <div id="single-language__header">
           <div id='counterContainer'>
             <h1 id='singleLangName'> {language.name} </h1>
             <h4 id='singleLangSubhead'> By learning this language, you are adding to a community of this many speakers!: </h4>
-                {language.speakers ?  <CountUp className="speakersAnimate" start={0} end={language.speakers} duration={2.5} separator="," /> : null}
-                <p id="language-description">
+              {language.speakers ?  <CountUp className="speakersAnimate" start={0} end={language.speakers} duration={2.5} separator="," /> : null}
+              <p id="language-description">
                 {language.description}
-                </p>
-                {/* <div id="test-ad" data-aos="fade-down-left"> Test your language skills at the bottom of the page! </div> */}
-            </div>
+              </p>
+          {/* </div> */}
 
-            <div id="single-language__vocab">
+          <div id="single-language__vocab">
               <Table id="single-language__vocab__table" bordered >
                 <tbody>
-          <tr id="column-names-row">
-            <th scope="col"> Audio </th>
-            <th scope="col"> English </th>
-            <th scope="col"> {language.name} </th>
-          </tr>
-          <tr className="single-vocab-row">
-            <th>
-              <IoPlayCircle/>
-              </th>
-            <td> Hello! </td>
-            <td> {vocab['Hello!']} </td>
-          </tr>
-          <tr className="single-vocab-row">
-            <th scope="audio"> <IoPlayCircle/> </th>
-            <td> How are you? </td>
-            <td> {vocab['How are you?']} </td>
-          </tr>
-          <tr className="single-vocab-row">
-            <th scope="audio"> <IoPlayCircle/> </th>
-            <td> I am fine. </td>
-            <td> {vocab['I am fine.']} </td>
-          </tr>
-          <tr className="single-vocab-row">
-            <th scope="audio"> <IoPlayCircle/> </th>
-            <td> What is your name? </td>
-            <td> {vocab['What is your name?']} </td>
-          </tr>
-          <tr className="single-vocab-row">
-            <th scope="audio"> <IoPlayCircle/> </th>
-            <td> My name is ___. </td>
-            <td> {vocab['My name is ___.']} </td>
-          </tr>
-          <tr className="single-vocab-row">
-            <th scope="audio"> <IoPlayCircle/> </th>
-            <td> Thank you. </td>
-            <td> {vocab['Thank you.']} </td>
-          </tr>
-          <tr className="single-vocab-row">
-            <th scope="audio"> <IoPlayCircle/> </th>
-            <td> Goodbye! </td>
-            <td> {vocab['Goodbye!']} </td>
-          </tr>
+                  <tr id="column-names-row">
+                    <th scope="col"> Audio </th>
+                    <th scope="col"> English </th>
+                    <th scope="col"> {language.name} </th>
+                  </tr>
+                  <tr className="single-vocab-row">
+                    <th>
+                      <IoPlayCircle/>
+                      </th>
+                    <td> Hello! </td>
+                    <td> {vocab['Hello!']} </td>
+                  </tr>
+                  <tr className="single-vocab-row">
+                    <th scope="audio"> <IoPlayCircle/> </th>
+                    <td> How are you? </td>
+                    <td> {vocab['How are you?']} </td>
+                  </tr>
+                  <tr className="single-vocab-row">
+                    <th scope="audio"> <IoPlayCircle/> </th>
+                    <td> I am fine. </td>
+                    <td> {vocab['I am fine.']} </td>
+                  </tr>
+                  <tr className="single-vocab-row">
+                    <th scope="audio"> <IoPlayCircle/> </th>
+                    <td> What is your name? </td>
+                    <td> {vocab['What is your name?']} </td>
+                  </tr>
+                  <tr className="single-vocab-row">
+                    <th scope="audio"> <IoPlayCircle/> </th>
+                    <td> My name is ___. </td>
+                    <td> {vocab['My name is ___.']} </td>
+                  </tr>
+                  <tr className="single-vocab-row">
+                    <th scope="audio"> <IoPlayCircle/> </th>
+                    <td> Thank you. </td>
+                    <td> {vocab['Thank you.']} </td>
+                  </tr>
+                  <tr className="single-vocab-row">
+                    <th scope="audio"> <IoPlayCircle/> </th>
+                    <td> Goodbye! </td>
+                    <td> {vocab['Goodbye!']} </td>
+                  </tr>
 
-        </tbody>
-        </Table>
+                </tbody>
+              </Table>
 
-        <br />
+              <br />
 
-        <Link to={{
-          pathname: `/language/${language.name}/practice`,
-          state: {
-            // language,
-            vocab,
-          }
-        }}>
-          <Button className='startPageButton' >
-            Try practicing!
-          </Button>
-        </Link>
+              <Link to={{
+                pathname: `/language/${language.name}/practice`,
+                state: {
+                  vocab,
+                }
+              }}>
+                <Button className='startPageButton' >
+                  Try practicing!
+                </Button>
+              </Link>
 
-        <br />
+              <br />
 
-        <p>
-          Here are some more useful links, including resources for further language-learning and links to current nations/communities to whom this language belongs:
-        </p>
-       <ul id='info-links'>
-        {language.links ? linkRender(language.links) : <p>Links coming soon!</p>}
-       </ul>
-      </div>
-    </div>
+              <p>
+                Here are some more useful links, including resources for further language-learning and links to current nations/communities to whom this language belongs:
+              </p>
+            <ul id='info-links'>
+              {language.links ? linkRender(language.links) : <p>Links coming soon!</p>}
+            </ul>
+          </div>
+        </div>
      </div>
+       </div>
+
       <div className="column-right">
           <div id="single-language__pronunciation-guide">
             <ul id="single-language__pronunciation-summary">
@@ -209,6 +211,7 @@ const SingleLanguage = (props) => {
             </ul>
           </div>
         </div>
+
     </div>
   )
 }

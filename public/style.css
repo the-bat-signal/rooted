@@ -17,8 +17,6 @@ body {
 #app {
   height: 100vh;
   width: 100vw;
-  /* display: flex; */
-  /* align-items: center */
 }
 
 label {
@@ -214,7 +212,6 @@ tr:nth-child(odd) {
   display: flex;
   justify-content: center;
   align-content: center;
-  /* flex-wrap: wrap; */
 }
 
 #loading-text {
@@ -373,7 +370,8 @@ tr:nth-child(odd) {
   }
 
   .single-language-wrapper {
-    display: block;
+    margin: 25px;
+    height: 400px;
   }
 
   .column-left {
@@ -381,6 +379,7 @@ tr:nth-child(odd) {
     height: 50vh;
     margin: 5px;
     padding: 5px;
+    order: -1;
   }
 
   .column-right {
@@ -388,6 +387,8 @@ tr:nth-child(odd) {
     height: 50vh;
     margin: 5px;
     padding: 5px;
+    order: 10;
+    /* align-self: flex-end; */
   }
 
   #mainLogo {

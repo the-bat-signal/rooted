@@ -66,8 +66,8 @@ const LanguagePractice = (props) => {
     </div>
 
     <div className="item item--thanks-left"
-        data-aos="flip-right"
-        data-aos-anchor="#trigger-left-thanks">
+      data-aos="flip-right"
+      data-aos-anchor="#trigger-left-thanks">
       How do you thank someone?
     </div>
 
@@ -95,7 +95,7 @@ const LanguagePractice = (props) => {
       "Goodbye!"
     </div>
 
-    <div className="item"> Ready to practice? Scroll down! Prompts will be on the right and answers on the left! </div>
+    <div className="item"></div>
     <div className="item"></div>
     <div className="item"></div>
     <div className="item"></div>

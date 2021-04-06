@@ -117,4 +117,10 @@ body {
   background: #ffbe5c;
 }
 
+@media screen and (max-width: 400px) {
+  .item {
+    font-size: medium;
+  }
+}
+
 /*# sourceMappingURL=languagePractice.css.map */
