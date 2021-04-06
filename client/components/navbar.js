@@ -13,6 +13,7 @@ export const NavBar = () => {
       bg="light"
       variant="light"
       style={{zIndex: 100, height: 100}}
+      sticky="top"
     >
       <Navbar.Brand href="/">
         <img
