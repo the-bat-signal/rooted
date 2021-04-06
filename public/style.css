@@ -151,7 +151,7 @@ form div {
 }
 
 .single-language-wrapper {
-  /* margin: 100px; */
+  margin: 100px;
   display: flex;
   flex-direction: row;
 }
@@ -170,8 +170,8 @@ form div {
   background-color: #edf9fc;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   border: white;
+  height: 90%
 }
 
 #singleLangName {

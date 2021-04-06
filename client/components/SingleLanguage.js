@@ -82,16 +82,16 @@ const SingleLanguage = (props) => {
     const splitLang = language.pronunciation.split('; ')
     return splitLang.map(sound => {
       if (language.name === 'Dakota') {
-        if (splitLang[1] === sound) {
-          return <li key={sound}><a href={`${pronunciationSources[0]}`}>{sound}</a></li>
+        if (splitLang[0] === sound) {
+          return <h4 key={sound}><a href={`${pronunciationSources[0]}`}>{sound}</a></h4>
         }
       } else if (language.name === 'Diné Bizaad') {
-        if (splitLang[1] === sound) {
-          return <li key={sound}><a href={`${pronunciationSources[1]}`}>{sound}</a></li>
+        if (splitLang[0] === sound) {
+          return <h4 key={sound}><a href={`${pronunciationSources[1]}`}>{sound}</a></h4>
         }
       } else if (language.name === 'Mohegan') {
-        if (splitLang[1] === sound) {
-          return <a href={`${pronunciationSources[2]}`}>{sound}</a>
+        if (splitLang[0] === sound) {
+          return <h4 key={sound}><a href={`${pronunciationSources[2]}`}>{sound}</a></h4>
         }
       }
       return <li key={sound}>{sound}</li>
