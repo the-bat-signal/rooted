@@ -103,53 +103,8 @@ body {
   }
 }
 
-.scroll-prompt {
-  position: absolute;
-  bottom: 25%;
-  left: 50%;
-  z-index: 100;
-  @include transition(1s opacity ease-out);
-}
-
-.scroll-prompt .scroll-prompt-shape {
-	position: relative;
-	@include animation(slidedown 2.25s infinite);
-}
-
-.scroll-prompt .scroll-prompt-shape:before,
-.scroll-prompt .scroll-prompt-shape:after {
-	content: "";
-	display: block;
-	position: absolute;
-	width: 3em;
-	height: .5em;
-	top: 0;
-	left: 0;
-	background: #fff;
-	@include border-radius(0 .25em .25em 0);
-	@include transform-origin(bottom, left);
-
-}
-
-.scroll-prompt .scroll-prompt-shape:before {
-	@include transform(scaleX(-1) rotate(-45deg));
-}
-.scroll-prompt .scroll-prompt-shape:after {
-	@include transform(rotate(-45deg));
-}
-
-
-
-@include keyframes(slidedown) {
-    0% {
-        opacity: 0;
-    }
-    75% {
-        opacity: 1;
-		@include transform(translate(0, 80px));
-    }
-    100% {
-        opacity: 0;
-		@include transform(translate(0, 80px));
-    }
+@media screen and (max-width: 400px) {
+  .item{
+    font-size: medium;
+  }
 }
