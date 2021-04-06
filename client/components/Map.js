@@ -6,6 +6,7 @@ import {
   MapContext,
   NavigationControl,
   GeolocateControl,
+  FullscreenControl,
 } from 'react-map-gl'
 import {SolidPolygonLayer, TextLayer} from '@deck.gl/layers'
 import {PopupBox} from './PopupBox'
@@ -270,6 +271,7 @@ const Map = (props) => {
             setGeolocate(false)
           }}
         />
+        <FullscreenControl />
       <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines} selectLanguageLayer={selectLanguageLayer} setLanguageLayer={setLanguageLayer} selectTerritoryLayer={selectTerritoryLayer} setTerritoryLayer={setTerritoryLayer}/>
       </div>
 
