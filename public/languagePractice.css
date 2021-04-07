@@ -1,1 +1,126 @@
+body {
+  overflow-x: hidden;
+}
 
+* {
+  box-sizing: border-box;
+}
+
+.item {
+  width: 45%;
+  height: 300px;
+  margin: 50px auto;
+  padding-top: 75px;
+  background: white;
+  text-align: center;
+  color: white;
+  font-size: 3em;
+}
+.item span {
+  display: block;
+  font-size: 1rem;
+}
+.item--hello-right {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 20px;
+  background: #FF7073;
+}
+.item--hello-left {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 20px;
+  background: #ffadaf;
+}
+.item--how-right {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 20px;
+  background: #32936f;
+}
+.item--how-left {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 20px;
+  background: #95dbc1;
+}
+.item--fine-right {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 20px;
+  background: #AB5CFA;
+}
+.item--fine-left {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 20px;
+  background: #d3b0fd;
+}
+.item--thanks-right {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 20px;
+  background: #00C1FF;
+}
+.item--thanks-left {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 20px;
+  background: #99e6ff;
+}
+.item--name-right {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 20px;
+  background: #E63946;
+}
+.item--name-left {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 20px;
+  background: #ef8089;
+}
+.item--bye-right {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 20px;
+  background: #FF9B00;
+}
+.item--bye-left {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 20px;
+  background: #ffbe5c;
+}
+
+@media screen and (max-width: 400px) {
+  .item {
+    font-size: medium;
+  }
+}
+
+/*# sourceMappingURL=languagePractice.css.map */
