@@ -178,7 +178,7 @@ const Map = (props) => {
   useEffect(() => {
     async function fetch(collectionName, inputArray) {
       const ref = db.collection(collectionName)
-      const snapshot = await ref.get({source: 'cache'})
+      const snapshot = await ref.get({source: 'server'})
       // .empty returns a boolean for if there are documents in the snapshot or not
       if (!snapshot.empty) {
          snapshot.forEach((doc) => {

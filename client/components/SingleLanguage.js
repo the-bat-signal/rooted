@@ -26,7 +26,7 @@ const SingleLanguage = (props) => {
     const lang = async () => {
       try {
         const langRef = db.collection('languagesMap')
-        const langSnapshot = await langRef.get({source: 'cache'})
+        const langSnapshot = await langRef.get({source: 'server'})
         if (!langSnapshot.empty) {
           langSnapshot.forEach((doc) => {
           if (doc.data().name === props.match.params.singleLanguage) {
