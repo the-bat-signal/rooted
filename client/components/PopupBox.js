@@ -14,7 +14,7 @@ export const PopupBox = (props) => {
     const lang = async () => {
       try {
         const langRef = db.collection('languagesMap')
-        const langSnapshot = await langRef.get({source: 'server'})
+        const langSnapshot = await langRef.get({source: 'cache'})
         if (!langSnapshot.empty) {
           langSnapshot.forEach((doc) => {
           if (doc.data().name === props.polygonPopupData.layer.id) {
