@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '../../public/languagePractice.css';
@@ -11,6 +11,10 @@ AOS.init({
 const LanguagePractice = (props) => {
   console.log('this is props inside LanguagePractice', props)
   const vocab = props.location.state.vocab
+
+  useEffect(() => {
+  window.scrollTo(0, 0)
+}, [])
 
   return (
     <div id="language-practice-page">
