@@ -17,7 +17,7 @@ Inspired by [Native-Land.ca](https://native-land.ca/), our mission is to promote
 * Audio for language learning
 
 
-Developers (Hire Us!):
+### Developers (Hire Us!):
 
 Katelyn Devine | [LinkedIn](https://www.linkedin.com/in/katelyndevinekd/) | [GitHub](https://github.com/katelyndevine)
 
