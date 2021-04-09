@@ -266,6 +266,18 @@ tr:nth-child(odd) {
   margin-bottom: 1em;
 }
 
+.video {
+ display: block;
+ margin-left: 35%;
+}
+
+.AboutText ul {
+   text-align: justify;
+  margin-left: 5em;
+  margin-right: 5em;
+  margin-top: 0;
+}
+
 .AboutText p {
   text-align: justify;
   margin-left: 5em;
