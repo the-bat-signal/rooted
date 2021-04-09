@@ -76,7 +76,7 @@ export const AboutPage = () => {
           feature on the bottom right of our website.
           <br />
           <br />
-          For more information about rooted, check out our walkthrough <a href='https://www.youtube.com/watch?v=aaQ5PhoRqi4&list=PLx0iOsdUOUmlMC7sg4I52zvrLczgQqiFv&index=17'>video</a>
+          For more information about rooted, check out our walkthrough <a href='https://www.youtube.com/watch?v=aaQ5PhoRqi4&list=PLx0iOsdUOUmlMC7sg4I52zvrLczgQqiFv&index=17'>video.</a>
         </p>
         <h3>Upcoming Features:</h3>
         <p><em>
