@@ -7,6 +7,15 @@
 ###### [Video Walkthrough](https://rooted-4da8a.web.app/)
 
 Inspired by [Native-Land.ca](https://native-land.ca/), our mission is to promote, preserve, and protect Indigenous languages, histories, and cultures. Rooted provides materials and resources to aid people looking to acknowledge the Indigenous peoples on whose land they are on, and language-learning resources for those who want to add to the local community of Indigenous language speakers.
+### Upcoming Features: 
+
+* Land acknowledgment prompts based on territory
+* Currently, we have over 200 clickable language map features and are constantly expanding interactivity
+* User to user interaction through chat and a community calendar
+* Additional data visualization
+* Expanded learning support for more Indigenous languages
+* Audio for language learning
+
 
 Developers (Hire Us!):
 
