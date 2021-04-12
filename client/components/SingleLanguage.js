@@ -94,6 +94,11 @@ const SingleLanguage = (props) => {
     })
   }
 
+  // helper function for Audio
+  const playAudio = (vocab, language) => {
+    new Audio(`/audio/${language.name}_vocab/${vocab}.mp3`).play()
+  }
+
   return (
     <div className="single-language-wrapper">
 
@@ -119,38 +124,38 @@ const SingleLanguage = (props) => {
                   </tr>
                   <tr className="single-vocab-row">
                     <th>
-                      <IoPlayCircle/>
+                      <button id='audio-button' onClick={() => playAudio('hello', language)}><IoPlayCircle/></button>
                       </th>
                     <td> Hello! </td>
                     <td> {vocab['Hello!']} </td>
                   </tr>
                   <tr className="single-vocab-row">
-                    <th scope="audio"> <IoPlayCircle/> </th>
+                    <th> <button id='audio-button' onClick={() => playAudio('how-are-you', language)}><IoPlayCircle/></button> </th>
                     <td> How are you? </td>
                     <td> {vocab['How are you?']} </td>
                   </tr>
                   <tr className="single-vocab-row">
-                    <th scope="audio"> <IoPlayCircle/> </th>
+                    <th scope="audio"> <button id='audio-button' onClick={() => playAudio('i-am-fine', language)}><IoPlayCircle/></button> </th>
                     <td> I am fine. </td>
                     <td> {vocab['I am fine.']} </td>
                   </tr>
                   <tr className="single-vocab-row">
-                    <th scope="audio"> <IoPlayCircle/> </th>
+                    <th scope="audio"> <button id='audio-button' onClick={() => playAudio('what-name', language)}><IoPlayCircle/></button> </th>
                     <td> What is your name? </td>
                     <td> {vocab['What is your name?']} </td>
                   </tr>
                   <tr className="single-vocab-row">
-                    <th scope="audio"> <IoPlayCircle/> </th>
+                    <th scope="audio"> <button id='audio-button' onClick={() => playAudio('my-name', language)}><IoPlayCircle/></button> </th>
                     <td> My name is ___. </td>
                     <td> {vocab['My name is ___.']} </td>
                   </tr>
                   <tr className="single-vocab-row">
-                    <th scope="audio"> <IoPlayCircle/> </th>
+                    <th scope="audio"> <button id='audio-button' onClick={() => playAudio('thank-you', language)}><IoPlayCircle/></button> </th>
                     <td> Thank you. </td>
                     <td> {vocab['Thank you.']} </td>
                   </tr>
                   <tr className="single-vocab-row">
-                    <th scope="audio"> <IoPlayCircle/> </th>
+                    <th scope="audio"> <button id='audio-button' onClick={() => playAudio('bye', language)}><IoPlayCircle/></button> </th>
                     <td> Goodbye! </td>
                     <td> {vocab['Goodbye!']} </td>
                   </tr>
