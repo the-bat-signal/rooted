@@ -364,7 +364,7 @@ tr:nth-child(odd) {
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 414px) {
   #mission {
     font-size: 12px;
   }
