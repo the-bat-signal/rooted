@@ -343,6 +343,11 @@ tr:nth-child(odd) {
  text-align: center;
 }
 
+#audio-button {
+  background:transparent;
+  border:transparent;
+}
+
 .spinnyLoaderContainer {
   display: flex;
   flex-direction: row;
