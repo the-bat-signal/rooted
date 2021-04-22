@@ -259,6 +259,7 @@ const Map = (props) => {
         <GeolocateControl
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
+          style={{marginTop: '8em'}}
           auto={geolocate}
           fitBoundsOptions={{maxZoom: 6}}
           onGeolocate={() => {
