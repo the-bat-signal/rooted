@@ -235,7 +235,7 @@ const Map = (props) => {
         setViewport(pos.viewState)
       }}
       width='100%'
-      height='88.5%'
+      height='100%'
       style={{marginTop: '5em'}}
     >
       {showPopup && clickInfo && (
@@ -266,7 +266,8 @@ const Map = (props) => {
             setGeolocate(false)
           }}
         />
-        <FullscreenControl />
+        <FullscreenControl
+        />
       <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines} selectLanguageLayer={selectLanguageLayer} setLanguageLayer={setLanguageLayer} selectTerritoryLayer={selectTerritoryLayer} setTerritoryLayer={setTerritoryLayer}/>
       </div>
 
