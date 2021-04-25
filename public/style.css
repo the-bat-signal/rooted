@@ -392,10 +392,8 @@ tr:nth-child(odd) {
 
   .single-language-wrapper {
     margin: 25px;
-    /* height: 400px; */
     flex-direction: column;
     flex: 1;
-    /* height: 90%; */
     float: none;
   }
 
@@ -404,13 +402,8 @@ tr:nth-child(odd) {
     margin-bottom: 30px;
   }
 
-  /* #single-language__vocab {
-    margin-top: 30px;
-  } */
-
   .column-left {
     width: 100%;
-    /* height: 50vh; */
     flex: 1;
     margin: 5px;
     padding: 5px;
@@ -420,11 +413,9 @@ tr:nth-child(odd) {
   .column-right {
     width: 100%;
     display:block;
-    /* height: 50vh; */
     margin: 5px;
     padding: 5px;
     order: 10;
-    /* align-self: flex-end; */
   }
 
   #mainLogo {
