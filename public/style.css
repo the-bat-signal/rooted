@@ -373,12 +373,19 @@ tr:nth-child(odd) {
 
   .single-language-wrapper {
     margin: 25px;
-    height: 400px;
+    flex-direction: column;
+    flex: 1;
+    float: none;
+  }
+
+  #single-language__pronunciation-guide {
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
 
   .column-left {
     width: 100%;
-    height: 50vh;
+    flex: 1;
     margin: 5px;
     padding: 5px;
     order: -1;
@@ -386,11 +393,10 @@ tr:nth-child(odd) {
 
   .column-right {
     width: 100%;
-    height: 50vh;
+    display:block;
     margin: 5px;
     padding: 5px;
     order: 10;
-    /* align-self: flex-end; */
   }
 
   #mainLogo {
