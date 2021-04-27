@@ -112,18 +112,6 @@ form div {
   text-align: center;
 }
 
-/* .button {
-  background-color: rgb(100, 205, 237);
-  color: black;
-} */
-
-/* .startPageButton {
-  background: linear-gradient(45deg
-, rgb(107 254 223) 30%, rgb(232, 255, 83) 90%);
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-    padding: 7px 14px;
-} */
-
 .startPageButton {
   color: #ffffff;
   background: linear-gradient(45deg, #32936f, #edf7b5);
@@ -133,7 +121,6 @@ form div {
 }
 
 .startPageButton:hover {
-  /* background: linear-gradient(45deg, #edf7b5, #32936f); */
   background: linear-gradient(45deg, #32936fc6, #edf7b5d4);
 
   text-decoration: none;
@@ -234,12 +221,6 @@ tr:nth-child(odd) {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-#view-default-view {
-  /* position: absolute; left: 50px; top: 50px; */
-  /* display: flex;
-  justify-content: space-between */
 }
 
 #deckgl-wrapper {
