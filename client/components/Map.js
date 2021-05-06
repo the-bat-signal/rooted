@@ -17,7 +17,7 @@ import MapLoader from "./MapLoader"
 
 
 //global variables
-const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoia2VuZGltb3Jhc2tpIiwiYSI6ImNra2U4YmpnODA4bXIycHA3dnA3ZHRxazMifQ.Xj6bAzbzUVih02szrFGa_Q'
+const MAPBOX_ACCESS_TOKEN = ''
 
 // MAP_STYLES
 const MAP_STYLE_BASIC = styleBasic
