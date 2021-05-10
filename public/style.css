@@ -462,4 +462,12 @@ tr:nth-child(odd) {
     justify-content: center;
     margin: 25px;
   }
+
+  .mapTogglesContainer {
+    margin-right: 10px;
+  }
+
+  .elevationContainer {
+    display: none;
+  }
 }
