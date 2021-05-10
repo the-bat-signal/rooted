@@ -465,6 +465,11 @@ tr:nth-child(odd) {
 
   .mapTogglesContainer {
     margin-right: 10px;
+    padding: 12px;
+  }
+
+  .singleCheckboxContainer {
+    font-size: 8px;
   }
 
   .elevationContainer {
