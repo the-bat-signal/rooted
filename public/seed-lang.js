@@ -1,13 +1,12 @@
 const firebase = require('firebase') //not recomended?
 const {langData} = require('./languagesData')
-const {firebaseAPI} = require ('../secrets')
+const {firebaseConfig} = require ('../secrets')
 
 
-const firebaseApp = firebase.initializeApp({
-  // keys removed
-})
+const firebaseApp = firebase.initializeApp(firebaseConfig)
 
 const db = firebaseApp.firestore()
+// this is actually creating the languagesMap collection
 const collection = db.collection('languagesMap')
 const languagesData = langData.features
 
@@ -17,6 +16,7 @@ const seedDb = async (languages) => {
     let language = languages[i]
     let checkedName = language.properties.Name || 'null'
 
+    // Firebase does not like /
     if (checkedName.includes('/')) {
       let reg = /\//g
       let newName = checkedName.replace(reg, '; ')
@@ -36,7 +36,6 @@ const seedDb = async (languages) => {
 
     await collection.doc(checkedName).set(dataObj, {merge: true})
     //see docs for how to merge data if doc already exists
-    //i'm like 80% sure this will work
   }
 }
 

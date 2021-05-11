@@ -6,11 +6,9 @@
 
 const firebase = require('firebase') //not recomended?
 const {terrData} = require('./territoriesData')
-const {firebaseAPI} = require ('../secrets')
+const {firebaseConfig} = require ('../secrets')
 
-const firebaseApp = firebase.initializeApp({
-  // keys removed
-})
+const firebaseApp = firebase.initializeApp(firebaseConfig)
 
 const db = firebaseApp.firestore()
 
