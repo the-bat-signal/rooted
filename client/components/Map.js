@@ -14,9 +14,12 @@ import {styleBasic, styleAdmin} from '../style'
 import {db} from '../../server/firebase'
 import MapToggles from './MapToggles'
 import MapLoader from "./MapLoader"
+// don't import this below yet, it's causing an error
+// import functions from 'firebase-functions'
 
 
 //global variables
+// const config = functions.config()
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoia2VuZGltb3Jhc2tpIiwiYSI6ImNra2U4YmpnODA4bXIycHA3dnA3ZHRxazMifQ.Xj6bAzbzUVih02szrFGa_Q'
 
 // MAP_STYLES

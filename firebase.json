@@ -12,7 +12,7 @@
     }
   },
   "hosting": {
-    "site": "rooted-4da8a",
+    "site": "rootedv2",
     "public": "public",
     "headers": [
       {

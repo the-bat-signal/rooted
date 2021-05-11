@@ -1,13 +1,15 @@
 import firebase from 'firebase'
 const {FIREBASE_API} = require('../secrets')
 
+// generate new keys and do NOT push to GitHub
 const firebaseApp = firebase.initializeApp({
-  apiKey: 'AIzaSyCSikpCX0x6ROlcvaLe8kC1GDTVMvkVVDE',
-  authDomain: 'rooted-4da8a.firebaseapp.com',
-  databaseURL: 'https://rooted-4da8a-default-rtdb.firebaseio.com',
-  projectId: 'rooted-4da8a',
-  storageBucket: 'rooted-4da8a.appspot.com',
-  messagingSenderId: '51008039459',
+  apiKey: "AIzaSyAGpvTW7CbARKg9-Aa-59_Mi_-oVtW7f-A",
+  authDomain: "rootedv2.firebaseapp.com",
+  projectId: "rootedv2",
+  storageBucket: "rootedv2.appspot.com",
+  messagingSenderId: "849043822466",
+  appId: "1:849043822466:web:cbe967ec0d7b49a77d219b",
+  measurementId: "G-053YD66DZG"
 })
 
 const db = firebaseApp.firestore()
