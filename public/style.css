@@ -462,4 +462,17 @@ tr:nth-child(odd) {
     justify-content: center;
     margin: 25px;
   }
+
+  .mapTogglesContainer {
+    margin-right: 10px;
+    padding: 12px;
+  }
+
+  .singleCheckboxContainer {
+    font-size: 8px;
+  }
+
+  .elevationContainer {
+    display: none;
+  }
 }
