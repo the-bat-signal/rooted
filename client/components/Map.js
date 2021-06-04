@@ -28,6 +28,10 @@ const MAP_STYLE_ADMIN = styleAdmin
 const navControlStyle = {
   top: 35,
 }
+const fullscreenControlStyle= {
+  left: 0,
+  top: 0
+};
 
 //Map Component
 const Map = (props) => {
@@ -65,8 +69,6 @@ const Map = (props) => {
     [255, 155, 0], // orange peel
     [229, 75, 75], // imperial red
   ]
-
-
 
   // helper functions
   function splitter(string) { // making an array with a ' ' (space) for the text layer characterSet
@@ -236,6 +238,7 @@ const Map = (props) => {
       layers={[languagePolygons, territoryPolygons]}
       onViewStateChange={(pos) => {
         setViewport(pos.viewState)
+
       }}
       width='100%'
       height='100%'
@@ -269,7 +272,7 @@ const Map = (props) => {
             setGeolocate(false)
           }}
         />
-        <FullscreenControl
+        <FullscreenControl style={fullscreenControlStyle}
         />
       <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines} selectLanguageLayer={selectLanguageLayer} setLanguageLayer={setLanguageLayer} selectTerritoryLayer={selectTerritoryLayer} setTerritoryLayer={setTerritoryLayer}/>
       </div>
