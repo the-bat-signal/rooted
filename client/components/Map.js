@@ -28,9 +28,10 @@ const MAP_STYLE_ADMIN = styleAdmin
 const navControlStyle = {
   top: 35,
 }
-const fullscreenControlStyle= {
+const fullscreenControlStyle = {
   left: 0,
-  top: 0
+  top: 0,
+  position: 'relative'
 };
 
 //Map Component
@@ -231,53 +232,56 @@ const Map = (props) => {
 
   return (
     <div id='mapContainer'>
-    <DeckGL
-      initialViewState={viewport}
-      controller={true}
-      ContextProvider={MapContext.Provider}
-      layers={[languagePolygons, territoryPolygons]}
-      onViewStateChange={(pos) => {
-        setViewport(pos.viewState)
-
-      }}
-      width='100%'
-      height='100%'
-      style={{marginTop: '5em'}}
-    >
-      {showPopup && clickInfo && (
-        <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
-      )}
-      {selectAdminLines ? (
-        <StaticMap
-          mapStyle={MAP_STYLE_ADMIN}
-          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-        />
-      ) : (
-        <StaticMap
-          mapStyle={MAP_STYLE_BASIC}
-          mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
-        />
-      )}
-      <div id="map-controls">
-        <NavigationControl
-        style={navControlStyle}
-        />
-        <GeolocateControl
-          positionOptions={{enableHighAccuracy: true}}
-          trackUserLocation={true}
-          style={{marginTop: '8em'}}
-          auto={geolocate}
-          fitBoundsOptions={{maxZoom: 6}}
-          onGeolocate={() => {
-            setGeolocate(false)
+      <DeckGL
+        initialViewState={viewport}
+        controller={true}
+        ContextProvider={MapContext.Provider}
+        layers={[languagePolygons, territoryPolygons]}
+        onViewStateChange={(pos) => {
+          setViewport(pos.viewState)
+        }}
+        width='100%'
+        height='100%'
+        // this style component with the marginTop is so that the popups do NOT get cut off at the top when the nav bar is visible (non fullscreen mode)
+        style={{marginTop: '6em'}}
+      >
+        {showPopup && clickInfo && (
+          <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
+        )}
+        {selectAdminLines ? (
+          <StaticMap
+            mapStyle={MAP_STYLE_ADMIN}
+            mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+          />
+        ) : (
+          <StaticMap
+            mapStyle={MAP_STYLE_BASIC}
+            mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
+          />
+        )}
+        <div id="map-controls">
+          <NavigationControl
+          style={navControlStyle}
+          />
+          <GeolocateControl
+            positionOptions={{enableHighAccuracy: true}}
+            trackUserLocation={true}
+            style={{marginTop: '8em'}}
+            auto={geolocate}
+            fitBoundsOptions={{maxZoom: 6}}
+            onGeolocate={() => {
+              setGeolocate(false)
+            }}
+          />
+          <FullscreenControl onClick={(pos) => {
+            setViewport(pos.viewState)
           }}
-        />
-        <FullscreenControl style={fullscreenControlStyle}
-        />
-      <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines} selectLanguageLayer={selectLanguageLayer} setLanguageLayer={setLanguageLayer} selectTerritoryLayer={selectTerritoryLayer} setTerritoryLayer={setTerritoryLayer}/>
-      </div>
+          style={fullscreenControlStyle}
+          />
+        <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines} selectLanguageLayer={selectLanguageLayer} setLanguageLayer={setLanguageLayer} selectTerritoryLayer={selectTerritoryLayer} setTerritoryLayer={setTerritoryLayer}/>
+        </div>
 
-    </DeckGL>
+      </DeckGL>
     </div>
   )
 }
