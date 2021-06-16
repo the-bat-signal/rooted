@@ -48,7 +48,7 @@
     "compression": "^1.7.3",
     "connect-session-sequelize": "^6.1.1",
     "deck.gl": "^8.4.11",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "express": "^4.16.4",
     "express-session": "^1.17.1",
     "firebase": "^8.3.1",
