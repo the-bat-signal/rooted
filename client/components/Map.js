@@ -29,6 +29,11 @@ const MAP_STYLE_ADMIN = styleAdmin
 const navControlStyle = {
   top: 35,
 }
+const fullscreenControlStyle = {
+  left: 0,
+  top: 0,
+  position: 'relative'
+};
 
 //Map Component
 const Map = (props) => {
@@ -252,7 +257,7 @@ const Map = (props) => {
   }
 
   return (
-    <div id="mapContainer">
+    <div id='mapContainer'>
       <DeckGL
         initialViewState={viewport}
         controller={true}
@@ -261,9 +266,10 @@ const Map = (props) => {
         onViewStateChange={(pos) => {
           setViewport(pos.viewState)
         }}
-        width="100%"
-        height="100%"
-        style={{marginTop: '5em'}}
+        width='100%'
+        height='100%'
+        // this style component with the marginTop is so that the popups do NOT get cut off at the top when the nav bar is visible (non fullscreen mode)
+        style={{marginTop: '6em'}}
       >
         {showPopup && clickInfo && (
           <PopupBox polygonPopupData={clickInfo} togglePopup={togglePopup} />
@@ -280,7 +286,9 @@ const Map = (props) => {
           />
         )}
         <div id="map-controls">
-          <NavigationControl style={navControlStyle} />
+          <NavigationControl
+          style={navControlStyle}
+          />
           <GeolocateControl
             positionOptions={{enableHighAccuracy: true}}
             trackUserLocation={true}
@@ -291,16 +299,14 @@ const Map = (props) => {
               setGeolocate(false)
             }}
           />
-          <FullscreenControl />
-          <MapToggles
-            selectAdminLines={selectAdminLines}
-            setAdminLines={setAdminLines}
-            selectLanguageLayer={selectLanguageLayer}
-            setLanguageLayer={setLanguageLayer}
-            selectTerritoryLayer={selectTerritoryLayer}
-            setTerritoryLayer={setTerritoryLayer}
+          <FullscreenControl onClick={(pos) => {
+            setViewport(pos.viewState)
+          }}
+          style={fullscreenControlStyle}
           />
+        <MapToggles selectAdminLines={selectAdminLines} setAdminLines={setAdminLines} selectLanguageLayer={selectLanguageLayer} setLanguageLayer={setLanguageLayer} selectTerritoryLayer={selectTerritoryLayer} setTerritoryLayer={setTerritoryLayer}/>
         </div>
+
       </DeckGL>
     </div>
   )
