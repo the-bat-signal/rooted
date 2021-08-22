@@ -104,6 +104,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "chai": "^4.2.0",
     "css-loader": "^5.2.0",
+    "dotenv-webpack": "^7.0.3",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "eslint": "^5.16.0",
